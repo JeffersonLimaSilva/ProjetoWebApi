@@ -66,3 +66,11 @@ body{
     font-size: 12px;
 }
 
+#form-login{
+    display: flex;
+    width: 350px;
+    height: 236px;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
