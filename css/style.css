@@ -9,7 +9,7 @@ body{
 
     font-family: 'Roboto', sans-serif;
     color: rgb(68, 68, 68);
-    
+    user-select: none;
 }
 header{
     
@@ -21,7 +21,7 @@ header{
     display: flex;
     align-items: center;
     justify-content: space-between;
-
+    
     div{
         display: flex;
         align-items: center;
@@ -100,10 +100,10 @@ nav{
 }
 main{
     width: 1035px;
-    
     display: flex;
     flex-direction: column;
     flex-grow: 1;
+    align-self: center;
 }
 #header-main{
     display: flex;

@@ -1,7 +1,7 @@
 
-let v1= 100
-let v2= 10
-let v3= 10
+let v1= 0
+let v2= 0
+let v3= 0
 
 
 
