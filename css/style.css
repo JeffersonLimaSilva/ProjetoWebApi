@@ -5,9 +5,10 @@ body{
     background-color: rgb(236, 236, 236);
     padding-right: 20px;
     margin: 0;
+    height: 100%;
 }
 header{
-    width: 1010px;
+    
     height: 60px;
     background-color: rgb(206, 206, 206);
     margin-bottom: 20px;
@@ -18,28 +19,28 @@ header{
 }
 nav{
     width: 285px;
-    height: 610px;
+    
     background-color: white;
     box-shadow: 2px 5px 5px rgb(182, 182, 182);
 }
 main{
-    width: 1030px;
+    
     height: 515px;
     display: flex;
     flex-direction: column;
-    
+    flex-grow: 1;
 }
 #header-main{
     display: flex;
     flex-direction: column;
-    width: 1010px;
+    flex-grow: 1;
     
 }
 
 #div-dashboard{
     display: flex;
     justify-content: space-between;
-    width: 1010px;
+    
     margin-bottom: 20px;
     > *{
         width: 318px;
@@ -49,8 +50,8 @@ main{
 }
 
 #div-list{
-    width: 1010px;
-    height: 307px;
+    
+    height: 100%;
     background-color: rgb(255, 255, 255);
 }
 #search{
@@ -62,4 +63,10 @@ main{
     font-size: medium;
     margin-left: 15px;
     padding-left: 10px;
+}
+
+.div-nav{
+    display: flex;
+    min-height: 100vh;
+    margin-right: 20px;
 }
