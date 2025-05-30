@@ -24,7 +24,6 @@ nav{
     box-shadow: 2px 5px 5px rgb(182, 182, 182);
 }
 main{
-    
     height: 515px;
     display: flex;
     flex-direction: column;
@@ -34,7 +33,7 @@ main{
     display: flex;
     flex-direction: column;
     flex-grow: 1;
-    
+    font-family: "Roboto", sans-serif;
 }
 
 #div-dashboard{
@@ -43,16 +42,46 @@ main{
     
     margin-bottom: 20px;
     > *{
-        width: 318px;
+        width: 330px;
         height: 180px;
         background-color: rgb(255, 255, 255);
+        display: flex;
+        flex-direction: column;
+        align-items: end;
+        
+        div{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 330px;
+            height: 155px;
+        }
+        p{
+            margin-right: 15px;
+        }
     }
 }
 
 #div-list{
-    
+    display: flex;
+    flex-direction: column;
+    padding:15px 0px 0px 15px;
     height: 100%;
     background-color: rgb(255, 255, 255);
+
+    div{
+        display: flex;
+        justify-content: space-between;
+        padding: 0px 40px 0px 15px;
+
+        >*{
+            height: 10px;
+        }
+    }
+    hr{
+        width: 980px;
+        margin-top: 0;
+    }
 }
 #search{
     width: 360px;
@@ -69,4 +98,13 @@ main{
     display: flex;
     min-height: 100vh;
     margin-right: 20px;
+}
+
+#box-list{
+    display: flex;
+    height: 200px;
+    span{
+        font-size: 15px;
+        padding: 10px;
+    }
 }

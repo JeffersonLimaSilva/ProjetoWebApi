@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Documento</title>
+    <title>Dashboard</title>
     <link rel="stylesheet" href="./css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
     <div id="header-main">
@@ -16,12 +17,34 @@
         </header>
         <main>
             <div id="div-dashboard">
-                <div></div>
-                <div></div>
-                <div></div>
+                <div>
+                    <div id="cad">
+
+                    </div>
+                    <p>Total de cadastros</p>
+                </div>
+                <div >
+                    <div id="cad-mes">
+
+                    </div>
+                    <p>Cadastros no último mês</p>
+                </div>
+                <div >
+                    <div id="cad-pend"></div>
+                    <p>Cadastros com pendência de revisão</p>
+                </div>
             </div>
             <div id="div-list">
+                <p>Últimos cadastros</p>
+                <div>
+                    <p>NOME</p>
+                    <p>EMAIL</p>
+                    <p>STATUS</p>
+                </div>
+                <hr>
+                <div id="box-list">
 
+                </div>
             </div>
             
         </main>
@@ -32,6 +55,6 @@
         </nav> 
     </div>
     
-    
+    <script src="./script.js"></script>
 </body>
 </html>
