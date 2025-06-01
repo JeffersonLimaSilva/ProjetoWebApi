@@ -63,7 +63,7 @@ nav{
 
 }
 
-#nav-logo{
+.nav-logo{
     width: 245px;
     height: 60px;
     background-color:  rgb(204, 201, 212);
@@ -78,7 +78,7 @@ nav{
     }
     
 }
-#div-nav{
+.div-nav{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -89,6 +89,14 @@ nav{
     span{
         display: flex;
         align-items: center;
+
+        a{
+            display: flex;
+            align-self: center;
+            text-decoration: none;
+            color: rgb(68, 68, 68);
+            font-size: 20px;
+        }
 
         img{
             margin-right: 10px;
@@ -102,10 +110,36 @@ main{
     width: 1035px;
     display: flex;
     flex-direction: column;
+    justify-content: space-around;
     flex-grow: 1;
     align-self: center;
 }
-#header-main{
+.main-box{
+    background-color: rgb(255, 255, 255);
+    height: 500px;
+    padding-left: 20px;
+    padding-top: 20px;
+
+    > div{
+        width: 1015px;
+        > input{
+            width: 1007px;
+        }
+    }
+    button{
+        display: flex;
+        align-self: center;
+        align-items: center;
+        justify-content: center;
+        width: 120px;
+        height: 30px;
+        background-color: green;
+        border-color: transparent;
+        border-radius: 2px;
+        color: white;
+    }
+}
+.header-main{
     display: flex;
     flex-direction: column;
     width: 1030px;
@@ -113,7 +147,7 @@ main{
     font-family: "Roboto", sans-serif;
 }
 
-#div-dashboard{
+.div-dashboard{
     display: flex;
     justify-content: space-between;
     
@@ -183,7 +217,7 @@ main{
     padding-left: 10px;
 }
 
-.div-nav{
+.nav-div{
     display: flex;
     min-height: 100vh;
     margin-right: 20px;
@@ -204,6 +238,35 @@ main{
         width: 316px; 
         font-size: 15px;
         margin-left: 20px;
+    }
+}
+
+.cad-box{
+    display: flex;
+    flex-direction: column;
+
+    > div{
+        display: flex;
+        flex-direction: column;
+    }
+
+    #duo-input{
+        display: flex;
+        
+        div{
+            display: flex;
+            flex-direction: column;
+        }
+        :nth-child(1){
+            margin-right: 20px;
+        }
+        #years-old{
+            width: 200px;
+        }
+        #email{
+            width: 780px;
+            
+        }
     }
 }
 
