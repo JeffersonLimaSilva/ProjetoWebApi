@@ -123,12 +123,28 @@ main{
         padding-left: 12px;
         input{
             width: 990px;
+            background-color: rgba(224, 224, 224, 0.747);
+            border: solid 1px rgb(156, 156, 156);
+        }
+        textarea{
+            width: 990px;
+            background-color: rgba(224, 224, 224, 0.747);
+            border: solid 1px rgb(156, 156, 156);
+            height: 70px;
+            
+        }
+        > p{
+            border-bottom: solid 2px gray;
+            width: 995px;
+            padding-bottom: 5px;
         }
     }
     #button-gravar{
-        width: 120px;
+        width: 150px;
         height: 30px;
-        background-color: rgb(24, 182, 24);
+        background-color: rgb(81, 173, 81);
+        margin: 60px 0px 30px 0px;
+
     }
     #button-newCad{
         background-color: rgb(24, 182, 24);
@@ -142,6 +158,23 @@ main{
         justify-content: space-between;
         
     }
+    #head-newCad{
+        display: flex;
+        width: 985px;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        div{
+            display: flex;
+            align-items: center;
+            height: 20px;
+        }
+        input{
+            display: flex;
+            width: 15px;
+            justify-self: end;
+        }
+    } 
     a{
         text-decoration: none;
     }
@@ -154,7 +187,7 @@ main{
     padding: 5px 30px;
     
     border-color: transparent;
-    border-radius: 2px;
+    border-radius: 4px;
     color: white;
 }
 .header-main{
@@ -162,7 +195,6 @@ main{
     flex-direction: column;
     width: 1030px;
     flex-grow: 1;
-    font-family: "Roboto", sans-serif;
 }
 
 .div-dashboard{
@@ -249,7 +281,7 @@ main{
     flex-direction: column;
     justify-content: space-between;
     padding: 0px 15px 0px 15px;
-    margin-bottom: 10px;
+    
     
 }
 .box-list{
@@ -270,6 +302,14 @@ main{
         display: flex;
         flex-direction: column;
     }
+    input{
+        height: 25px;
+        margin-bottom: 10px;
+
+        :nth-child(4){
+            height: 30px;
+        }
+    }
 
     #duo-input{
         display: flex;
@@ -278,17 +318,20 @@ main{
             display: flex;
             flex-direction: column;
         }
-        :nth-child(1){
-            margin-right: 20px;
-        }
+        
         #years-old{
             width: 200px;
+            margin-right: 24px;
         }
         #email{
             width: 760px;
             
         }
     }
+}
+
+.div-box-list{
+    overflow-y: auto;
 }
 
 
