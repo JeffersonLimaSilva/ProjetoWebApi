@@ -1,20 +1,7 @@
-document.getElementsByTagName('button').addEventListener('onclick', function(e){
-    if(verificaVazio){
-        alert("usuario cadastrado")
-    }
 
-})
 
-function cadastraUser(){
-    // let gravar=document.getElementsByName('button')
-    // gravar.addEventListener('click', () => {
-        if(verificaVazio){
-            alert("usuario cadastrado")
-        }
-    // })
-}
 
-function verificaVazio(){
+document.getElementById('button-gravar').addEventListener('click', function(e){
     let nome = document.getElementById('name').value
     let email = document.getElementById('email').value
 
@@ -22,7 +9,19 @@ function verificaVazio(){
         alert("Campo Nome e Email obrigatório")
         return false
     }
-    else{
-        return true
-    }
-}
+
+    let user= {name: nome, email: email}
+
+    let users= JSON.parse(localStorage.getItem('users')) || []
+
+    users.push(user)
+
+    localStorage.setItem('users', JSON.stringify(users))
+
+})
+
+
+
+
+
+

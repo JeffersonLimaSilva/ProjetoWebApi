@@ -116,28 +116,46 @@ main{
 }
 .main-box{
     background-color: rgb(255, 255, 255);
-    height: 500px;
-    padding-left: 20px;
-    padding-top: 20px;
+    
 
     > div{
         width: 1015px;
-        > input{
-            width: 1007px;
+        padding-left: 12px;
+        input{
+            width: 990px;
         }
     }
-    button{
-        display: flex;
-        align-self: center;
-        align-items: center;
-        justify-content: center;
+    #button-gravar{
         width: 120px;
         height: 30px;
-        background-color: green;
-        border-color: transparent;
-        border-radius: 2px;
-        color: white;
+        background-color: rgb(24, 182, 24);
     }
+    #button-newCad{
+        background-color: rgb(24, 182, 24);
+    }
+    #button-imprimir{
+        background-color: rgb(74, 74, 250);
+    }
+    #head-cad{
+        display: flex;
+        height: 50px;
+        justify-content: space-between;
+        
+    }
+    a{
+        text-decoration: none;
+    }
+}
+.button-cadastro{
+    display: flex;
+    align-self: center;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 30px;
+    
+    border-color: transparent;
+    border-radius: 2px;
+    color: white;
 }
 .header-main{
     display: flex;
@@ -173,18 +191,22 @@ main{
     }
 }
 
-#div-list{
+.div-list{
     display: flex;
     flex-direction: column;
+    align-items: center;
     height: 100%;
     background-color: rgb(255, 255, 255);
     p{
-        margin: 20px 0px 0px 20px;
+        margin: 20px 0px 0px 0px;
     }
-    .div-teste{
+    #div-p{
+        width: 990px;
+    }
+    .div-cabecalho{
         display: flex;
         justify-content: space-between;
-        padding: 0px 15px 0px 15px;
+        padding: 0px 0px 0px 5px;
         margin-bottom: 10px;
         >*{
             width: 316px;
@@ -198,9 +220,8 @@ main{
     }
     hr{
         width: 980px;
-        margin: 0px 0px 0px 25px;
-        margin-right: 25px;
         margin-top: 5px;
+        margin-bottom: 5px;
     }
 }
 
@@ -223,7 +244,7 @@ main{
     margin-right: 20px;
 }
 
-#list-div{
+.list-div{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -231,13 +252,13 @@ main{
     margin-bottom: 10px;
     
 }
-#box-list{
+.box-list{
     display: flex;
     margin-top: 5px;
     span{
         width: 316px; 
         font-size: 15px;
-        margin-left: 20px;
+        
     }
 }
 
@@ -264,7 +285,7 @@ main{
             width: 200px;
         }
         #email{
-            width: 780px;
+            width: 760px;
             
         }
     }
