@@ -125,13 +125,17 @@ main{
             width: 990px;
             background-color: rgba(224, 224, 224, 0.747);
             border: solid 1px rgb(156, 156, 156);
+            font-size: 15px;
+            padding-left: 5px;
         }
         textarea{
             width: 990px;
             background-color: rgba(224, 224, 224, 0.747);
             border: solid 1px rgb(156, 156, 156);
             height: 70px;
-            
+            font-size: 15px;
+            padding-left: 5px;
+            padding-top: 5px;
         }
         > p{
             border-bottom: solid 2px gray;
@@ -148,6 +152,7 @@ main{
     }
     #button-newCad{
         background-color: rgb(24, 182, 24);
+        width: 250px;
     }
     #button-imprimir{
         background-color: rgb(74, 74, 250);
@@ -156,6 +161,9 @@ main{
         display: flex;
         height: 50px;
         justify-content: space-between;
+        p{
+            border: 0px;
+        }
         
     }
     #head-newCad{
@@ -175,9 +183,7 @@ main{
             justify-self: end;
         }
     } 
-    a{
-        text-decoration: none;
-    }
+    
 }
 .button-cadastro{
     display: flex;
@@ -305,10 +311,6 @@ main{
     input{
         height: 25px;
         margin-bottom: 10px;
-
-        :nth-child(4){
-            height: 30px;
-        }
     }
 
     #duo-input{
@@ -324,7 +326,7 @@ main{
             margin-right: 24px;
         }
         #email{
-            width: 760px;
+            width: 757px;
             
         }
     }
