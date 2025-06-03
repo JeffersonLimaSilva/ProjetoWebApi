@@ -182,6 +182,7 @@ main{
             display: flex;
             width: 15px;
             justify-self: end;
+            border-radius: 100px;
         }
         p{
             font-weight: 600;
@@ -301,13 +302,13 @@ main{
         }
         :nth-child(3){
             text-align: end;
-            margin-right: 30px;
+            margin-right: 15px;
         }
     }
     hr{
         width: 980px;
-        margin-top: 5px;
-        margin-bottom: 5px;
+        margin-top: 1px;
+        margin-bottom: 1px;
     }
 }
 
@@ -322,6 +323,7 @@ main{
     font-size: medium;
     margin-left: 15px;
     padding-left: 10px;
+    
 }
 
 .nav-div{

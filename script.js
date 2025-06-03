@@ -1,5 +1,5 @@
 
-let v1= 10000
+
 let v2= 10000
 let v3= 10000
 
@@ -17,15 +17,27 @@ function styleValue(x, colorC){
 
 function showCad(){
     let c = document.getElementById('cad')
-    c.appendChild(styleValue(v1, 'blue'))
+    c.appendChild(styleValue(contaCad(), 'blue'))
+    
 }
 function showCadMes(){
     let c = document.getElementById('cad-mes')
-    c.appendChild(styleValue(v2, 'green'))
+    c.appendChild(styleValue(contaCad(), 'green'))
 }
 function showCadPend(){
     let c = document.getElementById('cad-pend')
     c.appendChild(styleValue(v3, 'red'))
+}
+function contaCad(){
+    let users = JSON.parse(localStorage.getItem('users'))
+    let numcad = 0
+    users.forEach(function(user, index){
+        if(index > numcad){
+            numcad = index 
+        }
+    })
+
+    return numcad + 1
 }
 
 showCad()

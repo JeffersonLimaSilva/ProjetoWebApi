@@ -4,14 +4,18 @@
 document.getElementById('button-gravar').addEventListener('click', function(e){
     let nome = document.getElementById('name').value
     let email = document.getElementById('email').value
+    let ativo = document.getElementById('ativo').value
     
 
     if(nome == '' || email == ''){
         alert("Campo Nome e Email obrigatório")
         return false
     }
+    if(ativo != 'Ativo'){
+        ativo = 'Inativo'
+    }
 
-    let user= {name: nome, email: email}
+    let user= {name: nome, email: email, ativo: ativo}
 
     let users= JSON.parse(localStorage.getItem('users')) || []
 
@@ -27,10 +31,10 @@ document.getElementById('button-gravar').addEventListener('click', function(e){
 
     document.getElementById('name').value = ''
     document.getElementById('email').value = ''
+    document.getElementById('ativo').checked= false
+    
 
     alert("Usuario cadastrado")
-
-    
 })
 
 function verificaIgual(users, email){
