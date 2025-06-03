@@ -1,7 +1,7 @@
 
-
-let v2= 10000
-let v3= 10000
+let v1=0
+let v2= 0
+let v3= 10
 
 
 
@@ -16,28 +16,46 @@ function styleValue(x, colorC){
 }
 
 function showCad(){
+    v1=contaCad()
     let c = document.getElementById('cad')
-    c.appendChild(styleValue(contaCad(), 'blue'))
+    c.appendChild(styleValue(v1, 'blue'))
     
 }
 function showCadMes(){
+    v2 =contaCad()
     let c = document.getElementById('cad-mes')
-    c.appendChild(styleValue(contaCad(), 'green'))
+    c.appendChild(styleValue(v2, 'green'))
 }
 function showCadPend(){
     let c = document.getElementById('cad-pend')
-    c.appendChild(styleValue(v3, 'red'))
+    c.appendChild(styleValue(contaInativo(), 'red'))
 }
 function contaCad(){
-    let users = JSON.parse(localStorage.getItem('users'))
+    let users = JSON.parse(localStorage.getItem('users')) || []
     let numcad = 0
     users.forEach(function(user, index){
-        if(index > numcad){
-            numcad = index 
+        if(users == []){
+            return 0
         }
+        if(index >= numcad){
+            numcad = index 
+            numcad ++
+        }
+        
     })
 
-    return numcad + 1
+    return numcad
+}
+function contaInativo(){
+    let users = JSON.parse(localStorage.getItem('users')) || []
+    let numcad = 0
+
+    users.forEach(function(user){
+        if(user.ativo == 'Inativo'){
+            numcad ++
+        }
+    })
+    return numcad
 }
 
 showCad()

@@ -4,26 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login OC</title>
-    <link rel="stylesheet" href="../css/login.css">
+    <link rel="stylesheet" href="../css/logincadastro.css">
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
         <div id="box-center">
-            <div id="logo-login">
+            <div id="logo">
                 <span><img src="/img/logo.svg" alt=""></span>
-                <p id="p-2">Operação Curiosidade</p>
+                
             </div>
             <form id="form-login" method="post" action="/index.html">
                 <input class="input-campo" type="email" name="Email" id="f-email" placeholder="Email">
                 <input class="input-campo" type="password" name="Senha" id="f-password" placeholder="Senha">
 
-                <input id="submit-login" type="submit" value="ENTRAR">
+                <input id="submit-login" class="submit" type="submit" value="ENTRAR">
             </form>
-            
+            <div id="box-cad">
+                <p>Ainda não tem cadastro?</p>
+                <a href="/html/cadastroAdm.html">Cadastra-se</a>
+            </div>
         </div>
     </header>
     
-    <script src="/js/login.js"></script>
+    <script type="module" src="/js/login.js"></script>
 </body>
 </html>
