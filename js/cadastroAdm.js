@@ -24,7 +24,6 @@ document.querySelector('form').addEventListener('submit', function(e){
         password: senha
     }
     
-
     usersadm.push(useradm)
 
     localStorage.setItem('usersadm', JSON.stringify(usersadm))
