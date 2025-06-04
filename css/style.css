@@ -396,18 +396,18 @@ main{
     height: 400px;
     overflow-y: auto;
     
- }
- #box-list-dash{
+}
+#box-list-dash{
     height: 350px;
     overflow-y: auto;
- }
+}
 
- #box-list-newcad{
+#box-list-newcad{
     height: 400px;
     overflow-y: auto;
- }
+}
 
- #box-list-cad{
+#box-list-cad{
     height: 400px;
     overflow-y: auto;
- }
+}
