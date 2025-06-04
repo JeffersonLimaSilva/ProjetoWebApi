@@ -13,6 +13,19 @@ document.getElementById('button-gravar').addEventListener('click', function(e){
     let sentimentos = document.getElementById('sentimentos').value
     let valores = document.getElementById('valores').value
 
+    let usersadm= JSON.parse(localStorage.getItem('usersadm')) || []
+
+    let userOnEmail = JSON.parse(localStorage.getItem('userOn')).email || []
+    let index
+    usersadm.forEach(function(useradm){
+        if(useradm.email == userOnEmail){
+            index = useradm.index
+        }
+
+    })
+    
+
+
     if(nome == '' || email == ''){
         alert("Campo Nome e Email obrigatório")
         return false
@@ -26,6 +39,16 @@ document.getElementById('button-gravar').addEventListener('click', function(e){
         ativoInativo = "Ativo"
     }
 
+    if(!validaEmail(email)){
+        alert("Email Inválido.")
+        return false
+    }
+
+    if(verificaIgual(usersadm[index], email)){
+        alert("Email ja cadastrado")
+        return false
+    }
+
     let user= {
         name: nome, 
         idade: idade, 
@@ -37,33 +60,36 @@ document.getElementById('button-gravar').addEventListener('click', function(e){
         sentimentos: sentimentos, 
         valores: valores
     }
-
-    let users= JSON.parse(localStorage.getItem('users')) || []
-
-    if(verificaIgual(users, user.email)){
-        alert("Email ja cadastrado")
-        return false
-    }
     
     
-    users.push(user)
+    usersadm[index].users.push(user)
 
-    localStorage.setItem('users', JSON.stringify(users))
+    localStorage.setItem('usersadm', JSON.stringify(usersadm))
 
     document.getElementById('name').value = ''
     document.getElementById('years-old').value = ''
     document.getElementById('email').value = ''
     document.getElementById('ativo').checked= false
-    
+    document.getElementById('address').value =''
+    document.getElementById('more-info').value =''
+    document.getElementById('interesses').value =''
+    document.getElementById('sentimentos').value =''
+    document.getElementById('valores').value =''
     
 
     alert("Usuario cadastrado")
 })
 
-function verificaIgual(users, email){
-    return users.some(function(user){
+function verificaIgual(usersadm, email){
+    return usersadm.users.some(function(user){
         return user.email === email  
     })
+}
+
+function validaEmail(email){
+
+    let regex = /^[^\s]+@[^\s]+\.[^\s]+$/
+    return regex.test(email)
 }
 
 

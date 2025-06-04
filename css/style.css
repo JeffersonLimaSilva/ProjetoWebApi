@@ -6,7 +6,7 @@ body{
     padding-right: 20px;
     margin: 0;
     height: 100%;
-
+    overflow: hidden;
     font-family: 'Roboto', sans-serif;
     color: rgb(68, 68, 68);
     user-select: none;
@@ -27,13 +27,6 @@ header{
         align-items: center;
         margin-right: 30px;
         width: 250px;
-
-        a{
-            text-decoration: none;
-            color: rgb(68, 68, 68);
-            background-color: transparent;
-            font-size: 15px;
-        }
         img{
             width: 40px;
             height: 40px;
@@ -44,6 +37,11 @@ header{
         span{
             display: flex;
             align-items: center;
+            padding: 7px 12px ;
+            
+        }
+        #logout{
+            border-radius: 3px;
         }
     }
     hr{
@@ -116,10 +114,10 @@ main{
 }
 .main-box{
     background-color: rgb(255, 255, 255);
-    
-
+    height: 300px;
+    width: 1030px;
     > div{
-        width: 1015px;
+        width: 1000px;
         padding-left: 12px;
         input{
             width: 990px;
@@ -247,6 +245,7 @@ main{
     flex-direction: column;
     width: 1030px;
     flex-grow: 1;
+    
 }
 
 .div-dashboard{
@@ -256,12 +255,12 @@ main{
     margin-bottom: 20px;
     > *{
         width: 330px;
-        height: 180px;
+        height: 100px;
         background-color: rgb(255, 255, 255);
         display: flex;
         flex-direction: column;
         align-items: end;
-        
+        border-radius: 5px;
         div{
             display: flex;
             justify-content: center;
@@ -270,7 +269,9 @@ main{
             height: 155px;
         }
         p{
-            margin-right: 15px;
+            margin: 0px 15px 0px 0px;
+            
+            height: 40px;
         }
     }
 }
@@ -281,6 +282,8 @@ main{
     align-items: center;
     height: 100%;
     background-color: rgb(255, 255, 255);
+    
+    
     p{
         margin: 20px 0px 0px 0px;
     }
@@ -336,7 +339,7 @@ main{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 0px 15px 0px 15px;
+    padding: 0px 10px 0px 15px;
     
     
 }
@@ -357,6 +360,7 @@ main{
     > div{
         display: flex;
         flex-direction: column;
+
     }
     input{
         height: 25px;
@@ -382,8 +386,28 @@ main{
     }
 }
 
-.div-box-list{
-    overflow-y: auto;
+#div-fatosedados{
+    > label{
+        width: 990px;
+    }
 }
 
+#box-list-user{
+    height: 400px;
+    overflow-y: auto;
+    
+ }
+ #box-list-dash{
+    height: 350px;
+    overflow-y: auto;
+ }
 
+ #box-list-newcad{
+    height: 400px;
+    overflow-y: auto;
+ }
+
+ #box-list-cad{
+    height: 400px;
+    overflow-y: auto;
+ }

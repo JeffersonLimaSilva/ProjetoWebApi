@@ -8,9 +8,13 @@ document.querySelector('form').addEventListener('submit', function(e){
     let senha = document.getElementById('cad-password').value
 
     let usersadm = JSON.parse(localStorage.getItem('usersadm')) || []
-
+    let index = usersadm.length
     if( nome == '' || email == '' || senha == ''){
         alert("Preencha todos os campos.")
+        return false
+    }
+    if(!validaEmail(email)){
+        alert("Email Inválido.")
         return false
     }
 
@@ -18,10 +22,13 @@ document.querySelector('form').addEventListener('submit', function(e){
         alert("Email ja cadastrado.")
         return false
     }
+
     let useradm = {
         name: nome,
         email: email,
-        password: senha
+        password: senha,
+        index: index,
+        users: []
     }
     
     usersadm.push(useradm)
@@ -36,4 +43,9 @@ function verificaIgualEmailCad(usersadm, email){
     return usersadm.some(function(useradm){
         return useradm.email === email  
     })
+}
+
+function validaEmail(email){
+    let regex = /^[^\s]+@[^\s]+\.[^\s]+$/
+    return regex.test(email)
 }

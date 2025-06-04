@@ -1,10 +1,11 @@
 export let indexCad = 0
 function criaLista(){
 
-    let users= JSON.parse(localStorage.getItem('users')) || []
+    let usersadm= JSON.parse(localStorage.getItem('usersadm')) || []
+    let userOn = JSON.parse(localStorage.getItem('userOn')) || []
+    console.log(usersadm[userOn.index].users);
     
-
-    users.forEach(function(user){
+    usersadm[userOn.index].users.forEach(function(user){
 
         let divlist=document.querySelector('.div-box-list')
         let divDivList = document.createElement('div')
@@ -27,7 +28,7 @@ function criaLista(){
         spanStatus.style.paddingRight= '20px'
         let hrlist = document.createElement('hr')
         hrlist.classList.add('list-line')
-        hrlist.style.width='980px'
+        hrlist.style.width='965px'
         hrlist.style.height='0.1px'
         
 
@@ -40,29 +41,28 @@ function criaLista(){
 
         indexCad++
     });
-
-    
-        
-     
+   
 }
 document.addEventListener('DOMContentLoaded', function(e){
 
-        let listDiv =document.querySelectorAll('.list-div')
+    let listDiv =document.querySelectorAll('.list-div')
 
-        listDiv.forEach(function(compoList){
-            
-            compoList.addEventListener('mouseover', function(e){
-                let boxList=this.querySelector('.box-list')
-                boxList.style.backgroundColor='rgb(207, 207, 243)'
-                boxList.style.borderRadius='3px'
-            })
-            compoList.addEventListener('mouseout', function(e){
-                let boxList=this.querySelector('.box-list')
-                boxList.style.backgroundColor=''
-            })
-
+    listDiv.forEach(function(compoList){
+        
+        compoList.addEventListener('mouseover', function(e){
+            let boxList=this.querySelector('.box-list')
+            boxList.style.backgroundColor='rgb(207, 207, 243)'
+            boxList.style.borderRadius='3px'
+        })
+        compoList.addEventListener('mouseout', function(e){
+            let boxList=this.querySelector('.box-list')
+            boxList.style.backgroundColor=''
         })
 
-
     })
+
+
+})
+
+
 criaLista()

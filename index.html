@@ -12,9 +12,9 @@
         <header>
             <input type="text" name="Search" id="search" placeholder="Pesquisa...">
             <div>
-                <span><img src="/img/profile.svg" alt="">Jefferson Silva</span>
+                <span><img src="/img/profile.svg" alt=""><p id="perfil-nome"></p></span>
                 <hr>
-                <span><a href="/html/login.html">SAIR</a></span>
+                <span id="logout">SAIR</span>
             </div>
         </header>
         <main>
@@ -46,10 +46,10 @@
                     <p>EMAIL</p>
                     <p>STATUS</p>
                 </div>
-                <hr class="list-line">
-                <div class="div-box-list">
+                    <hr class="list-line">
+                    <div id="box-list-dash" class="div-box-list">
                     
-                </div>
+                    </div>
                 
                 
             </div>
@@ -73,5 +73,6 @@
     </div>
     <script type="module" src="./script.js"></script>
     <script type="module" src="/js/lista.js"></script>
+    <script src="/js/logout.js"></script>
 </body>
 </html>

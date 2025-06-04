@@ -3,7 +3,9 @@ document.querySelector('form').addEventListener('submit', function(e){
 
     let email = document.getElementById('f-email').value 
     let senha = document.getElementById('f-password').value
-    let usersadm = JSON.parse(localStorage.getItem('usersadm'))
+    let usersadm = JSON.parse(localStorage.getItem('usersadm')) || []
+
+    let userOn = JSON.parse(localStorage.getItem('userON')) || []
 
     if(email== '' || senha==''){
         alert("Preencha todos os campos.")
@@ -11,6 +13,12 @@ document.querySelector('form').addEventListener('submit', function(e){
     } 
     if(verificaIgualEmailLogin(usersadm, email)){
         if(verificaIgualSenhaLogin(usersadm, senha)){
+            userOn={
+                email: email,
+                index: userOnIndex(usersadm, email)
+            }
+            
+            localStorage.setItem('userOn', JSON.stringify(userOn))
             window.location.href = '/index.html';
             return false
         }
@@ -33,3 +41,15 @@ function verificaIgualSenhaLogin(usersadm, senha){
     })
 }
 
+function userOnIndex(usersadm, email){
+    
+    let index
+    usersadm.forEach(function(useradm){
+        if(useradm.email == email){
+            index = useradm.index
+        }
+        
+        
+    })
+    return index
+}
