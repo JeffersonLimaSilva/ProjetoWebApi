@@ -1,7 +1,9 @@
 
-
+import { criaLista } from "./lista.js";
 
 document.getElementById('button-gravar').addEventListener('click', function(e){
+    let modalcad = document.getElementById('modal-cad')
+
     let nome = document.getElementById('name').value
     let idade = parseInt(document.getElementById('years-old').value)
     let email = document.getElementById('email').value
@@ -83,6 +85,8 @@ document.getElementById('button-gravar').addEventListener('click', function(e){
     
 
     alert("Usuario cadastrado")
+    criaLista()
+    modalcad.close()
 })
 
 function verificaIgual(usersadm, email){

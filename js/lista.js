@@ -1,6 +1,6 @@
 
 
- function criaLista(search = ''){
+export function criaLista(search = ''){
 
     let usersadm= JSON.parse(localStorage.getItem('usersadm')) || []
     let userOn = JSON.parse(localStorage.getItem('userOn')) || []
@@ -45,7 +45,7 @@
             spanEditar.style.paddingLeft='2px'
             spanEditar.style.paddingTop='2px'
             spanEditar.addEventListener('click', ()=>{
-                criaEditar(divDivList, index)
+                criaEditar(divDivList, index, userOn.index)
             })
 
             let imgEditar = document.createElement('img')
@@ -196,7 +196,9 @@ function contaInativo(){
     return numcad
 }
 
-function criaEditar(divDivList, index){
+function criaEditar(divDivList, index, indexOn){
+    let usersadm= JSON.parse(localStorage.getItem('usersadm')) || []
+
     let spanBoxEditar = document.createElement('div')
     spanBoxEditar.style.height='30px'
     spanBoxEditar.style.backgroundColor='rgb(214, 214, 252)'
@@ -236,6 +238,8 @@ function criaEditar(divDivList, index){
     spanConfirma.style.paddingTop='2px'
     spanConfirma.style.marginRight='4px'
     spanConfirma.addEventListener('click', ()=>{
+
+
         if(inputNome.value != ''){
             
             if(!validaNome(inputNome.value)){
@@ -251,6 +255,12 @@ function criaEditar(divDivList, index){
                 alert("Email Invalido")
                 return false
             }
+            if(verificaIgual(usersadm[indexOn], inputEmail.value)){
+                alert("Email ja cadastrado")
+                return false
+            }
+        
+            
             editarUser(index, 'email', inputEmail.value)
             alert("Email atualizado")
         }
@@ -312,6 +322,12 @@ function validaEmail(email){
 
     let remail = /^[^\s]+@[^\s]+\.[^\s]+$/
     return remail.test(email)
+}
+
+function verificaIgual(usersadm, email){
+    return usersadm.users.some(function(user){
+        return user.email === email  
+    })
 }
 
 criaLista() 

@@ -116,31 +116,17 @@ main{
     background-color: rgb(255, 255, 255);
     height: 300px;
     width: 1030px;
+
     > div{
         width: 1000px;
         padding-left: 12px;
-        input{
-            width: 990px;
-            background-color: rgba(224, 224, 224, 0.747);
-            border: solid 1px rgb(156, 156, 156);
-            font-size: 15px;
-            padding-left: 5px;
-        }
-        textarea{
-            width: 990px;
-            background-color: rgba(224, 224, 224, 0.747);
-            border: solid 1px rgb(156, 156, 156);
-            height: 70px;
-            font-size: 15px;
-            padding-left: 5px;
-            padding-top: 5px;
-        }
         > p{
             border-bottom: solid 2px gray;
             width: 995px;
             padding-bottom: 5px;
         }
     }
+    
     #button-gravar{
         width: 150px;
         height: 30px;
@@ -165,27 +151,7 @@ main{
         }
         
     }
-    #head-newCad{
-        display: flex;
-        width: 985px;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-        div{
-            display: flex;
-            align-items: center;
-            height: 20px;
-        }
-        input{
-            display: flex;
-            width: 15px;
-            justify-self: end;
-            border-radius: 100px;
-        }
-        p{
-            font-weight: 600;
-        }
-    } 
+    
     #head-relatorio{
         p{
             border-bottom: 0px;
@@ -228,6 +194,97 @@ main{
         }
     }
     
+}
+#box-list-newcad{
+    background-color: rgb(255, 255, 255);
+    height: 300px;
+    width: 750px;
+    overflow-x: hidden;
+    > div{
+        width: 900px;
+        padding-left: 12px;
+        input{
+            width: 700px;
+            background-color: rgba(224, 224, 224, 0.747);
+            border: solid 1px rgb(156, 156, 156);
+            font-size: 15px;
+            padding-left: 5px;
+        }
+        textarea{
+            width: 700px;
+            background-color: rgba(224, 224, 224, 0.747);
+            border: solid 1px rgb(156, 156, 156);
+            height: 70px;
+            font-size: 15px;
+            padding-left: 5px;
+            padding-top: 5px;
+        }
+        > p{
+            border-bottom: solid 2px gray;
+            width: 710px;
+            padding-bottom: 5px;
+        }
+    }
+    #head-newCad{
+        display: flex;
+        width: 700px;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        div{
+            display: flex;
+            align-items: center;
+            height: 20px;
+        }
+        input{
+            display: flex;
+            width: 15px;
+            justify-self: end;
+            border-radius: 100px;
+        }
+        p{
+            font-weight: 600;
+        }
+    } 
+}
+
+.cad-box{
+    display: flex;
+    flex-direction: column;
+
+    > div{
+        display: flex;
+        flex-direction: column;
+
+    }
+    input{
+        height: 25px;
+        margin-bottom: 10px;
+    }
+
+    #duo-input{
+        display: flex;
+        
+        div{
+            display: flex;
+            flex-direction: column;
+        }
+        
+        #years-old{
+            width: 200px;
+            margin-right: 24px;
+        }
+        #email{
+            width: 467px;
+            
+        }
+    }
+}
+
+#div-fatosedados{
+    > label{
+        width: 990px;
+    }
 }
 .button-cadastro{
     display: flex;
@@ -353,44 +410,7 @@ main{
     }
 }
 
-.cad-box{
-    display: flex;
-    flex-direction: column;
 
-    > div{
-        display: flex;
-        flex-direction: column;
-
-    }
-    input{
-        height: 25px;
-        margin-bottom: 10px;
-    }
-
-    #duo-input{
-        display: flex;
-        
-        div{
-            display: flex;
-            flex-direction: column;
-        }
-        
-        #years-old{
-            width: 200px;
-            margin-right: 24px;
-        }
-        #email{
-            width: 757px;
-            
-        }
-    }
-}
-
-#div-fatosedados{
-    > label{
-        width: 990px;
-    }
-}
 
 #box-list-user{
     height: 400px;
@@ -410,4 +430,28 @@ main{
 #box-list-cad{
     height: 400px;
     overflow-y: auto;
+}
+
+dialog::backdrop{
+    background-color: black;
+}
+
+dialog{
+    border: 0;
+    border-radius: 10px;
+    box-shadow: 0 0 8px 1px rgb(85, 85, 85);
+
+    > div{
+        height: 20px;
+        display: flex;
+        justify-content: end;
+        margin-bottom: 5px;
+    }
+}
+#fecha-modal{
+    display: flex;
+    justify-content: center;
+    width: 18px;
+    border-radius: 4px;
+    border: solid 0.1px black;
 }
