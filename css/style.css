@@ -305,7 +305,8 @@ main{
         }
         :nth-child(3){
             text-align: end;
-            margin-right: 15px;
+            padding-right: 80px;
+            width: 260px;
         }
     }
     hr{
@@ -346,8 +347,7 @@ main{
 .box-list{
     display: flex;
     margin-top: 5px;
-    span{
-        width: 316px; 
+    span{ 
         font-size: 15px;
         
     }

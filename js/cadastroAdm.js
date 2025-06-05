@@ -13,6 +13,12 @@ document.querySelector('form').addEventListener('submit', function(e){
         alert("Preencha todos os campos.")
         return false
     }
+
+    if(!validaNome(nome)){
+        alert("Nome Invalido")
+        return false
+    } 
+    
     if(!validaEmail(email)){
         alert("Email Inválido.")
         return false
@@ -48,4 +54,9 @@ function verificaIgualEmailCad(usersadm, email){
 function validaEmail(email){
     let regex = /^[^\s]+@[^\s]+\.[^\s]+$/
     return regex.test(email)
+}
+
+function validaNome(nome){
+    let rnome = /^[A-Z][a-z]+[\s][A-Z][a-z]+$/
+    return rnome.test(nome)
 }

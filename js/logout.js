@@ -6,8 +6,7 @@ document.getElementById('logout').addEventListener('click', function(e){
     userOn.index = ''
     localStorage.setItem('userOn', JSON.stringify(userOn))
     
-    window.location.href='/html/login.html'
-    
+    window.location.href='/html/login.html' 
 })
 
 document.addEventListener('DOMContentLoaded', function(e){

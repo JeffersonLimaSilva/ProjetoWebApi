@@ -39,6 +39,11 @@ document.getElementById('button-gravar').addEventListener('click', function(e){
         ativoInativo = "Ativo"
     }
 
+    if(!validaNome(nome)){
+        alert("Nome Invalido")
+        return false
+    }
+
     if(!validaEmail(email)){
         alert("Email Inválido.")
         return false
@@ -88,9 +93,12 @@ function verificaIgual(usersadm, email){
 
 function validaEmail(email){
 
-    let regex = /^[^\s]+@[^\s]+\.[^\s]+$/
-    return regex.test(email)
+    let remail = /^[^\s]+@[^\s]+\.[^\s]+$/
+    return remail.test(email)
 }
 
-
+function validaNome(nome){
+    let rnome = /^[A-Z][a-z]+[\s][A-Z][a-z]+$/
+    return rnome.test(nome)
+}
 
