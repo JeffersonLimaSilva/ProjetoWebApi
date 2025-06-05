@@ -22,11 +22,11 @@ header{
     align-items: center;
     justify-content: space-between;
     
-    div{
+    > div{
         display: flex;
         align-items: center;
         margin-right: 30px;
-        width: 250px;
+        width: 350px;
         img{
             width: 40px;
             height: 40px;
@@ -37,8 +37,15 @@ header{
         span{
             display: flex;
             align-items: center;
+           
             padding: 7px 12px ;
             
+        }
+        > div{
+            display: flex;
+            width: 120px;
+            justify-content: end;
+            margin-right: 5px;
         }
         #logout{
             border-radius: 3px;
@@ -116,7 +123,8 @@ main{
     background-color: rgb(255, 255, 255);
     height: 300px;
     width: 1030px;
-
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
     > div{
         width: 1000px;
         padding-left: 12px;
@@ -340,7 +348,8 @@ main{
     height: 100%;
     background-color: rgb(255, 255, 255);
     
-    
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
     p{
         margin: 20px 0px 0px 0px;
     }
