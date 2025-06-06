@@ -134,6 +134,8 @@ function removeUser(index){
 
 function showCad(){
     let c = document.getElementById('cad') || false
+    
+    
     if (c) {
         c.innerHTML=''
         c.appendChild(styleValue(contaCad(), 'blue'))
