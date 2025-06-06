@@ -34,7 +34,8 @@ document.querySelector('form').addEventListener('submit', function(e){
         email: email,
         password: senha,
         index: index,
-        users: []
+        countclick:0,
+        users: [],
     }
     
     usersadm.push(useradm)
