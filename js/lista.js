@@ -7,15 +7,17 @@ export function criaLista(search = ''){
     let divlist=document.querySelector('.div-box-list')
 
     divlist.innerHTML=''
-    console.log(userOn.index);
-    
+
     usersadm[userOn.index].users.forEach(function(user, index){
 
         let divDivList = document.createElement('div')
         divDivList.classList.add('list-div')
 
+        let minName = user.name.toLowerCase()
+        let minEmail = user.email.toLowerCase()
+        let minAtivo = user.ativo.toLowerCase()
 
-        if(user.name.includes(search) || user.email.includes(search) || user.ativo.includes(search)){
+        if(minName.includes(search) || minEmail.includes(search) || minAtivo.includes(search)){
 
             
             let list = document.createElement('div')
@@ -121,7 +123,8 @@ document.addEventListener('DOMContentLoaded', function(e){
 })
 
 document.getElementById('search').addEventListener('input', function(e){
-    criaLista(this.value)
+    let minSearch = this.value.toLowerCase()
+    criaLista(minSearch)
 })
 
 function removeUser(index){
