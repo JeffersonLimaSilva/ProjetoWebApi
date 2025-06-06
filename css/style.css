@@ -441,14 +441,12 @@ main{
     overflow-y: auto;
 }
 
-dialog::backdrop{
-    
-    background-color: rgba(99, 99, 99, 0.733);
-}
 
-dialog{
+
+#modal-cad{
     border: 0;
     border-radius: 10px;
+
     box-shadow: 0 0 8px 1px rgb(85, 85, 85);
     
     > div{
@@ -457,6 +455,10 @@ dialog{
         justify-content: end;
         margin-bottom: 5px;
     }
+
+    /* ::backdrop{
+        background-color: rgba(0, 0, 0, 1) ;
+    } */
 }
 #fecha-modal{
     display: flex;

@@ -7,7 +7,8 @@ export function criaLista(search = ''){
     let divlist=document.querySelector('.div-box-list')
 
     divlist.innerHTML=''
-
+    console.log(userOn.index);
+    
     usersadm[userOn.index].users.forEach(function(user, index){
 
         let divDivList = document.createElement('div')

@@ -47,6 +47,7 @@ document.querySelector('form').addEventListener('submit', function(e){
 })
 
 function verificaIgualEmailCad(usersadm, email){
+    
     return usersadm.some(function(useradm){
         return useradm.email === email  
     })

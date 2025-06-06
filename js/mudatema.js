@@ -1,9 +1,11 @@
-let userOn=JSON.parse(localStorage.getItem('userOn')) || []
+
+
+ let userOn=JSON.parse(localStorage.getItem('userOn')) || []
 let usersadm =JSON.parse(localStorage.getItem('usersadm')) || []
 
-let countclick=0
-
 document.addEventListener('DOMContentLoaded', function(){
+  
+
    function mudaTema(){
       let bodycolor= document.getElementsByTagName('body')
       let headercolor = document.getElementsByTagName('header')
@@ -18,13 +20,13 @@ document.addEventListener('DOMContentLoaded', function(){
       let cadmescolor=document.getElementById('div-mes')
       let cadpendcolor=document.getElementById('div-pend')
 
-      let dialogcolor = document.getElementsByTagName('dialog') || false
-      countclick++
-
+      let dialogcolor = document.querySelector('#modal-cad') || false
+      
+      
       // console.log(usersadm[userOn.index].countclick);
       
 
-      if(countclick === 1){
+      if(usersadm[userOn.index].countclick === 1){
          bodycolor[0].style.backgroundColor='rgb(16 13 40)'
          bodycolor[0].style.color='white'
          headercolor[0].style.backgroundColor='rgb(28 23 61)'
@@ -47,12 +49,15 @@ document.addEventListener('DOMContentLoaded', function(){
             cadpendcolor.style.backgroundColor='rgb(28 23 61)'
          }
          if(dialogcolor){
-            dialogcolor[0].style.backgroundColor='rgb(28 23 61)'
-            dialogcolor[0].style.color='white'
+            dialogcolor.style.backgroundColor='rgb(28 23 61)'
+            dialogcolor.style.color='white'
          }
+         console.log(usersadm[userOn.index].countclick);
          
-         // localStorage.setItem('usersadm', JSON.stringify(usersadm[userOn.index]))
-      }else if(countclick === 2){
+         localStorage.setItem('usersadm', JSON.stringify(usersadm))
+      }
+      
+      else if(usersadm[userOn.index].countclick === 2){
          bodycolor[0].style.backgroundColor='rgb(236, 236, 236)'
          bodycolor[0].style.color='rgb(68, 68, 68)'
          headercolor[0].style.backgroundColor='rgb(206, 206, 206)'
@@ -74,21 +79,28 @@ document.addEventListener('DOMContentLoaded', function(){
             cadpendcolor.style.backgroundColor='white'
          }
          if(dialogcolor){
-            dialogcolor[0].style.backgroundColor='white'
-            dialogcolor[0].style.color='black'
+            dialogcolor.style.backgroundColor='white'
+            dialogcolor.style.color='black'
          }
          console.log("Segundo Click");
-         countclick=0
-         // localStorage.setItem('usersadm', JSON.stringify(usersadm[userOn.index]))
+         
+         usersadm[userOn.index].countclick=0
+         localStorage.setItem('usersadm', JSON.stringify(usersadm))
       }
       
    
    }
-   
+   mudaTema()
+
    document.getElementById('muda-tema').addEventListener('click', ()=>{
+      if (usersadm[userOn.index].countclick < 2) {
+         usersadm[userOn.index].countclick ++
+      }
       mudaTema()
       
    })
+
+   
 
 })
 
