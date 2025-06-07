@@ -1,4 +1,4 @@
-
+import { criaLogsUser } from "./logsUser.js";
 import { criaLista } from "./lista.js";
 
 document.getElementById('button-gravar').addEventListener('click', function(e){
@@ -18,6 +18,8 @@ document.getElementById('button-gravar').addEventListener('click', function(e){
     let usersadm= JSON.parse(localStorage.getItem('usersadm')) || []
 
     let userOnEmail = JSON.parse(localStorage.getItem('userOn')).email || []
+
+    let logsUser= JSON
     let index
     usersadm.forEach(function(useradm){
         if(useradm.email == userOnEmail){
@@ -68,7 +70,7 @@ document.getElementById('button-gravar').addEventListener('click', function(e){
         valores: valores
     }
     
-    
+    criaLogsUser(usersadm[index].name, usersadm[index].email, 'cadastrou', email)
     usersadm[index].users.push(user)
 
     localStorage.setItem('usersadm', JSON.stringify(usersadm))
@@ -85,6 +87,7 @@ document.getElementById('button-gravar').addEventListener('click', function(e){
     
 
     alert("Usuario cadastrado")
+    
     criaLista()
     modalcad.close()
 })

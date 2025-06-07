@@ -1,4 +1,4 @@
-
+import { criaLogsUser } from "./logsUser.js";
 
 document.querySelector('form').addEventListener('submit', function(e){
     e.preventDefault()
@@ -40,7 +40,12 @@ document.querySelector('form').addEventListener('submit', function(e){
     
     usersadm.push(useradm)
 
+    criaLogsUser(nome, email, 'cadastrou-se', '', usersadm.length)
+
     localStorage.setItem('usersadm', JSON.stringify(usersadm))
+    
+    
+    
 
     window.location.href='/html/login.html'
 

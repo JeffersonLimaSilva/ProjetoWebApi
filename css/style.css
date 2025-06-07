@@ -375,6 +375,20 @@ main{
             width: 260px;
         }
     }
+    .div-cabecalho-logs{
+        display: flex;
+        justify-content: space-between;
+        padding: 0px 0px 0px 5px;
+        margin-bottom: 10px;
+        >*{
+            width: 290px;
+            height: 10px;
+            font-size: 15px;
+        }
+        :nth-child(1){
+            width: 110px;
+        }
+    }
     hr{
         width: 980px;
         margin-top: 1px;

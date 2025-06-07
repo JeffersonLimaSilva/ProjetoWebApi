@@ -1,3 +1,6 @@
+import { criaLogsUser } from "./logsUser.js";
+
+
 document.querySelector('form').addEventListener('submit', function(e){
     e.preventDefault()
 
@@ -17,6 +20,8 @@ document.querySelector('form').addEventListener('submit', function(e){
                 email: email,
                 index: userOnIndex(usersadm, email)
             }
+            
+            criaLogsUser('', email, 'logou-se', '')
             
             localStorage.setItem('userOn', JSON.stringify(userOn))
             window.location.href = '/index.html';

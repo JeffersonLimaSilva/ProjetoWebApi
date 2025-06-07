@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
-    <link rel="stylesheet" href="./css/style.css">
+    <title>Relatorios</title>
+    <link rel="stylesheet" href="/css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -18,41 +18,23 @@
                 <span id="logout">SAIR</span>
             </div>
         </header>
-        <main>
-            <div class="div-dashboard">
-                <div id="div-cad">
-                    <div id="cad">
-
-                    </div>
-                    <p>Total de cadastros</p>
-                </div>
-                <div id="div-mes">
-                    <div id="cad-mes">
-
-                    </div>
-                    <p>Cadastros no último mês</p>
-                </div>
-                <div id="div-pend">
-                    <div id="cad-pend"></div>
-                    <p>Cadastros com pendência de revisão</p>
-                </div>
+        <main class="main-box">
+            <div id="head-rel-list">
+                <p>Relatórios > Logs do Usuários</p>
+                <button id="button-imprimir" class="button-cadastro">IMPRIMIR</button>
             </div>
-            <div class="div-list">
-                <div id="div-p">
-                    <p>Últimos cadastros</p>
-                </div>
-                
-                <div class="div-cabecalho">
+            <div id="id-imprimir" class="div-list">
+            
+                <div class="div-cabecalho-logs">
+                    <p>DATA</p>
                     <p>NOME</p>
                     <p>EMAIL</p>
-                    <p>STATUS</p>
+                    <p>AÇÃO</p>
                 </div>
-                    <hr class="list-line">
-                    <div id="box-list-dash" class="div-box-list">
-                    
-                    </div>
-                
-                
+                <hr class="list-line">
+                <div id="box-list-user" class="box-list-logs">  
+                </div>
+
             </div>
             
         </main>
@@ -72,12 +54,12 @@
             </div>
         </nav> 
     </div>
-    <script type="module" src="./script.js"></script>
-    <script type="module" src="/js/lista.js"></script>
-    <script src="/js/mudatema.js"></script>
-    <script src="/js/logout.js"></script>
-    <script type="module" src="/js/showName.js"></script>
     
-
+    <script type="module" src="/js/lista.js"></script>
+    <script src="/js/imprimir.js"></script>
+    <script type="module" src="/js/logout.js"></script>
+    <script type="module" src="/js/showName.js"></script>
+    <script src="/js/mudatema.js"></script>
+    <script type="module" src="/js/logsUser.js"></script>
 </body>
 </html>
