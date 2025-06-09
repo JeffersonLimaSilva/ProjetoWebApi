@@ -8,6 +8,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
+    <script src="/js/restricao.js"></script>
+    
     <div class="header-main">
         <header>
             <input type="text" name="Search" id="search" placeholder="Pesquisa...">
@@ -21,11 +23,25 @@
         <main class="main-box">
             <div id="head-rel-list">
                 <p>Relatórios > Logs do Usuários</p>
-                <button id="button-imprimir" class="button-cadastro">IMPRIMIR</button>
+                <button id="button-imprimir-logs" class="button" >IMPRIMIR</button>
             </div>
-            <div id="id-imprimir" class="div-list">
+            <div >
+
+                <table class="table-list">
+                    <thead>
+                        <tr>
+                            <th>DATA</th>
+                            <th>NOME</th>
+                            <th>EMAIL</th>
+                            <th>AÇÃO</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody-logs">
+                        
+                    </tbody>
+                </table>
             
-                <div class="div-cabecalho-logs">
+                <!-- <div class="div-cabecalho-logs">
                     <p>DATA</p>
                     <p>NOME</p>
                     <p>EMAIL</p>
@@ -33,7 +49,7 @@
                 </div>
                 <hr class="list-line">
                 <div id="box-list-user" class="box-list-logs">  
-                </div>
+                </div> -->
 
             </div>
             
@@ -55,11 +71,12 @@
         </nav> 
     </div>
     
-    <script type="module" src="/js/lista.js"></script>
-    <script src="/js/imprimir.js"></script>
+    
+    
     <script type="module" src="/js/logout.js"></script>
     <script type="module" src="/js/showName.js"></script>
-    <script src="/js/mudatema.js"></script>
+    <script type="module" src="/js/mudatema.js"></script>
     <script type="module" src="/js/logsUser.js"></script>
+    <script type="module" src="/js/listalogs.js"></script>
 </body>
 </html>

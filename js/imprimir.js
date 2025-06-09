@@ -1,4 +1,4 @@
-document.getElementById('button-imprimir').addEventListener('click', function(e){
+document.getElementById('button-imprimir-users').addEventListener('click', function(e){
     
     let conteudo= document.getElementById('id-imprimir').innerHTML
     

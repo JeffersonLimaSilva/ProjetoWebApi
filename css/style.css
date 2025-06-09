@@ -146,7 +146,10 @@ main{
         background-color: rgb(24, 182, 24);
         width: 250px;
     }
-    #button-imprimir{
+    #button-imprimir-logs{
+        background-color: rgb(74, 74, 250);
+    }
+    #button-imprimir-users{
         background-color: rgb(74, 74, 250);
     }
     #head-cad{
@@ -294,7 +297,7 @@ main{
         width: 990px;
     }
 }
-.button-cadastro{
+.button{
     display: flex;
     align-self: center;
     align-items: center;
@@ -396,7 +399,31 @@ main{
     }
 }
 
+.table-list{
+    width: 1000px;
+    margin-top: 20px;
 
+    thead{
+        background-color: rgb(175, 175, 175);
+        border-radius: 20px;
+        th{
+            text-align: left;
+            padding: 5px 5px;
+        }
+    }
+    tbody{
+        td{
+            border-bottom: 1px solid rgb(68, 68, 68);
+            padding: 5px 5px;
+        }
+        :nth-child(4){
+            max-width: 120px;
+        }
+        :nth-child(1){
+            max-width: max-content;
+        }
+    }
+}
 
 #search{
     width: 360px;
@@ -455,12 +482,15 @@ main{
     overflow-y: auto;
 }
 
-
+#modal-cad::backdrop{
+    background-color: rgba(0, 0, 0, 1) ;
+    color: red;
+}
 
 #modal-cad{
     border: 0;
     border-radius: 10px;
-
+    backdrop-filter: blur(20px);
     box-shadow: 0 0 8px 1px rgb(85, 85, 85);
     
     > div{
@@ -470,9 +500,7 @@ main{
         margin-bottom: 5px;
     }
 
-    /* ::backdrop{
-        background-color: rgba(0, 0, 0, 1) ;
-    } */
+   
 }
 #fecha-modal{
     display: flex;

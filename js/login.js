@@ -10,6 +10,8 @@ document.querySelector('form').addEventListener('submit', function(e){
 
     let userOn = JSON.parse(localStorage.getItem('userON')) || []
 
+    let nome
+
     if(email== '' || senha==''){
         alert("Preencha todos os campos.")
         return false
@@ -21,9 +23,14 @@ document.querySelector('form').addEventListener('submit', function(e){
                 index: userOnIndex(usersadm, email)
             }
             
-            criaLogsUser('', email, 'logou-se', '')
+            
             
             localStorage.setItem('userOn', JSON.stringify(userOn))
+
+            nome= usersadm[userOnIndex(usersadm, email)].name
+
+            criaLogsUser(nome, email, 'logou-se', '', 2)
+
             window.location.href = '/index.html';
             return false
         }

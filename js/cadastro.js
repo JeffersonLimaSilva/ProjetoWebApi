@@ -17,12 +17,12 @@ document.getElementById('button-gravar').addEventListener('click', function(e){
 
     let usersadm= JSON.parse(localStorage.getItem('usersadm')) || []
 
-    let userOnEmail = JSON.parse(localStorage.getItem('userOn')).email || []
+    let userOn = JSON.parse(localStorage.getItem('userOn')) || []
 
-    let logsUser= JSON
+    
     let index
     usersadm.forEach(function(useradm){
-        if(useradm.email == userOnEmail){
+        if(useradm.email == userOn.email){
             index = useradm.index
         }
 
@@ -70,10 +70,12 @@ document.getElementById('button-gravar').addEventListener('click', function(e){
         valores: valores
     }
     
-    criaLogsUser(usersadm[index].name, usersadm[index].email, 'cadastrou', email)
+    
     usersadm[index].users.push(user)
 
     localStorage.setItem('usersadm', JSON.stringify(usersadm))
+
+    criaLogsUser(usersadm[index].name, usersadm[index].email, 'cadastrou', email, 2)
 
     document.getElementById('name').value = ''
     document.getElementById('years-old').value = ''
@@ -85,7 +87,7 @@ document.getElementById('button-gravar').addEventListener('click', function(e){
     document.getElementById('sentimentos').value =''
     document.getElementById('valores').value =''
     
-
+    
     alert("Usuario cadastrado")
     
     criaLista()

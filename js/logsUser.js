@@ -11,14 +11,20 @@ export function criaLogsUser(name, email, acao, alvo, teste){
         email: email,
         infor: acao + ' ' + alvo
     }
-    let listas={
-        loguser: loguser
-    }
+    let lista = []
+    lista.push(loguser)
+    
     if (teste === 1) {
-        logsuser.push(listas)
+        logsuser.push(lista)
     }
-    // if(teste === 2){
-    //     loguser[]
-    // }
+    
+    if(teste === 2){
+        logsuser[userOn.index].push(loguser)
+        
+    }
+    console.log("ola");
     localStorage.setItem('logsuser', JSON.stringify(logsuser))
+
+    
 }
+
