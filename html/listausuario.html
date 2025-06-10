@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro</title>
+    <title>Relatorios</title>
     <link rel="stylesheet" href="/css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
@@ -18,15 +18,21 @@
             </div>
         </header>
         <main class="main-box">
-
-            <div id="head-relatorio">
-                <p>Relatorios</p>
+            <div id="head-rel-list">
+                <p>Relatórios > Lista de Usuários</p>
+                <button id="button-imprimir" class="button-cadastro">IMPRIMIR</button>
             </div>
-            <div id="div-rel">
-                <p>NOME</p>
+            <div class="div-list">
+            
+                <div class="div-cabecalho">
+                    <p>NOME</p>
+                    <p>EMAIL</p>
+                    <p>STATUS</p>
+                </div>
                 <hr class="list-line">
-                <a href="/html/listausuario.html">Lista de Usuários</a>
-                <hr class="list-line">
+                <div class="div-box-list">  
+                </div>
+                
             </div>
             
         </main>
@@ -34,7 +40,7 @@
     <div class="nav-div">
        <nav>
             <div class="nav-logo">
-                <span><a href="/index.html"><img src="/img/logo.svg" alt="Logo"></a></span>
+                <span><img src="/img/logo.svg" alt="Logo"></span>
                 <p>Operação Curiosidade</p>
             </div>
             <div class="div-nav">
@@ -46,6 +52,7 @@
             </div>
         </nav> 
     </div>
-
+    
+    <script type="module" src="/js/lista.js"></script>
 </body>
 </html>

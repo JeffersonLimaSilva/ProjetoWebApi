@@ -110,7 +110,7 @@ main{
     width: 1035px;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    
     flex-grow: 1;
     align-self: center;
 }
@@ -163,6 +163,7 @@ main{
         justify-content: space-between;
         p{
             border: 0px;
+            font-weight: 600;
         }
         
     }
@@ -181,8 +182,53 @@ main{
             display: flex;
             width: 15px;
             justify-self: end;
+            border-radius: 100px;
+        }
+        p{
+            font-weight: 600;
         }
     } 
+    #head-relatorio{
+        p{
+            border-bottom: 0px;
+            font-weight: 600;
+        }
+        
+    }
+
+    #head-rel-list{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin-top: 20px;
+        p{
+            border-bottom: 0px;
+            margin: 0px;
+            width: 300px;
+            font-weight: 600;
+        }
+    }
+    
+    #div-rel{
+        display: flex;
+        flex-direction: column;
+        margin-left: 20px;
+        margin-top: 12px;
+        p{
+            border-bottom: 0px;
+            margin: 0px;
+            font-size: 15px;
+            
+        }
+        hr{
+            margin: 5px 0px;
+            width: 980px;
+        }
+        a{
+            text-decoration: none;
+            color: rgb(68, 68, 68);
+        }
+    }
     
 }
 .button-cadastro{
@@ -240,6 +286,9 @@ main{
     }
     #div-p{
         width: 990px;
+        p{
+            font-weight: 600;
+        }
     }
     .div-cabecalho{
         display: flex;
@@ -253,13 +302,13 @@ main{
         }
         :nth-child(3){
             text-align: end;
-            margin-right: 30px;
+            margin-right: 15px;
         }
     }
     hr{
         width: 980px;
-        margin-top: 5px;
-        margin-bottom: 5px;
+        margin-top: 1px;
+        margin-bottom: 1px;
     }
 }
 
@@ -274,6 +323,7 @@ main{
     font-size: medium;
     margin-left: 15px;
     padding-left: 10px;
+    
 }
 
 .nav-div{

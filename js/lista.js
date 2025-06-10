@@ -9,8 +9,12 @@ function criaLista(){
         let divlist=document.querySelector('.div-box-list')
         let divDivList = document.createElement('div')
         divDivList.classList.add('list-div')
+        
         let list = document.createElement('div')
         list.classList.add('box-list')
+        list.style.height='25px'
+        list.style.alignItems='center'
+        list.style.padding='0px 5px'
         let spanNome= document.createElement('span')
         spanNome.textContent= user.name
         
@@ -18,9 +22,9 @@ function criaLista(){
         spanEmail.textContent= user.email
         
         let spanStatus = document.createElement('span')
-        spanStatus.textContent ="Ativo"
+        spanStatus.textContent = user.ativo
         spanStatus.style.textAlign= 'end'
-        spanStatus.style.paddingRight= '10px'
+        spanStatus.style.paddingRight= '20px'
         let hrlist = document.createElement('hr')
         hrlist.classList.add('list-line')
         hrlist.style.width='980px'
@@ -38,6 +42,27 @@ function criaLista(){
     });
 
     
+        
+     
 }
+document.addEventListener('DOMContentLoaded', function(e){
 
+        let listDiv =document.querySelectorAll('.list-div')
+
+        listDiv.forEach(function(compoList){
+            
+            compoList.addEventListener('mouseover', function(e){
+                let boxList=this.querySelector('.box-list')
+                boxList.style.backgroundColor='rgb(207, 207, 243)'
+                boxList.style.borderRadius='3px'
+            })
+            compoList.addEventListener('mouseout', function(e){
+                let boxList=this.querySelector('.box-list')
+                boxList.style.backgroundColor=''
+            })
+
+        })
+
+
+    })
 criaLista()
