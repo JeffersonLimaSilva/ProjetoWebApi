@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
-    <link rel="stylesheet" href="./css/style.css">
+    <title>Relatorios</title>
+    <link rel="stylesheet" href="/css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -17,30 +17,13 @@
                 <span><a href="/html/login.html">SAIR</a></span>
             </div>
         </header>
-        <main>
-            <div class="div-dashboard">
-                <div>
-                    <div id="cad">
-
-                    </div>
-                    <p>Total de cadastros</p>
-                </div>
-                <div >
-                    <div id="cad-mes">
-
-                    </div>
-                    <p>Cadastros no último mês</p>
-                </div>
-                <div >
-                    <div id="cad-pend"></div>
-                    <p>Cadastros com pendência de revisão</p>
-                </div>
+        <main class="main-box">
+            <div id="head-cad">
+                <p>Relatorios</p>
+                <button id="button-imprimir" class="button-cadastro">IMPRIMIR</button>
             </div>
             <div class="div-list">
-                <div id="div-p">
-                    <p>Últimos cadastros</p>
-                </div>
-                
+            
                 <div class="div-cabecalho">
                     <p>NOME</p>
                     <p>EMAIL</p>
@@ -50,7 +33,6 @@
                 <div class="div-box-list">
                     
                 </div>
-                
                 
             </div>
             
@@ -72,7 +54,6 @@
         </nav> 
     </div>
     
-    <script type="module" src="./script.js"></script>
     <script type="module" src="/js/lista.js"></script>
 </body>
 </html>
