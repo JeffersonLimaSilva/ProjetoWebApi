@@ -22,18 +22,37 @@
         </header>
         <main class="main-box">
             <div id="head-rel-list">
-                <p>Relatórios > Lista de Usuários</p>
+                <p class="link-rel"><a href="/html/relatorio.html">Relatórios</a> > Lista de Usuários</p>
                 <button id="button-imprimir-users" class="button">IMPRIMIR</button>
             </div>
             <div id="id-imprimir" class="div-list">
             
-                <div class="div-cabecalho">
-                    <p>NOME</p>
-                    <p>EMAIL</p>
-                    <p>STATUS</p>
-                </div>
-                <hr class="list-line">
-                <div id="box-list-user" class="div-box-list">  
+                <div >
+                    <div class="paginate">
+                        <div class="fist">&#171</div>
+                        <div class="prev">&lt</div>
+                        <div class="number">
+                            <div></div>
+                        </div>
+                        <div class="next">&gt</div>
+                        <div class="last">&#187</div>
+
+                    </div>
+                    <table class="table-list">
+                        <thead>
+                            <tr>
+                                <th>NOME</th>
+                                <th>EMAIL</th>
+                                <th>ATIVO</th>
+                                <th class="menu"></th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-users">
+                            
+                        </tbody>
+                    </table>
+                    
+
                 </div>
 
             </div>

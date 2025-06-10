@@ -4,101 +4,183 @@ export function criaLista(search = ''){
 
     let usersadm= JSON.parse(localStorage.getItem('usersadm')) || []
     let userOn = JSON.parse(localStorage.getItem('userOn')) || []
-    let divlist=document.querySelector('.div-box-list')
+    
+    let tbody = document.getElementById('tbody-users')
+    tbody.innerHTML=''
 
-    divlist.innerHTML=''
+    let perPage= 6
 
-    usersadm[userOn.index].users.forEach(function(user, index){
+    const state={
+        page: 1,
+        perPage,
+        totalPages: Math.ceil(usersadm[userOn.index].users.length / perPage)
+    }
 
-        let divDivList = document.createElement('div')
-        divDivList.classList.add('list-div')
-
-        let minName = user.name.toLowerCase()
-        let minEmail = user.email.toLowerCase()
-        let minAtivo = user.ativo.toLowerCase()
-
-        if(minName.includes(search) || minEmail.includes(search) || minAtivo.includes(search)){
-
-            
-            let list = document.createElement('div')
-            list.classList.add('box-list')
-            list.style.height='25px'
-            list.style.alignItems='center'
-            list.style.padding='0px 5px'
-
-            let spanNome= document.createElement('span')
-            spanNome.textContent= user.name
-            spanNome.style.width='320px'
-
-            let spanEmail = document.createElement('span')
-            spanEmail.textContent= user.email
-            spanEmail.style.width='320px'
-
-            let spanStatus = document.createElement('span')
-            spanStatus.textContent = user.ativo
-            spanStatus.style.textAlign= 'end'
-            spanStatus.style.paddingRight= '20px'
-            spanStatus.style.width='240px'
-
-            let spanEditar =document.createElement('span')
-            spanEditar.style.border='solid 0.1px rgb(68, 68, 68)'
-            spanEditar.style.height='17px'
-            spanEditar.style.width='17px'
-            spanEditar.style.borderRadius='3px'
-            spanEditar.style.paddingLeft='2px'
-            spanEditar.style.paddingTop='2px'
-            spanEditar.addEventListener('click', ()=>{
-                criaEditar(divDivList, index, userOn.index)
-            })
-
-            let imgEditar = document.createElement('img')
-            imgEditar.src='/img/svgEditar.svg'
-            imgEditar.alt='Editar'
-            imgEditar.style.width='15px'
-
-            let spanRemover = document.createElement('span')
-            spanRemover.className='spanRemover'
-            spanRemover.style.border='solid 0.1px rgb(68, 68, 68)'
-            spanRemover.style.height='17px'
-            spanRemover.style.width='17px'
-            spanRemover.style.borderRadius='3px'
-            spanRemover.style.paddingLeft='2px'
-            spanRemover.style.paddingTop='2px'
-            spanRemover.style.marginLeft='5px'
-            spanRemover.addEventListener('click', ()=>{
-                removeUser(index)
-                showCad()
-                showCadMes()
-                showCadPend()
-            })
-            
-            let imgRemover = document.createElement('img')
-            imgRemover.src= '/img/svgRemover.svg'
-            imgRemover.alt='Remover'
-            imgRemover.style.width='15px'
-
-            let hrlist = document.createElement('hr')
-            hrlist.classList.add('list-line')
-            hrlist.style.width='965px'
-            hrlist.style.height='0.1px'
-
-                
-            spanEditar.appendChild(imgEditar)
-            spanRemover.appendChild(imgRemover)
-            list.appendChild(spanNome)
-            list.appendChild(spanEmail)
-            list.appendChild(spanStatus)
-            list.appendChild(spanEditar)
-            list.appendChild(spanRemover)
-            divDivList.appendChild(list)
-            divDivList.appendChild(hrlist)
-            divlist.appendChild(divDivList)
-
+    
+    
+    const html ={
+        get(element){
+            return document.querySelector(element)
         }
+    }
+
+    const controsls={
+        next(){
+            state.page++
+
+            const lastPage = state.page > state.totalPages
+            if(lastPage){
+                state.page --
+            }
+        },
+        prev(){
+            state.page --
+            if (state.page < 1){
+                state.page ++
+            }   
+        },
+        goTo(page){
+            if(page < 1){
+                page = 1
+            }
+            state.page = page
+
+            if(page > state.totalPages){
+                state.page = state.totalPages
+            }
+        }, 
+        creatListeners(){
+            html.get('.fist').addEventListener('click', ()=>{
+                controsls.goTo(1)
+                update()
+            })
+            html.get('.last').addEventListener('click', ()=>{
+                controsls.goTo(state.totalPages)
+                update()
+            })
+            html.get('.prev').addEventListener('click', ()=>{
+                controsls.prev()
+                update()
+            })
+            html.get('.next').addEventListener('click', ()=>{
+                controsls.next()
+                update()
+            })
+        }
+    }
+
+    const list = {
+        create(lista){
+            listaItems(lista, tbody, search)
+        },
+        update(){
+            html.get('#tbody-users').innerHTML = ""
+
+            let page = state.page - 1
+            let start = page * state.perPage
+            let end = start + state.perPage
+
+            console.log(usersadm[userOn.index].users);
+            
+
+            const paginatedItems = usersadm[userOn.index].users.slice(start, end)
+            
+            paginatedItems.forEach(function(lista){
+                list.create(lista)
+            });
+        }
+
+    }
+
+    function init(){
+        list.update()
+        controsls.creatListeners()
+        number()
+    }
+
+    function update(){
+        list.update()
+        number()
+    }
+
+    function number(){
+        html.get('.number div').textContent = state.page
+    }
+    init()
+   
+}
+
+function listaItems(user, tbody, search){
+
+    let minName = user.name.toLowerCase()
+    let minEmail = user.email.toLowerCase()
+    let minAtivo = user.ativo.toLowerCase()
+
+    if(minName.includes(search) || minEmail.includes(search) || minAtivo.includes(search)){
+        let trbody = document.createElement('tr')
+        let tdname = document.createElement('td')
+        let tdemail = document.createElement('td')
+        let tdativo = document.createElement('td')
+        let tdmenu = document.createElement('td')
+        
+        tdname.textContent =   user.name
+        tdemail.textContent =  user.email
+        tdativo.textContent = user.ativo
+        
         
 
-    });
-   
+        let spanEditar =document.createElement('span')
+        spanEditar.style.border='solid 0.1px rgb(68, 68, 68)'
+        spanEditar.style.height='23px'
+        spanEditar.style.width='23px'
+        spanEditar.style.borderRadius='3px'
+        spanEditar.style.padding='2px 2px 0 2px'
+        
+        spanEditar.addEventListener('click', ()=>{
+            criaEditar(divDivList, index, userOn.index)
+        })
+
+        let imgEditar = document.createElement('img')
+        imgEditar.src='/img/svgEditar.svg'
+        imgEditar.alt='Editar'
+        imgEditar.style.width='15px'
+
+        let spanRemover = document.createElement('span')
+        spanRemover.className='spanRemover'
+        spanRemover.style.border='solid 0.1px rgb(68, 68, 68)'
+        spanRemover.style.height='23px'
+        spanRemover.style.width='23px'
+        spanRemover.style.borderRadius='3px'
+        spanRemover.style.padding='2px 2px 0 2px'
+        
+        spanRemover.style.marginLeft='5px'
+        spanRemover.addEventListener('click', ()=>{
+            removeUser(index)
+            showCad()
+            showCadMes()
+            showCadPend()
+        })
+        
+        let imgRemover = document.createElement('img')
+        imgRemover.src= '/img/svgRemover.svg'
+        imgRemover.alt='Remover'
+        imgRemover.style.width='15px'
+        
+        spanEditar.appendChild(imgEditar)
+        spanRemover.appendChild(imgRemover)
+
+        tdmenu.appendChild(spanEditar)
+        tdmenu.appendChild(spanRemover)
+
+        trbody.appendChild(tdname)
+        trbody.appendChild(tdemail)
+        trbody.appendChild(tdativo)
+        
+        trbody.appendChild(tdmenu)
+        tbody.appendChild(trbody)
+
+    }
+
 }
 
 document.addEventListener('DOMContentLoaded', function(e){

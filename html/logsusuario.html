@@ -22,23 +22,10 @@
         </header>
         <main class="main-box">
             <div id="head-rel-list">
-                <p>Relatórios > Logs do Usuários</p>
+                <p class="link-rel"><a href="/html/relatorio.html">Relatórios</a> > Logs do Usuários</p>
                 <button id="button-imprimir-logs" class="button" >IMPRIMIR</button>
             </div>
             <div >
-                <table class="table-list">
-                    <thead>
-                        <tr>
-                            <th>DATA</th>
-                            <th>NOME</th>
-                            <th>EMAIL</th>
-                            <th>AÇÃO</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tbody-logs">
-                        
-                    </tbody>
-                </table>
                 <div class="paginate">
                      <div class="fist">&#171</div>
                      <div class="prev">&lt</div>
@@ -49,6 +36,20 @@
                      <div class="last">&#187</div>
 
                 </div>
+                <table class="table-list">
+                    <thead>
+                        <tr>
+                            <th>DATA</th>
+                            <th>NOME</th>
+                            <th>EMAIL</th>
+                            <th id="acao">AÇÃO</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody-logs">
+                        
+                    </tbody>
+                </table>
+                
 
             </div>
             

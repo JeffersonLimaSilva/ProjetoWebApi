@@ -157,18 +157,43 @@ main{
         height: 50px;
         justify-content: space-between;
         p{
-            border: 0px;
-            font-weight: 600;
+            display: flex;
+            justify-self: start;
+            margin: 20px 0px 0px 0px;
+            font-size: 120%;
+            font-weight: 800;
+            width: 100%;
+            border: none;
         }
         
     }
     
     #head-relatorio{
         p{
-            border-bottom: 0px;
-            font-weight: 600;
+            display: flex;
+            justify-self: start;
+            margin: 20px 0px 0px 0px;
+            font-size: 120%;
+            font-weight: 800;
+            width: 100%;
+            border: none;
         }
         
+    }
+
+    .link-rel{
+        display: flex;
+        justify-self: start;
+        margin: 20px 0px 0px 0px;
+        font-size: 120%;
+        font-weight: 800;
+        width: 100%;
+        border: none;
+
+        a{
+            text-decoration: none;
+            color: rgb(68, 68, 68);
+        }
     }
 
     #head-rel-list{
@@ -354,7 +379,12 @@ main{
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     p{
-        margin: 20px 0px 0px 0px;
+        display: flex;
+        justify-self: start;
+        margin: 20px 0px 0px 30px;
+        font-size: 120%;
+        font-weight: 800;
+        width: 100%;
     }
     #div-p{
         width: 990px;
@@ -362,47 +392,14 @@ main{
             font-weight: 600;
         }
     }
-    .div-cabecalho{
-        display: flex;
-        justify-content: space-between;
-        padding: 0px 0px 0px 5px;
-        margin-bottom: 10px;
-        >*{
-            width: 316px;
-            height: 10px;
-            font-size: 15px;
-        }
-        :nth-child(3){
-            text-align: end;
-            padding-right: 80px;
-            width: 260px;
-        }
-    }
-    .div-cabecalho-logs{
-        display: flex;
-        justify-content: space-between;
-        padding: 0px 0px 0px 5px;
-        margin-bottom: 10px;
-        >*{
-            width: 290px;
-            height: 10px;
-            font-size: 15px;
-        }
-        :nth-child(1){
-            width: 110px;
-        }
-    }
-    hr{
-        width: 980px;
-        margin-top: 1px;
-        margin-bottom: 1px;
-    }
+    
+    
 }
 
 .table-list{
     width: 1000px;
     margin-top: 20px;
-    overflow-y: auto;
+    
 
     thead{
         background-color: rgb(175, 175, 175);
@@ -423,18 +420,19 @@ main{
             padding: 5px 5px;
             max-height: 15px;
         }
-        :nth-child(4){
+        #acao{
             max-width: 120px;
         }
         :nth-child(1){
             max-width: max-content;
         }
+        
+    }
+    .menu{
+        width: 80px;
     }
 }
-#tbody-logs{
-    height: 350px;
-        overflow-y: auto;
-}
+
 
 #search{
     width: 360px;
@@ -471,24 +469,12 @@ main{
     }
 }
 
-
-
-#box-list-user{
-    height: 400px;
-    overflow-y: auto;
-    
-}
 #box-list-dash{
     height: 350px;
     overflow-y: auto;
 }
 
 #box-list-newcad{
-    height: 400px;
-    overflow-y: auto;
-}
-
-#box-list-cad{
     height: 400px;
     overflow-y: auto;
 }
@@ -523,7 +509,8 @@ main{
 
 .paginate{
     display: flex;
+    justify-self: end;
     justify-content: space-between;
     width: 7%;
-    margin: 2% auto;
+    margin: 2% 1% 0 0;
 }
