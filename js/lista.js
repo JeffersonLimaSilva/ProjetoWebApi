@@ -1,18 +1,25 @@
-
+import { perPage } from "./perPage.js";
 
 export function criaLista(search = ''){
 
     let usersadm= JSON.parse(localStorage.getItem('usersadm')) || []
     let userOn = JSON.parse(localStorage.getItem('userOn')) || []
     
-    let tbody = document.getElementById('tbody-users')
+    let tbody = document.getElementById('tbody-users') || false
+
+     if(!tbody){
+        return false
+    }
+
     tbody.innerHTML=''
 
-    let perPage= 6
+    usersadm[userOn.index].users.reverse()
+
+    
 
     const state={
         page: 1,
-        perPage,
+        perPage: perPage,
         totalPages: Math.ceil(usersadm[userOn.index].users.length / perPage)
     }
 
@@ -70,8 +77,8 @@ export function criaLista(search = ''){
     }
 
     const list = {
-        create(lista){
-            listaItems(lista, tbody, search)
+        create(user, index){
+            listaItems(user, tbody, search, index)
         },
         update(){
             html.get('#tbody-users').innerHTML = ""
@@ -80,13 +87,25 @@ export function criaLista(search = ''){
             let start = page * state.perPage
             let end = start + state.perPage
 
-            console.log(usersadm[userOn.index].users);
-            
+            let auxiliar=[]
 
-            const paginatedItems = usersadm[userOn.index].users.slice(start, end)
+            usersadm[userOn.index].users.forEach(function(user){
+
+                let minName = user.name.toLowerCase()
+                let minEmail = user.email.toLowerCase()
+                let minAtivo = user.ativo.toLowerCase()
+
+                if(minName.includes(search) || minEmail.includes(search) || minAtivo.includes(search)){
+                    auxiliar.push(user)
+                }
+            })
+
+            state.totalPages= Math.ceil(auxiliar.length / perPage)
+            const paginatedItems = auxiliar.slice(start, end)
             
-            paginatedItems.forEach(function(lista){
-                list.create(lista)
+            
+            paginatedItems.forEach(function(user, index){
+                list.create(user, index)
             });
         }
 
@@ -110,99 +129,96 @@ export function criaLista(search = ''){
    
 }
 
-function listaItems(user, tbody, search){
+function listaItems(user, tbody, index){
 
-    let minName = user.name.toLowerCase()
-    let minEmail = user.email.toLowerCase()
-    let minAtivo = user.ativo.toLowerCase()
+    
+    let trbody = document.createElement('tr')
+    let tdname = document.createElement('td')
+    let tdemail = document.createElement('td')
+    let tdativo = document.createElement('td')
+    let tdmenu = document.createElement('td')
+    
+    tdname.textContent =   user.name
+    tdemail.textContent =  user.email
+    tdativo.textContent = user.ativo
+    
+    tdmenu.className=('tdmenu')
+    tdmenu.style.width='50px'
 
-    if(minName.includes(search) || minEmail.includes(search) || minAtivo.includes(search)){
-        let trbody = document.createElement('tr')
-        let tdname = document.createElement('td')
-        let tdemail = document.createElement('td')
-        let tdativo = document.createElement('td')
-        let tdmenu = document.createElement('td')
-        
-        tdname.textContent =   user.name
-        tdemail.textContent =  user.email
-        tdativo.textContent = user.ativo
-        
-        
+    let spanEditar =document.createElement('span')
+    spanEditar.style.border='solid 0.1px rgb(68, 68, 68)'
+    spanEditar.style.height='23px'
+    spanEditar.style.width='23px'
+    spanEditar.style.borderRadius='3px'
+    spanEditar.style.padding='2px 2px 0 2px'
+    
+    spanEditar.addEventListener('click', ()=>{
+        criaEditar(divDivList, index, userOn.index)
+    })
 
-        let spanEditar =document.createElement('span')
-        spanEditar.style.border='solid 0.1px rgb(68, 68, 68)'
-        spanEditar.style.height='23px'
-        spanEditar.style.width='23px'
-        spanEditar.style.borderRadius='3px'
-        spanEditar.style.padding='2px 2px 0 2px'
-        
-        spanEditar.addEventListener('click', ()=>{
-            criaEditar(divDivList, index, userOn.index)
-        })
+    let imgEditar = document.createElement('img')
+    imgEditar.src='/img/svgEditar.svg'
+    imgEditar.alt='Editar'
+    imgEditar.style.width='15px'
 
-        let imgEditar = document.createElement('img')
-        imgEditar.src='/img/svgEditar.svg'
-        imgEditar.alt='Editar'
-        imgEditar.style.width='15px'
+    let spanRemover = document.createElement('span')
+    spanRemover.className='spanRemover'
+    spanRemover.style.border='solid 0.1px rgb(68, 68, 68)'
+    spanRemover.style.height='23px'
+    spanRemover.style.width='23px'
+    spanRemover.style.borderRadius='3px'
+    spanRemover.style.padding='2px 2px 0 2px'
+    
+    spanRemover.style.marginLeft='5px'
+    spanRemover.addEventListener('click', ()=>{
+        removeUser(index)
+        showCad()
+        showCadMes()
+        showCadPend()
+    })
+    
+    let imgRemover = document.createElement('img')
+    imgRemover.src= '/img/svgRemover.svg'
+    imgRemover.alt='Remover'
+    imgRemover.style.width='15px'
+    
+    spanEditar.appendChild(imgEditar)
+    spanRemover.appendChild(imgRemover)
 
-        let spanRemover = document.createElement('span')
-        spanRemover.className='spanRemover'
-        spanRemover.style.border='solid 0.1px rgb(68, 68, 68)'
-        spanRemover.style.height='23px'
-        spanRemover.style.width='23px'
-        spanRemover.style.borderRadius='3px'
-        spanRemover.style.padding='2px 2px 0 2px'
-        
-        spanRemover.style.marginLeft='5px'
-        spanRemover.addEventListener('click', ()=>{
-            removeUser(index)
-            showCad()
-            showCadMes()
-            showCadPend()
-        })
-        
-        let imgRemover = document.createElement('img')
-        imgRemover.src= '/img/svgRemover.svg'
-        imgRemover.alt='Remover'
-        imgRemover.style.width='15px'
-        
-        spanEditar.appendChild(imgEditar)
-        spanRemover.appendChild(imgRemover)
+    tdmenu.appendChild(spanEditar)
+    tdmenu.appendChild(spanRemover)
 
-        tdmenu.appendChild(spanEditar)
-        tdmenu.appendChild(spanRemover)
+    trbody.appendChild(tdname)
+    trbody.appendChild(tdemail)
+    trbody.appendChild(tdativo)
+    
+    trbody.appendChild(tdmenu)
+    tbody.appendChild(trbody)
 
-        trbody.appendChild(tdname)
-        trbody.appendChild(tdemail)
-        trbody.appendChild(tdativo)
-        
-        trbody.appendChild(tdmenu)
-        tbody.appendChild(trbody)
-
-    }
+    
 
 }
 
-document.addEventListener('DOMContentLoaded', function(e){
+// document.addEventListener('DOMContentLoaded', function(e){
 
-    let listDiv =document.querySelectorAll('.list-div')
+//     let listDiv =document.querySelectorAll('.list-div')
 
-    listDiv.forEach(function(campoList){
+//     listDiv.forEach(function(campoList){
         
-        campoList.addEventListener('mouseover', function(e){
-            let boxList=this.querySelector('.box-list')
-            boxList.style.backgroundColor='rgb(207, 207, 243)'
-            boxList.style.borderRadius='3px'
-        })
-        campoList.addEventListener('mouseout', function(e){
-            let boxList=this.querySelector('.box-list')
-            boxList.style.backgroundColor=''
-        })
+//         campoList.addEventListener('mouseover', function(e){
+//             let boxList=this.querySelector('.box-list')
+//             boxList.style.backgroundColor='rgb(207, 207, 243)'
+//             boxList.style.borderRadius='3px'
+//         })
+//         campoList.addEventListener('mouseout', function(e){
+//             let boxList=this.querySelector('.box-list')
+//             boxList.style.backgroundColor=''
+//         })
 
-    })
+//     })
 
     
-})
+// })
 
 document.getElementById('search').addEventListener('input', function(e){
     let minSearch = this.value.toLowerCase()
@@ -212,6 +228,7 @@ document.getElementById('search').addEventListener('input', function(e){
 function removeUser(index){
     let userOn =JSON.parse(localStorage.getItem('userOn')) || []
     let usersadm= JSON.parse(localStorage.getItem('usersadm')) || []
+    usersadm[userOn.index].users.reverse()
     usersadm[userOn.index].users.splice(index, 1)
     localStorage.setItem('usersadm', JSON.stringify(usersadm))
     

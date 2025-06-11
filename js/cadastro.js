@@ -1,6 +1,7 @@
 import { criaLogsUser } from "./logsUser.js";
 import { criaLista } from "./lista.js";
 
+
 document.getElementById('button-gravar').addEventListener('click', function(e){
     let modalcad = document.getElementById('modal-cad')
 

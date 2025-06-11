@@ -1,3 +1,9 @@
+:root{
+    --cor-font: rgb(68, 68, 68);
+    --cor-input: rgba(224, 224, 224, 0.747);
+    --borda-input: solid 1px rgb(156, 156, 156);
+}
+
 body{
     display: flex;
     flex-direction: row-reverse;
@@ -8,7 +14,7 @@ body{
     height: 100%;
     overflow: hidden;
     font-family: 'Roboto', sans-serif;
-    color: rgb(68, 68, 68);
+    color: var(--cor-font);
     user-select: none;
 }
 header{
@@ -99,7 +105,7 @@ nav{
             display: flex;
             align-self: center;
             text-decoration: none;
-            color: rgb(68, 68, 68);
+            color: var(--cor-font);
             font-size: 20px;
         }
 
@@ -138,7 +144,7 @@ main{
     #button-gravar{
         width: 150px;
         height: 30px;
-        background-color: rgb(81, 173, 81);
+        background-color: rgb(24, 182, 24);
         margin: 60px 0px 30px 0px;
 
     }
@@ -192,7 +198,7 @@ main{
 
         a{
             text-decoration: none;
-            color: rgb(68, 68, 68);
+            color: var(--cor-font);
         }
     }
 
@@ -226,7 +232,7 @@ main{
         }
         a{
             text-decoration: none;
-            color: rgb(68, 68, 68);
+            color: var(--cor-font);
         }
     }
     
@@ -241,15 +247,15 @@ main{
         padding-left: 12px;
         input{
             width: 700px;
-            background-color: rgba(224, 224, 224, 0.747);
-            border: solid 1px rgb(156, 156, 156);
+            background-color: var(--cor-input);
+            border: var(--borda-input);
             font-size: 15px;
             padding-left: 5px;
         }
         textarea{
             width: 700px;
-            background-color: rgba(224, 224, 224, 0.747);
-            border: solid 1px rgb(156, 156, 156);
+            background-color: var(--cor-input);
+            border: var(--borda-input);
             height: 70px;
             font-size: 15px;
             padding-left: 5px;
@@ -399,7 +405,7 @@ main{
 .table-list{
     width: 1000px;
     margin-top: 20px;
-    
+    border-radius: 10px;
 
     thead{
         background-color: rgb(175, 175, 175);
@@ -413,6 +419,11 @@ main{
 
         tr{
             height: 15px;
+        }
+
+        tr:hover{
+            background-color: rgb(177, 177, 177);
+            transition: 0.2s;
         }
         
         td{
@@ -428,9 +439,7 @@ main{
         }
         
     }
-    .menu{
-        width: 80px;
-    }
+    
 }
 
 
