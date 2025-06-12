@@ -41,14 +41,15 @@ document.addEventListener('DOMContentLoaded', function(){
          headercolor[0].style.boxShadow=' 0 6px 5px 1px #0000007a'
          navcolor[0].style.backgroundColor='rgb(28 23 61)'
          navcolor[0].style.boxShadow='3px 5px 5px 2px #0000007a'
-         navlogocolor[0].style.backgroundColor='rgb(20 16 42)'
+         
 
          a.forEach(function(a){
             a.style.color='white'
          })
 
          cabecalhocolor.forEach(function(th){
-            th.style.backgroundColor='rgb(20, 16, 42)'
+            th.style.backgroundColor='rgba(255, 143, 30, 1)'
+            th.style.boxShadow='box-shadow: 5px 2px 2px 9px rgba(0, 0, 0, 0.75);'
          })
          
          if(maincolor){
@@ -62,8 +63,11 @@ document.addEventListener('DOMContentLoaded', function(){
          searchcolor.style.color='white'
          if(cadcolor){
             cadcolor.style.backgroundColor='rgb(28 23 61)'
+            cadcolor.style.boxShadow='0 0 0 0'
             cadmescolor.style.backgroundColor='rgb(28 23 61)'
+            cadmescolor.style.boxShadow='0 0 0 0'
             cadpendcolor.style.backgroundColor='rgb(28 23 61)'
+            cadpendcolor.style.boxShadow='0 0 0 0'
          }
          if(dialogcolor){
             dialogcolor.style.backgroundColor='rgb(28 23 61)'
@@ -79,11 +83,9 @@ document.addEventListener('DOMContentLoaded', function(){
       else if(usersadm[userOn.index].countclick === 2){
          bodycolor[0].style.backgroundColor='rgb(236, 236, 236)'
          bodycolor[0].style.color='rgb(68, 68, 68)'
-         headercolor[0].style.backgroundColor='rgb(206, 206, 206)'
-         headercolor[0].style.boxShadow=''
          navcolor[0].style.backgroundColor='white'
          navcolor[0].style.boxShadow='2px 5px 5px rgb(182, 182, 182)'
-         navlogocolor[0].style.backgroundColor='rgb(204, 201, 212)'
+         
 
          a.forEach(function(a){
             a.style.color='rgb(68, 68, 68)'
@@ -103,9 +105,10 @@ document.addEventListener('DOMContentLoaded', function(){
          searchcolor.style.backgroundColor=''
          searchcolor.style.color=''
          if(cadcolor){
-            cadcolor.style.backgroundColor='white'
-            cadmescolor.style.backgroundColor='white'
-            cadpendcolor.style.backgroundColor='white'
+            cadcolor.style.backgroundColor=''
+            cadmescolor.style.backgroundColor=''
+            cadpendcolor.style.backgroundColor=''
+
          }
          if(dialogcolor){
             dialogcolor.style.backgroundColor='white'

@@ -1,6 +1,8 @@
 :root{
     --cor-font: rgb(68, 68, 68);
     --cor-input: rgba(224, 224, 224, 0.747);
+    --cor-laranja: rgba(255, 143, 30, 1);
+    --cor-azul:rgb(28, 23, 61);
     --borda-input: solid 1px rgb(156, 156, 156);
 }
 
@@ -8,8 +10,9 @@ body{
     display: flex;
     flex-direction: row-reverse;
     justify-content: space-between;
-    background-color: rgb(236, 236, 236);
+    background-color: rgba(224, 224, 224, 0.747);;
     padding-right: 20px;
+    
     margin: 0;
     height: 100%;
     overflow: hidden;
@@ -20,14 +23,15 @@ body{
 header{
     
     height: 60px;
-    background-color: rgb(206, 206, 206);
+    background-color: rgb(28, 23, 61);
+    color: white;
     margin-bottom: 20px;
     margin-top: 20px;
     border-radius: 5px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    
+    box-shadow:0px 6px 5px 1px rgba(0, 0, 0, 0.48) ;
     > div{
         display: flex;
         align-items: center;
@@ -76,18 +80,23 @@ nav{
 
 .nav-logo{
     width: 245px;
-    height: 60px;
-    background-color:  rgb(204, 201, 212);
+    height: 55px;
+    background-color:  var(--cor-laranja);
     margin-top: 20px;
-    padding: 3px 0px 0px 7px;
+    padding: 0 0 0 7px;
     display: flex;
     align-items: center;
-    
+    border-radius: 2px;
     p{
         font-size: 13px;
         margin-left: 15px;
     }
-    
+    span{
+        width: 50px;
+        height: 50px;
+        background-color: rgb(117, 117, 117);
+        border-radius: 100%;
+    }
 }
 .div-nav{
     display: flex;
@@ -100,21 +109,33 @@ nav{
     span{
         display: flex;
         align-items: center;
-
+        height: 40%;
+        padding-left: 2%;
         a{
             display: flex;
             align-self: center;
             text-decoration: none;
             color: var(--cor-font);
             font-size: 20px;
+            width: 240px;
         }
 
         img{
             margin-right: 10px;
         }
     }
+    span:hover{
+        background-color: rgba(255, 143, 30, 1);
+        box-shadow: 0 2px 2px 1px rgba(73, 50, 0, 0.747);
+        transition: 0.2s;
+        border-radius: 3px;
+        a{
+            color: white;
+        }
+    }
     hr{
         width: 240px;
+        margin: 2px 0 0 0;
     }
 }
 main{
@@ -233,6 +254,7 @@ main{
         a{
             text-decoration: none;
             color: var(--cor-font);
+            padding: 3px 0;
         }
     }
     
@@ -367,11 +389,18 @@ main{
             width: 330px;
             height: 155px;
         }
+        
         p{
-            margin: 0px 15px 0px 0px;
-            
+            margin: 0px 15px 9px 0px;
+            background-color: transparent;
             height: 40px;
         }
+    }
+    >div:hover{
+        background-color: #ffcc50;
+        box-shadow: 0 2px 2px 1px rgba(73, 50, 0, 0.747);
+        color: black;
+        
     }
 }
 
@@ -423,6 +452,7 @@ main{
 
         tr:hover{
             background-color: rgb(177, 177, 177);
+            box-shadow: 0 2px 2px 1px rgba(63, 63, 63, 0.747);
             transition: 0.2s;
         }
         

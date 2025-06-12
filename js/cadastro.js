@@ -59,6 +59,13 @@ document.getElementById('button-gravar').addEventListener('click', function(e){
         return false
     }
 
+    let date = new Date;
+
+    let mes = (date.getMonth() + 1)
+
+    let dia = date.getDate()
+
+
     let user= {
         name: nome, 
         idade: idade, 
@@ -68,7 +75,8 @@ document.getElementById('button-gravar').addEventListener('click', function(e){
         maisinformacoes: maisinformacoes, 
         interesses: interesses, 
         sentimentos: sentimentos, 
-        valores: valores
+        valores: valores,
+        data: mes
     }
     
     
@@ -112,3 +120,12 @@ function validaNome(nome){
     return rnome.test(nome)
 }
 
+function cadColor(){
+    let cadcor = document.querySelector('.cadastro')
+
+    cadcor.style.backgroundColor='rgb(153, 153, 153)'
+    cadcor.style.boxShadow=' 0 2px 2px 1px rgba(83, 83, 83, 0.75)'
+    cadcor.style.borderRadius='3px'
+}
+
+cadColor()

@@ -80,7 +80,7 @@ export function criaLista(search = ''){
         create(user, index){
             listaItems(user, tbody, search, index)
         },
-        update(){
+        update( date){
             html.get('#tbody-users').innerHTML = ""
 
             let page = state.page - 1
@@ -94,10 +94,12 @@ export function criaLista(search = ''){
                 let minName = user.name.toLowerCase()
                 let minEmail = user.email.toLowerCase()
                 let minAtivo = user.ativo.toLowerCase()
+                let data = user.data
 
-                if(minName.includes(search) || minEmail.includes(search) || minAtivo.includes(search)){
+                if(minName.includes(search) || minEmail.includes(search) || minAtivo.includes(search) || data == date){
                     auxiliar.push(user)
                 }
+                
             })
 
             state.totalPages= Math.ceil(auxiliar.length / perPage)
@@ -126,6 +128,31 @@ export function criaLista(search = ''){
         html.get('.number div').textContent = state.page
     }
     init()
+
+
+    function filter(){
+        let cad = document.querySelector('#div-cad') || false
+
+        if(cad){
+            document.querySelector('#cad').addEventListener('click', function(e){
+                console.log("cad");
+                criaLista()
+            })
+            document.querySelector('#cad-mes').addEventListener('click', function(e){
+                let date = new Date;
+                let mes= (date.getMonth() + 1)
+                list.update(mes)
+            })
+            document.querySelector('#cad-pend').addEventListener('click', function(e){
+                console.log("pend");
+                
+                criaLista('inativo')
+            })
+        }
+    
+    
+    }
+    filter()
    
 }
 
@@ -199,27 +226,6 @@ function listaItems(user, tbody, index){
 
 }
 
-// document.addEventListener('DOMContentLoaded', function(e){
-
-//     let listDiv =document.querySelectorAll('.list-div')
-
-//     listDiv.forEach(function(campoList){
-        
-//         campoList.addEventListener('mouseover', function(e){
-//             let boxList=this.querySelector('.box-list')
-//             boxList.style.backgroundColor='rgb(207, 207, 243)'
-//             boxList.style.borderRadius='3px'
-//         })
-//         campoList.addEventListener('mouseout', function(e){
-//             let boxList=this.querySelector('.box-list')
-//             boxList.style.backgroundColor=''
-//         })
-
-//     })
-
-    
-// })
-
 document.getElementById('search').addEventListener('input', function(e){
     let minSearch = this.value.toLowerCase()
     criaLista(minSearch)
@@ -246,17 +252,23 @@ function showCad(){
 }
 function showCadMes(){
     let c = document.getElementById('cad-mes') || false
+
+    
     if (c) {
         c.innerHTML=''
-        c.appendChild(styleValue(contaCad(), 'green'))
+        c.appendChild(styleValue(contaCadMes(), 'green'))
     }
+  
 }
 function showCadPend(){
     let c = document.getElementById('cad-pend') || false
+
+    
     if (c) {
         c.innerHTML=''
         c.appendChild(styleValue(contaInativo(), 'red'))
     }
+    
     
 }
 
@@ -286,6 +298,22 @@ function contaCad(){
     })
 
     return numcad
+}
+function contaCadMes(){
+    let userOn = JSON.parse(localStorage.getItem('userOn')) || []
+    let usersadm = JSON.parse(localStorage.getItem('usersadm')) || []
+    let numcad = 0
+    let date = new Date;
+    let mes= (date.getMonth() + 1)
+    usersadm[userOn.index].users.forEach(function(user, index){
+        if(user.data === mes){
+            numcad ++
+        }
+        
+    })
+
+    return numcad
+
 }
 function contaInativo(){
     let userOn = JSON.parse(localStorage.getItem('userOn')) || []
