@@ -142,6 +142,8 @@ function listaItems(lista, tbody){
     tdemail.textContent =  lista.email
     tdaction.textContent = lista.infor
 
+    
+
     trbody.appendChild(tddate)
     trbody.appendChild(tdname)
     trbody.appendChild(tdemail)

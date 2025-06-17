@@ -1,0 +1,43 @@
+.div-dashboard{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 20%;
+    margin-bottom: 3vh;
+    > *{
+        width: 32%;
+        height: 100%;
+        background-color: rgb(255, 255, 255);
+        display: flex;
+        flex-direction: column;
+        align-items: end;
+        border-radius: 2vh;
+        
+        div{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 80%;
+            
+            
+            span{
+                font-size: 10vh;
+            }
+        }
+        
+        p{
+            font-size: 3vh;
+            margin: 0 2vh 1vh 0;
+            background-color: transparent;
+            
+            
+        }
+    }
+    >div:hover{
+        background-color: #ffcc50;
+        box-shadow: 0 2px 2px 1px rgba(73, 50, 0, 0.747);
+        color: black;
+        
+    }
+}

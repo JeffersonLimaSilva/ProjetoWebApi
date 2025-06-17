@@ -1,4 +1,6 @@
 import { perPage } from "./perPage.js";
+import { criaLogsUser } from "./logsUser.js";
+import { modalEditar } from "./editaruser.js";
 
 export function criaLista(search = ''){
 
@@ -78,7 +80,7 @@ export function criaLista(search = ''){
 
     const list = {
         create(user, index){
-            listaItems(user, tbody, search, index)
+            listaItems(user, tbody, index)
         },
         update( date){
             html.get('#tbody-users').innerHTML = ""
@@ -93,10 +95,10 @@ export function criaLista(search = ''){
 
                 let minName = user.name.toLowerCase()
                 let minEmail = user.email.toLowerCase()
-                let minAtivo = user.ativo.toLowerCase()
-                let data = user.data
+                let minStatus = user.status.toLowerCase()
+                let date = user.date
 
-                if(minName.includes(search) || minEmail.includes(search) || minAtivo.includes(search) || data == date){
+                if(minName.includes(search) || minEmail.includes(search) || minStatus.includes(search) || date == date){
                     auxiliar.push(user)
                 }
                 
@@ -135,7 +137,7 @@ export function criaLista(search = ''){
 
         if(cad){
             document.querySelector('#cad').addEventListener('click', function(e){
-                console.log("cad");
+                
                 criaLista()
             })
             document.querySelector('#cad-mes').addEventListener('click', function(e){
@@ -144,7 +146,6 @@ export function criaLista(search = ''){
                 list.update(mes)
             })
             document.querySelector('#cad-pend').addEventListener('click', function(e){
-                console.log("pend");
                 
                 criaLista('inativo')
             })
@@ -167,37 +168,52 @@ function listaItems(user, tbody, index){
     
     tdname.textContent =   user.name
     tdemail.textContent =  user.email
-    tdativo.textContent = user.ativo
+    tdativo.textContent = user.status
+
     
+        
+    if(user.status === 'Ativo'){
+    
+        tdativo.style.color='green'
+    }
+    if(user.status === 'Inativo'){
+        tdativo.style.color='red'
+    }
     tdmenu.className=('tdmenu')
-    tdmenu.style.width='50px'
+    tdmenu.style.maxwidth='max-content'
 
     let spanEditar =document.createElement('span')
+    spanEditar.className='spanEditar'
     spanEditar.style.border='solid 0.1px rgb(68, 68, 68)'
-    spanEditar.style.height='23px'
-    spanEditar.style.width='23px'
-    spanEditar.style.borderRadius='3px'
-    spanEditar.style.padding='2px 2px 0 2px'
+    spanEditar.style.height='2vh'
+    spanEditar.style.width='2vh'
+    spanEditar.style.borderRadius='1vh'
+    spanEditar.style.padding='1vh 1vh 0 1vh'
     
     spanEditar.addEventListener('click', ()=>{
-        criaEditar(divDivList, index, userOn.index)
+        
+
+        modalEditar(index, user)
+        
+        // criaEditar(divDivList, index, userOn.index)
     })
 
     let imgEditar = document.createElement('img')
     imgEditar.src='/img/svgEditar.svg'
     imgEditar.alt='Editar'
-    imgEditar.style.width='15px'
+    imgEditar.style.width='2vh'
 
     let spanRemover = document.createElement('span')
-    spanRemover.className='spanRemover'
+    spanRemover.classList='spanRemover'
     spanRemover.style.border='solid 0.1px rgb(68, 68, 68)'
-    spanRemover.style.height='23px'
-    spanRemover.style.width='23px'
-    spanRemover.style.borderRadius='3px'
-    spanRemover.style.padding='2px 2px 0 2px'
+    spanRemover.style.height='2vh'
+    spanRemover.style.width='2vh'    
+    spanRemover.style.borderRadius='1vh'
+    spanRemover.style.padding='1vh 1vh 0 1vh'
     
-    spanRemover.style.marginLeft='5px'
+    spanRemover.style.marginLeft='1vh'
     spanRemover.addEventListener('click', ()=>{
+        
         removeUser(index)
         showCad()
         showCadMes()
@@ -207,13 +223,26 @@ function listaItems(user, tbody, index){
     let imgRemover = document.createElement('img')
     imgRemover.src= '/img/svgRemover.svg'
     imgRemover.alt='Remover'
-    imgRemover.style.width='15px'
+    imgRemover.style.width='2vh'
+
+    let spanMenu = document.createElement('span')
+    spanMenu.className='menu2'
+    spanMenu.style.height='2vh'
+    spanMenu.style.width='2vh'    
+    spanMenu.style.padding='0.5vh'
+    spanMenu.style.border='0'
+    let imgMenu = document.createElement('img')
+    imgMenu.src='/img/menu2.svg'
+    imgMenu.alt='Menu'
+    imgMenu.style.width='2vh'
     
     spanEditar.appendChild(imgEditar)
     spanRemover.appendChild(imgRemover)
+    spanMenu.appendChild(imgMenu)
 
     tdmenu.appendChild(spanEditar)
     tdmenu.appendChild(spanRemover)
+    tdmenu.appendChild(spanMenu)
 
     trbody.appendChild(tdname)
     trbody.appendChild(tdemail)
@@ -234,9 +263,15 @@ document.getElementById('search').addEventListener('input', function(e){
 function removeUser(index){
     let userOn =JSON.parse(localStorage.getItem('userOn')) || []
     let usersadm= JSON.parse(localStorage.getItem('usersadm')) || []
+    
     usersadm[userOn.index].users.reverse()
+
+    criaLogsUser(usersadm[userOn.index].name, usersadm[userOn.index].email, 'deletou ', usersadm[userOn.index].users[index].email, 2)
+    usersadm[userOn.index].users.reverse()
+    
     usersadm[userOn.index].users.splice(index, 1)
     localStorage.setItem('usersadm', JSON.stringify(usersadm))
+    
     
     criaLista();
 }
@@ -276,7 +311,7 @@ function styleValue(x, colorC){
     var valueCad = document.createElement('span')
     valueCad.textContent = x;
     valueCad.style.color = colorC;
-    valueCad.style.fontSize= '55px' 
+    
     valueCad.style.marginTop= '10px'
 
     return valueCad
@@ -321,129 +356,12 @@ function contaInativo(){
     let numcad = 0
 
     usersadm[userOn.index].users.forEach(function(user){
-        if(user.ativo == 'Inativo'){
+        if(user.status == 'Inativo'){
             numcad ++
         }
         
     })
     return numcad
-}
-
-function criaEditar(divDivList, index, indexOn){
-    let usersadm= JSON.parse(localStorage.getItem('usersadm')) || []
-
-    let spanBoxEditar = document.createElement('div')
-    spanBoxEditar.style.height='30px'
-    spanBoxEditar.style.backgroundColor='rgb(214, 214, 252)'
-    spanBoxEditar.style.borderRadius='3px'
-    spanBoxEditar.style.display='flex'
-    spanBoxEditar.style.alignItems='center'
-    spanBoxEditar.style.paddingLeft='5px'
-    let inputNome= document.createElement('input')
-    inputNome.style.width='250px'
-    inputNome.style.backgroundColor='white'
-    inputNome.style.marginRight='65px'
-    inputNome.style.border='solid 0.1px rgb(68, 68, 68)'
-    inputNome.style.borderRadius='3px'
-    let inputEmail= document.createElement('input')
-    inputEmail.style.width='250px'
-    inputEmail.style.backgroundColor='white'
-    inputEmail.style.marginRight='255px'
-    inputEmail.style.border='solid 0.1px rgb(68, 68, 68)'
-    inputEmail.style.borderRadius='3px'
-    let inputAtivo= document.createElement('input')
-    inputAtivo.style.width='50px'
-    inputAtivo.style.backgroundColor='white'
-    inputAtivo.style.marginRight='12px'
-    inputAtivo.style.border='solid 0.1px rgb(68, 68, 68)'
-    inputAtivo.style.borderRadius='3px'
-    let imgConfirma=document.createElement('img')
-    imgConfirma.src= '/img/svgCheck.svg'
-    imgConfirma.alt='Confirmar'
-    imgConfirma.style.width='15px'
-
-    let spanConfirma = document.createElement('span')
-    spanConfirma.style.border='solid 0.1px rgb(68, 68, 68)'
-    spanConfirma.style.height='17px'
-    spanConfirma.style.width='17px'
-    spanConfirma.style.borderRadius='3px'
-    spanConfirma.style.paddingLeft='2px'
-    spanConfirma.style.paddingTop='2px'
-    spanConfirma.style.marginRight='4px'
-    spanConfirma.addEventListener('click', ()=>{
-
-
-        if(inputNome.value != ''){
-            
-            if(!validaNome(inputNome.value)){
-                alert("Nome Invalido")
-                return false
-            }
-            editarUser(index, 'name', inputNome.value)
-            alert("Nome atualizado")
-        }
-        if(inputEmail.value != ''){
-
-            if(!validaEmail(inputEmail.value)){
-                alert("Email Invalido")
-                return false
-            }
-            if(verificaIgual(usersadm[indexOn], inputEmail.value)){
-                alert("Email ja cadastrado")
-                return false
-            }
-        
-            
-            editarUser(index, 'email', inputEmail.value)
-            alert("Email atualizado")
-        }
-        if(inputAtivo.value != ''){
-            editarUser(index, 'ativo', inputAtivo.value)
-            alert("Atividade atualizada")
-
-            showCadPend()
-        }
-
-
-
-    })
-
-    let imgFechar=document.createElement('img')
-    imgFechar.src= '/img/svgRemover.svg'
-    imgFechar.alt='Fechar'
-    imgFechar.style.width='15px'
-
-    let spanFechar = document.createElement('span')
-    spanFechar.style.border='solid 0.1px rgb(68, 68, 68)'
-    spanFechar.style.height='17px'
-    spanFechar.style.width='17px'
-    spanFechar.style.borderRadius='3px'
-    spanFechar.style.paddingLeft='2px'
-    spanFechar.style.paddingTop='2px'
-    spanFechar.addEventListener('click', ()=>{
-        divDivList.removeChild(spanBoxEditar)
-    })
-
-    spanConfirma.appendChild(imgConfirma)
-    spanFechar.appendChild(imgFechar)
-    spanBoxEditar.appendChild(inputNome)
-    spanBoxEditar.appendChild(inputEmail)
-    spanBoxEditar.appendChild(inputAtivo)
-    spanBoxEditar.appendChild(spanConfirma)
-    spanBoxEditar.appendChild(spanFechar)
-    divDivList.appendChild(spanBoxEditar)
-}
-
-function editarUser(index, campo, conteudo){
-    
-    let userOn =JSON.parse(localStorage.getItem('userOn')) || []
-    let usersadm = JSON.parse(localStorage.getItem('usersadm')) || []
-
-    usersadm[userOn.index].users[index][campo] = conteudo
-    localStorage.setItem('usersadm', JSON.stringify(usersadm))
-
-    criaLista()
-    
 }
 
 function validaNome(nome){

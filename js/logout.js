@@ -1,6 +1,6 @@
 import { criaLogsUser } from "./logsUser.js";
 
-document.getElementById('logout').addEventListener('click', function(e){
+document.querySelector('.logout').addEventListener('click', function(e){
     let userOn = JSON.parse(localStorage.getItem('userOn')) || []
     let usersadm = JSON.parse(localStorage.getItem('usersadm')) || []
 
@@ -19,11 +19,11 @@ document.getElementById('logout').addEventListener('click', function(e){
 })
 
 document.addEventListener('DOMContentLoaded', function(e){
-    let button = document.getElementById('logout')
+    let button = document.querySelector('.logout')
 
     button.addEventListener('mouseover', function(e){
         button.style.backgroundColor = 'rgb(245, 35, 35)'
-        button.style.color = 'white'
+        button.style.z = 'white'
     })
     button.addEventListener('mouseout', function(e){
         button.style.backgroundColor =''

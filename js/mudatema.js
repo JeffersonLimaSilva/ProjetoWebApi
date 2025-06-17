@@ -26,8 +26,8 @@ document.addEventListener('DOMContentLoaded', function(){
 
       let cabecalhocolor = document.querySelectorAll('.table-list thead th')
 
-      let spanborder = document.querySelectorAll('.tdmenu span')
-      
+      let spanEditar = document.querySelectorAll('.spanEditar')
+      let spanRemover = document.querySelectorAll('.spanRemover')
       
       
       
@@ -73,8 +73,12 @@ document.addEventListener('DOMContentLoaded', function(){
             dialogcolor.style.backgroundColor='rgb(28 23 61)'
             dialogcolor.style.color='white'
          }
-         spanborder.forEach(function(border){
-            border.style.border='solid 0.1px rgb(255, 255, 255)'
+         
+         spanEditar.forEach(function(span){
+            span.style.border='solid 0.1px rgb(255, 255, 255)'
+         })
+         spanRemover.forEach(function(span){
+            span.style.border='solid 0.1px rgb(255, 255, 255)'
          })
          
          localStorage.setItem('usersadm', JSON.stringify(usersadm))
@@ -114,8 +118,11 @@ document.addEventListener('DOMContentLoaded', function(){
             dialogcolor.style.backgroundColor='white'
             dialogcolor.style.color='black'
          }
-         spanborder.forEach(function(border){
-            border.style.border='solid 0.1px rgb(68, 68, 68)'
+         spanEditar.forEach(function(span){
+            span.style.border='0.1px solid rgb(68, 68, 68)'
+         })
+         spanRemover.forEach(function(span){
+            span.style.border='0.1px solid rgb(68, 68, 68)'
          })
          
          usersadm[userOn.index].countclick=0

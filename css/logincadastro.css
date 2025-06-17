@@ -38,11 +38,15 @@ body{
     }
     #box-cad{
         display: flex;
-        width: 250px;
+        width: 45vh;
         align-items: center;
-        justify-content: space-between;
+        justify-content: center;
         font-family: "Roboto", sans-serif;
         font-size: 15px;
+
+        p{
+            margin-left: 1vh;
+        }
         
     }
     

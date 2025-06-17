@@ -1,0 +1,199 @@
+@media(max-width: 450px){
+    html body{
+        padding: 0;
+        flex-direction: row;
+        
+    }
+    body .nav-div{
+        display: none;
+       
+    }
+    
+    body .header-main{
+        justify-self: end;
+        margin: 0;
+        width: 100%;
+        margin: 0 2vh;
+        header{
+            height: 7vh;
+            margin: 1.5vh 0;
+
+            .perfil-items{
+                display: none;
+            }
+            .menuhead{
+                display: block;
+                height: 5vh;
+                background-color: rgb(236, 236, 236);
+                margin-left: 2vh;
+                border-radius: 0.5vh;
+            }
+            .div-menu{
+                display: flex;
+            }
+            #search{
+                height: 5.5vh;
+                width: 85%;
+            }
+            
+        }
+        .div-dashboard{
+            height: 15%;
+            margin-bottom: 1.5vh;
+            > *{
+                div{
+                    span{
+                        font-size: 6vh;
+                    }
+                }
+                p{
+                    font-size: 1.1vh;
+                    margin:0 0.5vh 0.5vh 0;
+                    
+                }
+            }
+
+        }
+        
+    
+    }
+    main .div-list{
+        p{
+            margin: 2vh 0 0 3vh;
+            font-size: 2vh;
+        }
+    
+    
+        div{
+            .paginate{
+                font-size: 2vh;
+            }
+            .table-list{
+                margin-top: 1vh;
+
+                
+                tbody{
+                    td{
+                        font-size: 1.4vh;
+                    }
+                }
+                .tdmenu{
+                    width: 2vh;
+                    .spanEditar{
+                        display: none;
+                    }
+                    .spanRemover{
+                        display: none;
+                    }
+                    .menu2{
+                        display: block;
+                        
+                    }
+                }
+            }
+        }
+    }
+    body .main-box{
+        #head-cad{
+            width: 43vh;
+        }
+        #button-newCad{
+            font-size: 1vh;
+            width: 30vh;
+            height: 3vh;
+            margin-right: 1.5vh;
+
+        }
+        #head-rel-list{
+            width: 43vh;
+            P{
+                font-size: 1.7vh;
+                padding-left: 1vh;
+            }
+            margin-bottom: 3vh;
+        }
+        #button-imprimir-users{
+            font-size: 1vh;
+            width: 10vh;
+            height: 3vh;
+            margin-right: 1.5vh;
+        }
+        #button-imprimir-logs{
+            font-size: 1vh;
+            width: 20vh;
+            height: 3vh;
+            margin-right: 1.5vh;
+        }
+
+        #div-rel hr{
+            width: 90%;
+        }
+    }
+      
+    main #modal-cad{
+        width: 80%;
+        height: 55%;
+
+        #box-list-newcad{
+            input{
+                height: 3vh;
+                font-size: 1.5vh;
+            }
+            textarea{
+                height: 8vh;
+                font-size: 1.5vh;
+            }
+        }
+    }
+    
+    nav .nav-logo{
+        p{
+            display: none;
+        }
+        .div-menu{
+            display: block;
+            img{
+                width: 8vh;
+            }
+        }
+        a{
+            display: flex;
+            justify-content: center;
+        }
+    }
+     
+}
+@media(min-width: 451px) and (max-width: 630px){
+    nav .nav-logo{
+        padding-left: 3px;
+        img{
+            width: 10vh;
+            height: 10vh;
+            align-self: center;
+        }
+        span{
+            height: 10vh;
+        }
+        p{
+            display: none;
+        }
+    }
+    nav .div-nav{
+        span{
+            padding-left: 1vh;
+            p{
+                display: none;
+            }
+            a{
+                display: flex;
+                justify-content: center;
+            }
+        }
+        width: 60%;
+    }
+    main .main-box{
+        #button-newCad{
+            font-size: 1.8vh;
+        }
+    }
+}

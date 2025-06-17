@@ -3,7 +3,7 @@ import { criaLista } from "./lista.js";
 
 
 document.getElementById('button-gravar').addEventListener('click', function(e){
-    let modalcad = document.getElementById('modal-cad')
+    let modalcad = document.getElementById('modal')
 
     let nome = document.getElementById('name').value
     let idade = parseInt(document.getElementById('years-old').value)
@@ -68,15 +68,15 @@ document.getElementById('button-gravar').addEventListener('click', function(e){
 
     let user= {
         name: nome, 
-        idade: idade, 
+        yearold: idade, 
         email: email, 
-        ativo: ativoInativo, 
-        endereco: endereco, 
-        maisinformacoes: maisinformacoes, 
-        interesses: interesses, 
-        sentimentos: sentimentos, 
-        valores: valores,
-        data: mes
+        status: ativoInativo, 
+        address: endereco, 
+        moreinfo: maisinformacoes, 
+        interests: interesses, 
+        emotions: sentimentos, 
+        values: valores,
+        date: mes
     }
     
     
@@ -101,6 +101,10 @@ document.getElementById('button-gravar').addEventListener('click', function(e){
     
     criaLista()
     modalcad.close()
+
+    let body = document.querySelector('.body')
+    let overlayer = document.querySelector('.overlayer')
+    body.removeChild(overlayer)
 })
 
 function verificaIgual(usersadm, email){
