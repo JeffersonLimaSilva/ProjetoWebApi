@@ -1,6 +1,6 @@
 
 
- let userOn=JSON.parse(localStorage.getItem('userOn')) || []
+let userOn=JSON.parse(localStorage.getItem('userOn')) || []
 let usersadm =JSON.parse(localStorage.getItem('usersadm')) || []
 
 
@@ -245,6 +245,5 @@ export function mudaTema(){
          localStorage.setItem('usersadm', JSON.stringify(usersadm))
       }
       
-   
    }
 

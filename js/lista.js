@@ -454,18 +454,7 @@ function verificaIgual(usersadm, email){
     })
 }
 
-// document.addEventListener('DOMContentLoaded', ()=>{
-//     let editar = document.querySelector('#editar') || false
-//     let remover = document.querySelector('#remover') 
-//     if(editar){
-//         editar.className='span'
-//         remover.className='span'
-//     }
-    
 
-//     mudaTema()
-    
-// })
 
 criaLista() 
 showCad()
