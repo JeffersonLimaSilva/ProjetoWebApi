@@ -1,6 +1,7 @@
 import { perPage } from "./perPage.js";
 import { criaLogsUser } from "./logsUser.js";
 import { modalEditar } from "./editaruser.js";
+import { mudaTema } from "./mudatema.js";
 
 export function criaLista(search = ''){
 
@@ -82,7 +83,7 @@ export function criaLista(search = ''){
         create(user, index){
             listaItems(user, tbody, index)
         },
-        update( date){
+        update( date = 0){
             html.get('#tbody-users').innerHTML = ""
 
             let page = state.page - 1
@@ -96,9 +97,13 @@ export function criaLista(search = ''){
                 let minName = user.name.toLowerCase()
                 let minEmail = user.email.toLowerCase()
                 let minStatus = user.status.toLowerCase()
-                let date = user.date
+                date = user.date
 
-                if(minName.includes(search) || minEmail.includes(search) || minStatus.includes(search) || date == date){
+                
+                //  || date === date
+
+                if(minName.includes(search) || minEmail.includes(search) || minStatus.includes(search)){
+                    
                     auxiliar.push(user)
                 }
                 
@@ -144,6 +149,7 @@ export function criaLista(search = ''){
                 let date = new Date;
                 let mes= (date.getMonth() + 1)
                 list.update(mes)
+                criaLista()
             })
             document.querySelector('#cad-pend').addEventListener('click', function(e){
                 
@@ -154,6 +160,8 @@ export function criaLista(search = ''){
     
     }
     filter()
+
+    mudaTema()
    
 }
 
@@ -181,37 +189,61 @@ function listaItems(user, tbody, index){
     }
     tdmenu.className=('tdmenu')
     tdmenu.style.maxwidth='max-content'
+    
 
     let spanEditar =document.createElement('span')
     spanEditar.className='spanEditar'
+    spanEditar.classList='span'
     spanEditar.style.border='solid 0.1px rgb(68, 68, 68)'
     spanEditar.style.height='2vh'
     spanEditar.style.width='2vh'
     spanEditar.style.borderRadius='1vh'
-    spanEditar.style.padding='1vh 1vh 0 1vh'
-    
-    spanEditar.addEventListener('click', ()=>{
-        
+    spanEditar.style.padding='1vh 1vh'
+    spanEditar.style.marginBottom='1vh'
+    spanEditar.id='editar'
 
+    spanEditar.addEventListener('click', ()=>{
         modalEditar(index, user)
-        
-        // criaEditar(divDivList, index, userOn.index)
     })
 
     let imgEditar = document.createElement('img')
     imgEditar.src='/img/svgEditar.svg'
     imgEditar.alt='Editar'
     imgEditar.style.width='2vh'
+    imgEditar.className='imagem'
+
+    let spanEditarBlack =document.createElement('span')
+    spanEditarBlack.className='spanEditar'
+    spanEditarBlack.style.border='solid 0.1px rgb(68, 68, 68)'
+    spanEditarBlack.style.height='2vh'
+    spanEditarBlack.style.width='2vh'
+    spanEditarBlack.style.borderRadius='1vh'
+    spanEditarBlack.style.padding='1vh 1vh'
+    spanEditarBlack.style.marginBottom='1vh'
+    spanEditarBlack.id='editar-black'
+    spanEditarBlack.addEventListener('click', ()=>{
+        modalEditar(index, user)
+    }) 
+
+    let imgEditarBlack = document.createElement('img')
+    imgEditarBlack.src='/img/svgEditar-black.svg'
+    imgEditarBlack.alt='Editar'
+    imgEditarBlack.style.width='2vh'
+    imgEditarBlack.style.height='2vh'
+    imgEditarBlack.id='editar-black'
+    
 
     let spanRemover = document.createElement('span')
-    spanRemover.classList='spanRemover'
+    spanRemover.className='spanRemover'
+    spanRemover.classList='span'
     spanRemover.style.border='solid 0.1px rgb(68, 68, 68)'
     spanRemover.style.height='2vh'
     spanRemover.style.width='2vh'    
     spanRemover.style.borderRadius='1vh'
-    spanRemover.style.padding='1vh 1vh 0 1vh'
-    
+    spanRemover.style.padding='1vh 1vh'
+    spanRemover.style.marginBottom='1vh'
     spanRemover.style.marginLeft='1vh'
+    spanRemover.id='remover'
     spanRemover.addEventListener('click', ()=>{
         
         removeUser(index)
@@ -224,6 +256,32 @@ function listaItems(user, tbody, index){
     imgRemover.src= '/img/svgRemover.svg'
     imgRemover.alt='Remover'
     imgRemover.style.width='2vh'
+    imgRemover.className='imagem'
+
+    let spanRemoverBlack = document.createElement('span')
+    spanRemoverBlack.classList='spanRemover'
+    spanRemoverBlack.style.border='solid 0.1px rgb(68, 68, 68)'
+    spanRemoverBlack.style.height='2vh'
+    spanRemoverBlack.style.width='2vh'    
+    spanRemoverBlack.style.borderRadius='1vh'
+    spanRemoverBlack.style.padding='1vh 1vh'
+    spanRemoverBlack.style.marginBottom='1vh'
+    spanRemoverBlack.style.marginLeft='1vh'
+    spanRemoverBlack.id='remover-black'
+    spanRemoverBlack.addEventListener('click', ()=>{
+        
+        removeUser(index)
+        showCad()
+        showCadMes()
+        showCadPend()
+    })
+
+    let imgRemoverBlack = document.createElement('img')
+    imgRemoverBlack.src='/img/svgRemover-black.svg'
+    imgRemoverBlack.alt='Editar'
+    imgRemoverBlack.style.width='2vh'
+    imgRemoverBlack.style.height='2vh'
+    
 
     let spanMenu = document.createElement('span')
     spanMenu.className='menu2'
@@ -231,17 +289,26 @@ function listaItems(user, tbody, index){
     spanMenu.style.width='2vh'    
     spanMenu.style.padding='0.5vh'
     spanMenu.style.border='0'
+    spanMenu.addEventListener('click', ()=>{
+        modalEditar(index, user)
+    }) 
+
     let imgMenu = document.createElement('img')
     imgMenu.src='/img/menu2.svg'
     imgMenu.alt='Menu'
     imgMenu.style.width='2vh'
+    imgMenu.style.height='2vh'
     
     spanEditar.appendChild(imgEditar)
+    spanEditarBlack.appendChild(imgEditarBlack)
     spanRemover.appendChild(imgRemover)
+    spanRemoverBlack.appendChild(imgRemoverBlack)
     spanMenu.appendChild(imgMenu)
 
     tdmenu.appendChild(spanEditar)
     tdmenu.appendChild(spanRemover)
+    tdmenu.appendChild(spanEditarBlack)
+    tdmenu.appendChild(spanRemoverBlack)
     tdmenu.appendChild(spanMenu)
 
     trbody.appendChild(tdname)
@@ -264,16 +331,22 @@ function removeUser(index){
     let userOn =JSON.parse(localStorage.getItem('userOn')) || []
     let usersadm= JSON.parse(localStorage.getItem('usersadm')) || []
     
+    
     usersadm[userOn.index].users.reverse()
 
-    criaLogsUser(usersadm[userOn.index].name, usersadm[userOn.index].email, 'deletou ', usersadm[userOn.index].users[index].email, 2)
-    usersadm[userOn.index].users.reverse()
     
+
+    criaLogsUser(usersadm[userOn.index].name, usersadm[userOn.index].email, 'deletou ', usersadm[userOn.index].users[index].email, 2)
+    
+
     usersadm[userOn.index].users.splice(index, 1)
+
+    usersadm[userOn.index].users.reverse()
     localStorage.setItem('usersadm', JSON.stringify(usersadm))
     
     
-    criaLista();
+    criaLista()
+    
 }
 
 function showCad(){
@@ -295,7 +368,7 @@ function showCadMes(){
     }
   
 }
-function showCadPend(){
+export function showCadPend(){
     let c = document.getElementById('cad-pend') || false
 
     
@@ -341,7 +414,7 @@ function contaCadMes(){
     let date = new Date;
     let mes= (date.getMonth() + 1)
     usersadm[userOn.index].users.forEach(function(user, index){
-        if(user.data === mes){
+        if(user.date === mes){
             numcad ++
         }
         
@@ -380,6 +453,19 @@ function verificaIgual(usersadm, email){
         return user.email === email  
     })
 }
+
+// document.addEventListener('DOMContentLoaded', ()=>{
+//     let editar = document.querySelector('#editar') || false
+//     let remover = document.querySelector('#remover') 
+//     if(editar){
+//         editar.className='span'
+//         remover.className='span'
+//     }
+    
+
+//     mudaTema()
+    
+// })
 
 criaLista() 
 showCad()

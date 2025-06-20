@@ -84,6 +84,8 @@ document.getElementById('button-gravar').addEventListener('click', function(e){
 
     localStorage.setItem('usersadm', JSON.stringify(usersadm))
 
+    
+
     criaLogsUser(usersadm[index].name, usersadm[index].email, 'cadastrou', email, 2)
 
     document.getElementById('name').value = ''
@@ -130,6 +132,11 @@ function cadColor(){
     cadcor.style.backgroundColor='rgb(153, 153, 153)'
     cadcor.style.boxShadow=' 0 2px 2px 1px rgba(83, 83, 83, 0.75)'
     cadcor.style.borderRadius='3px'
+
+    let cadastroblack = document.querySelector('#cadastro-black')
+    let cadastro = document.querySelector('#cadastro')
+    cadastroblack.className=''
+    cadastro.className='image'
 }
 
 cadColor()

@@ -3,11 +3,6 @@ import { criaLogsUser } from "./logsUser.js";
 document.querySelector('.logout').addEventListener('click', function(e){
     let userOn = JSON.parse(localStorage.getItem('userOn')) || []
     let usersadm = JSON.parse(localStorage.getItem('usersadm')) || []
-
-    console.log(userOn.index);
-    console.log(usersadm);
-    
-    
     
     criaLogsUser(usersadm[userOn.index].name, usersadm[userOn.index].email, 'deslogou', '', 2)
 

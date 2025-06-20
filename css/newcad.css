@@ -15,7 +15,7 @@
             background-color: var(--cor-input);
             border: var(--borda-input);
             font-size: 3vh;
-            padding-left: 1vh;
+            padding: 1vh;
             
         }
         textarea{

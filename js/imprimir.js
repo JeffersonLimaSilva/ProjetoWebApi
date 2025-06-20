@@ -60,7 +60,7 @@ document.querySelector('.button').addEventListener('click', function(e){
     win.document.write(conteudo)
     win.document.write('</table>')
     win.document.write('</div></body></html>')
-    console.log(win.document);
+    
     
     win.print()
     if(users){

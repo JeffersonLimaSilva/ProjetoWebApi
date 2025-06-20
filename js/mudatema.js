@@ -3,14 +3,29 @@
  let userOn=JSON.parse(localStorage.getItem('userOn')) || []
 let usersadm =JSON.parse(localStorage.getItem('usersadm')) || []
 
-document.addEventListener('DOMContentLoaded', function(){
-  
 
-   function mudaTema(){
+
+document.addEventListener('DOMContentLoaded', function(){
+
+   mudaTema()
+
+   document.getElementById('muda-tema').addEventListener('click', ()=>{
+      if (usersadm[userOn.index].countclick < 2) {
+         usersadm[userOn.index].countclick ++
+      }
+      mudaTema()
+      
+   })
+
+   
+
+})
+
+export function mudaTema(){
       let bodycolor= document.getElementsByTagName('body')
       let headercolor = document.getElementsByTagName('header')
       let navcolor = document.getElementsByTagName('nav')
-      let navlogocolor = document.getElementsByClassName('nav-logo')
+      
       let maincolor=document.querySelector('.main-box') || false
       let listcolor= document.querySelector('.div-list') || false
       let searchcolor = document.getElementById('search')
@@ -28,11 +43,20 @@ document.addEventListener('DOMContentLoaded', function(){
 
       let spanEditar = document.querySelectorAll('.spanEditar')
       let spanRemover = document.querySelectorAll('.spanRemover')
+
+      let home = document.querySelector('#home')
+      let cadastro = document.querySelector('#cadastro')
+      let relatorio = document.querySelector('#relatorio')
+
+      let homeblack = document.querySelector('#home-black')
+      let cadastroblack = document.querySelector('#cadastro-black')
+      let relatorioblack = document.querySelector('#relatorio-black')
       
+      let editar = document.querySelectorAll('#editar')
+      let editarblack = document.querySelectorAll('#editar-black')
       
-      
-      
-      
+      let remover = document.querySelectorAll('#remover')
+      let removerblack = document.querySelectorAll('#remover-black')
 
       if(usersadm[userOn.index].countclick === 1){
          bodycolor[0].style.backgroundColor='rgb(16 13 40)'
@@ -42,6 +66,53 @@ document.addEventListener('DOMContentLoaded', function(){
          navcolor[0].style.backgroundColor='rgb(28 23 61)'
          navcolor[0].style.boxShadow='3px 5px 5px 2px #0000007a'
          
+         home.className=''
+         cadastro.className=''
+         relatorio.className=''
+         
+
+         homeblack.className='image'
+         cadastroblack.className='image'
+         relatorioblack.className='image'
+         
+
+         document.querySelector('.home').addEventListener('mouseout', ()=>{
+            let homeblack = document.querySelector('#home-black')
+            let home = document.querySelector('#home')
+            homeblack.className='image'
+            home.className=''
+
+         })
+         document.querySelector('.cadastro').addEventListener('mouseout', ()=>{
+            let cadastroblack = document.querySelector('#cadastro-black')
+            let cadastro = document.querySelector('#cadastro')
+            cadastroblack.className='image'
+            cadastro.className=''
+
+         })
+         document.querySelector('.relatorio').addEventListener('mouseout', ()=>{
+            let relatorioblack = document.querySelector('#relatorio-black')
+            let relatorio = document.querySelector('#relatorio')
+            relatorioblack.className='image'
+            relatorio.className=''
+
+         })
+
+         editar.forEach(function(span){
+            span.className=''
+         
+         })
+         remover.forEach(function(span){
+            span.className=''
+         })
+         
+         editarblack.forEach(function(span){
+            span.className='span'
+         
+         })
+         removerblack.forEach(function(span){
+            span.className='span'
+         })
 
          a.forEach(function(a){
             a.style.color='white'
@@ -75,10 +146,10 @@ document.addEventListener('DOMContentLoaded', function(){
          }
          
          spanEditar.forEach(function(span){
-            span.style.border='solid 0.1px rgb(255, 255, 255)'
+            span.style.border='solid 0.1px rgba(255, 143, 30, 1)'
          })
          spanRemover.forEach(function(span){
-            span.style.border='solid 0.1px rgb(255, 255, 255)'
+            span.style.border='solid 0.1px rgba(255, 143, 30, 1)'
          })
          
          localStorage.setItem('usersadm', JSON.stringify(usersadm))
@@ -89,14 +160,59 @@ document.addEventListener('DOMContentLoaded', function(){
          bodycolor[0].style.color='rgb(68, 68, 68)'
          navcolor[0].style.backgroundColor='white'
          navcolor[0].style.boxShadow='2px 5px 5px rgb(182, 182, 182)'
+
+         home.className='image'
+         cadastro.className='image'
+         relatorio.className='image'
          
+         homeblack.className=''
+         cadastroblack.className=''
+         relatorioblack.className=''
+
+         document.querySelector('.home').addEventListener('mouseout', ()=>{
+            let homeblack = document.querySelector('#home-black')
+            let home = document.querySelector('#home')
+            homeblack.className=''
+            home.className='image'
+
+         })
+         document.querySelector('.cadastro').addEventListener('mouseout', ()=>{
+            let cadastroblack = document.querySelector('#cadastro-black')
+            let cadastro = document.querySelector('#cadastro')
+            cadastroblack.className=''
+            cadastro.className='image'
+
+         })
+         document.querySelector('.relatorio').addEventListener('mouseout', ()=>{
+            let relatorioblack = document.querySelector('#relatorio-black')
+            let relatorio = document.querySelector('#relatorio')
+            relatorioblack.className=''
+            relatorio.className='image'
+
+         })
+
+         editar.forEach(function(span){
+            span.className='span'
+         
+         })
+         remover.forEach(function(span){
+            span.className='span'
+         })
+         
+         editarblack.forEach(function(span){
+            span.className=''
+         
+         })
+         removerblack.forEach(function(span){
+            span.className=''
+         })
 
          a.forEach(function(a){
             a.style.color='rgb(68, 68, 68)'
          })
 
          cabecalhocolor.forEach(function(th){
-            th.style.backgroundColor='rgb(175, 175, 175)'
+            th.style.backgroundColor='rgb(28, 23, 61)'
          })
 
          if(maincolor){
@@ -131,17 +247,4 @@ document.addEventListener('DOMContentLoaded', function(){
       
    
    }
-   mudaTema()
-
-   document.getElementById('muda-tema').addEventListener('click', ()=>{
-      if (usersadm[userOn.index].countclick < 2) {
-         usersadm[userOn.index].countclick ++
-      }
-      mudaTema()
-      
-   })
-
-   
-
-})
 

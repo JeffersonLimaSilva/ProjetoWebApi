@@ -76,6 +76,7 @@ nav{
         
 
         img{
+            display: none;
             margin-right: 1vh;
             width: 4vh;
         }
@@ -100,4 +101,21 @@ nav{
     display: flex;
     min-height: 200vh;
     margin-right: 3vh;
+}
+
+.div-nav .home{
+    img{
+        padding-left: 0.5vh;
+    }
+}
+.div-nav .relatorio{
+
+    img{
+        width: 3.5vh;
+        padding: 0.5vh;
+    }
+}
+
+.div-nav .image{
+    display: block;
 }

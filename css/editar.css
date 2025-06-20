@@ -119,7 +119,32 @@
         }
     }
 }
+#modal{
+    margin: auto;
+    width: 56%;
+    height: 78%;
+    border: 0;
+    border-radius: 2vh;
+    box-shadow: 0 0 2vh 0.5vh rgb(85, 85, 85);
+    z-index: 990;
+    > div{
+        
+        display: flex;
+        justify-content: end;
+        margin-bottom: 1vh;
 
+        #fecha-modal{
+            
+            display: flex;
+            justify-content: center;
+            width: 20px;
+            border-radius: 0.5vh;
+            border: solid 0.1vh black;
+        }
+    }
+
+   
+}
 #div-fatosedados{
     label{
         width: 95%;

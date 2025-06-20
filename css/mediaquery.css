@@ -34,6 +34,7 @@
             #search{
                 height: 5.5vh;
                 width: 85%;
+                margin-right: 5%;
             }
             
         }
@@ -71,22 +72,29 @@
             .table-list{
                 margin-top: 1vh;
 
-                
+                thead{
+                    .menu{
+                        width: 1.5vh;
+                    }
+                }
                 tbody{
                     td{
                         font-size: 1.4vh;
                     }
+                    
                 }
+
                 .tdmenu{
-                    width: 2vh;
-                    .spanEditar{
-                        display: none;
-                    }
-                    .spanRemover{
+                    width: 3.4vh;
+                    height: 4vh;
+                    padding: 0;
+                    padding-top: 1vh;
+                    .span{
                         display: none;
                     }
                     .menu2{
                         display: block;
+                        
                         
                     }
                 }
@@ -130,7 +138,7 @@
         }
     }
       
-    main #modal-cad{
+    main #modal{
         width: 80%;
         height: 55%;
 
@@ -163,9 +171,17 @@
     }
      
 }
-@media(min-width: 451px) and (max-width: 630px){
+@media(min-width: 451px) and (max-width: 700px){
+    body .nav-div{
+        width: 15%;
+    }
+    body .header-main{
+        width: 84%;
+    }
     nav .nav-logo{
         padding-left: 3px;
+        display: flex;
+        justify-content: center;
         img{
             width: 10vh;
             height: 10vh;
@@ -194,6 +210,76 @@
     main .main-box{
         #button-newCad{
             font-size: 1.8vh;
+        }
+    }
+    main .div-list{
+        p{
+            margin: 2vh 0 0 3vh;
+            font-size: 2vh;
+        }
+    
+    
+        div{
+            /* .paginate{
+                font-size: 2vh;
+            } */
+            .table-list{
+                margin-top: 1vh;
+
+                
+                tbody{
+                    td{
+                        font-size: 1.8vh;
+                    }
+                }
+                .tdmenu{
+                    /* width: 2vh;
+                    .spanEditar{
+                        display: none;
+                    }
+                    .spanRemover{
+                        display: none;
+                    }
+                    .menu2{
+                        display: block;
+                        
+                    } */
+                }
+            }
+        }
+    }
+    .header-main{
+        header{
+            #search{
+                margin-right: 15%;
+            }
+        }
+    }
+}
+
+@media(min-width: 701px) and (max-width: 800px){
+    nav .nav-logo{
+        padding-left: 3px;
+        display: flex;
+        justify-content: center;
+        img{
+            width: 10vh;
+            height: 10vh;
+            align-self: center;
+        }
+        span{
+            height: 10vh;
+        }
+        p{
+            display: none;
+        
+        }
+    }
+    .header-main{
+        header{
+            #search{
+                margin-right: 20%;
+            }
         }
     }
 }

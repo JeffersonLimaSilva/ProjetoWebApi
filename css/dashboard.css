@@ -35,9 +35,9 @@
         }
     }
     >div:hover{
-        background-color: #ffcc50;
-        box-shadow: 0 2px 2px 1px rgba(73, 50, 0, 0.747);
-        color: black;
+        background-color: rgb(255 143 30) !important;
+        box-shadow: 0 1vh 1vh 0.5vh rgba(107, 74, 2, 0.863) !important;
+        color: rgb(255, 255, 255);
         
     }
 }
