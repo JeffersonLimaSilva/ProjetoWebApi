@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     width: 80%;
-    
+    padding-right: 3vh;
     
     margin: 0 auto;
 }
@@ -15,43 +15,66 @@ main{
     flex-grow: 1;
     align-self: center;
 }
+.div-list{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    background-color: var(--list-background-color);
+    box-shadow: var(--main-box-shadow);
+    width: 100%;
+    border-top-left-radius: 1vh;
+    border-top-right-radius: 1vh;
+    p{
+        display: flex;
+        justify-self: start;
+        margin: 5vh 0px 0px 7vh;
+        font-size: 3vh;
+        font-weight: 800;
+        width: 100%;
+    }
+    #div-p{
+        width: 990px;
+        p{
+            font-weight: 600;
+        }
+    }
+    > div{
+        width: 95%;
+    }
+    
+}
 .main-box{
-    background-color: rgb(255, 255, 255);
+    background-color:var(--list-background-color);
+    box-shadow: var(--main-box-shadow);
     height: 300px;
     max-width: 100%;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
+    border-top-left-radius: 1vh;
+    border-top-right-radius: 1vh;
     > div{
         width:100%;
-        
-        > p{
-            border-bottom: solid 2px gray;
-            width: 70%;
-            padding-left: 3vh;
-            
-        }
     }
     
     
     #button-newCad{
-        background-color: rgb(24, 182, 24);
+        background-color: var(--submit-new-cad-background-color);
         width: 45vh;
         height: 5vh;
-        margin-right: 3vh;
+        margin-right: 1vh;
         font-size: 2vh;
     }
     #button-imprimir-logs{
-        background-color: rgb(74, 74, 250);
+        background-color: var(--submit-print-background-color);
         width: 45vh;
         height: 5vh;
-        margin-right: 3vh;
+        margin-right: 1vh;
         font-size: 2.1vh;
     }
     #button-imprimir-users{
-        background-color: rgb(74, 74, 250);
+        background-color: var(--submit-print-background-color);
         width: 45vh;
         height: 5vh;
-        margin-right: 3vh;
+        margin-right: 1vh;
         font-size: 2.1vh;
     }
     #head-cad{
@@ -66,6 +89,7 @@ main{
             font-weight: 800;
             width: 100%;
             border: none;
+            
         }
         
     }
@@ -79,6 +103,7 @@ main{
             font-weight: 800;
             width: 100%;
             border: none;
+            padding-left: 3vh;
         }
         
     }
@@ -138,19 +163,19 @@ main{
 
 .table-list{
     width: 100%;
-    margin-top: 3vh;
+    margin-top: 2vh;
     
 
     thead{
         
-        background-color: rgb(28, 23, 61);
+        background-color: var(--thead-background-color);
         border-radius: 20px;
         th{
             text-align: left;
             padding: 1vh 1vh;
             font-size: 2vh;
             border: 0.2vh;
-            color: white;
+            color: var(--thead-th-color);
             
         }
         .menu{
@@ -165,17 +190,18 @@ main{
         }
 
         tr:hover{
-            background-color: rgb(177, 177, 177);
-            box-shadow:0 0.3vh 0.3vh 0.3vh rgba(83, 83, 83, 0.75);
+            background-color: var(--tbody-tr-hover-background-color);
+            box-shadow:0 0 0.3vh 0.3vh var(--tbody-tr-hover-box-shadow-color);
             transition: 0.2s;
         }
         
         td{
-            border-bottom: solid 0.2vh rgb(68, 68, 68);
+            border-bottom: solid 0.2vh var(--tbody-td-border-color);
             font-size: 2.5vh;
             font-weight: 600;
             padding-left: 1vh;
             overflow-wrap: break-word;
+            color: var(--tbody-td-color);
         }
         :nth-child(1){
             max-width: fit-content;
@@ -192,6 +218,7 @@ main{
             }
             .span{
                 display: flex;
+                border: solid 0.1px var(--span-menu-color);
             }
             .menu2{
                 display: none;
@@ -213,4 +240,5 @@ main{
     width: 10%;
     font-size: 3vh;
     margin-right: 2vh;
+    margin-top: 3vh;
 }

@@ -1,5 +1,12 @@
-let homecor = document.querySelector('.home')
+let cadcor = document.querySelector('#cadastro-span')
+let homecor = document.querySelector('#home-span')
+let relcor = document.querySelector('#relatorio-span')
 
-homecor.style.backgroundColor='rgb(153, 153, 153)'
-homecor.style.boxShadow=' 0 0.5vh 0.5vh 0.5vh rgba(83, 83, 83, 0.75)'
-homecor.style.borderRadius='0.5vh'
+cadcor.classList='span-off'
+homecor.classList='span-on'
+relcor.classList='span-off'
+
+let homeblack = document.querySelector('#home-black')
+let home = document.querySelector('#home')
+homeblack.className='image'
+home.className='image-off'

@@ -127,16 +127,19 @@ function validaNome(nome){
 }
 
 function cadColor(){
-    let cadcor = document.querySelector('.cadastro')
+    let cadcor = document.querySelector('#cadastro-span')
+    let homecor = document.querySelector('#home-span')
+    let relcor = document.querySelector('#relatorio-span')
 
-    cadcor.style.backgroundColor='rgb(153, 153, 153)'
-    cadcor.style.boxShadow=' 0 2px 2px 1px rgba(83, 83, 83, 0.75)'
-    cadcor.style.borderRadius='3px'
+    cadcor.classList='span-on'
+    homecor.classList='span-off'
+    relcor.classList='span-off'
 
     let cadastroblack = document.querySelector('#cadastro-black')
     let cadastro = document.querySelector('#cadastro')
-    cadastroblack.className=''
-    cadastro.className='image'
+    cadastro.classList.add('image-off')
+    cadastroblack.className='image'
+    
 }
 
 cadColor()

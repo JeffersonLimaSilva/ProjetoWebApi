@@ -8,10 +8,29 @@ if(buttonNewCad){
     })
 }
 
-let buttonFechaModal = document.querySelector('#fecha-modal') || false
+let buttonFechaModal = document.querySelector('#close-modal') || false
 
 if (buttonFechaModal){
     buttonFechaModal.addEventListener('click', function(){
+        let dialogClass = document.querySelector('.dialog-edit') || false
+        if (dialogClass) {
+            dialogClass.className=('dialog-cad')
+            let edit = document.getElementById('edit-input').checked = false
+        }
+        let listEdit = document.querySelectorAll('.box-list-editar') || false
+        if (listEdit) {
+            let inputNewCad = document.querySelectorAll('.box-list-editar input')
+            let areaNewCad = document.querySelectorAll('.box-list-editar textarea')
+            
+
+            inputNewCad.forEach(function(input){
+                input.className=''
+            })
+            areaNewCad.forEach(function(textarea){
+                textarea.className=''
+            })
+        }
+
         closeModal()
     })
 }
@@ -23,13 +42,29 @@ export function showModal(){
 
     let body = document.querySelector('.body')
     let overlayer = document.createElement('div')
-    overlayer.className=('overlayer')
-    overlayer.style.width='100%'
-    overlayer.style.height='100%'
-    overlayer.style.backgroundColor='rgba(0, 0, 0, 0.5)'
-    overlayer.style.position='absolute'
-    overlayer.style.zIndex='900'
+    overlayer.className='overlayer'
+    overlayer.addEventListener('click', ()=>{
+        let dialogClass = document.querySelector('.dialog-edit') || false
+        if (dialogClass) {
+            dialogClass.className=('dialog-cad')
+            let edit = document.getElementById('edit-input').checked = false
+        }
+        if (listEdit) {
+            let inputNewCad = document.querySelectorAll('.box-list-editar input')
+            let areaNewCad = document.querySelectorAll('.box-list-editar textarea')
+            
+
+            inputNewCad.forEach(function(input){
+                input.className=''
+            })
+            areaNewCad.forEach(function(textarea){
+                textarea.className=''
+            })
+        }
+        closeModal()
+    })
     body.appendChild(overlayer)
+        
 
     modalad.show()
 }

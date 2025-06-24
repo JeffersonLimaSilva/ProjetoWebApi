@@ -3,15 +3,10 @@
     height: 90%;
     width: 100%;
     overflow-x: hidden;
-    > div{
-        
-        .buttons-editar{
-            display: none;
-        }
-        
+    > div{    
        
         input{
-            width: 97%;
+            width: 95%;
             background-color: var(--cor-input);
             border: var(--borda-input);
             font-size: 3vh;
@@ -19,7 +14,7 @@
             
         }
         textarea{
-            width: 97%;
+            width: 95%;
             background-color: var(--cor-input);
             border: var(--borda-input);
             height: 15vh;
@@ -28,7 +23,7 @@
             padding-top: 1vh;
         }
         > p{
-            border-bottom: solid 2px gray;
+            border-bottom: solid 2px var(--new-cad-border-color);
             width: 97%;
             padding-bottom: 1vh;
         }
@@ -60,76 +55,84 @@
         display: block;
         width: 20vh;
         height: 5vh;
-        background-color: rgb(24, 182, 24);
-        
+        background-color: var(--submit-new-cad-background-color);
+        margin: auto;
         margin-top: 5vh;
 
     }
     #button-editar{
         display: none;
     }
-}
-.cad-box{
-    display: flex;
-    flex-direction: column;
 
-    > div{
+    .cad-box{
         display: flex;
         flex-direction: column;
 
-    }
-    input{
-        height: 4vh;
-        margin-bottom: 2.5vh;
-    }
-
-    #duo-input{
-        display: flex;
-        width: 97%;
-        div{
+        > div{
             display: flex;
             flex-direction: column;
-            width: 50%;
-            
+
         }
-        .div-years-old{
-            width: 20%;
-            margin-right: 4vh;
+        input{
+            height: 4vh;
+            margin-bottom: 2.5vh;
         }
-        .div-email{
-            width: 80%;
-        }
-        #years-old{
-            width: 100%;
-            margin-right: 5vh;
-        }
-        #email{
-            width: 100%;
-            
+
+        #duo-input{
+            display: flex;
+            width: 95%;
+            div{
+                display: flex;
+                flex-direction: column;
+                width: 50%;
+                
+            }
+            .div-years-old{
+                width: 20%;
+                margin-right: 4vh;
+            }
+            .div-email{
+                width: 80%;
+            }
+            #years-old{
+                width: 100%;
+                margin-right: 5vh;
+            }
+            #email{
+                width: 100%;
+                
+            }
         }
     }
+
 }
+
 #modal{
     margin: auto;
+    
+    padding: 1vh 1vh 1vh 2vh;
     width: 56%;
     height: 78%;
     border: 0;
-    border-radius: 2vh;
-    box-shadow: 0 0 2vh 0.5vh rgb(85, 85, 85);
+    
+    box-shadow: 0 0 2vh 0.5vh rgb(0, 0, 0);
     z-index: 990;
+
     > div{
         
         display: flex;
         justify-content: end;
         margin-bottom: 1vh;
 
-        #fecha-modal{
+        
+
+        #close-modal{
             
             display: flex;
             justify-content: center;
             width: 20px;
             border-radius: 0.5vh;
-            border: solid 0.1vh black;
+            border: solid 0.1vh --close-modal-border-color;
         }
     }
 
@@ -140,4 +143,12 @@
     label{
         width: 95%;
     }
+}
+
+.div-edit{
+    display: none;
+}
+
+#button-delete{
+    display: none;
 }

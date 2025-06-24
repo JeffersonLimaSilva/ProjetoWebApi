@@ -12,7 +12,7 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
-<body class="body">
+<body id="body-theme" class="body">
     <script type="module" src="/js/mudatema.js"></script>
     
     <div class="header-main">
@@ -22,8 +22,9 @@
             </div>
             <input type="text" name="Search" id="search" placeholder="Pesquisa...">
             <div>
-                <!-- <input type="radio" name="" id=""> -->
-                <span id="muda-tema" class="icon-perfil"><img src="/img/profile.svg" alt=""></span>
+                <span id="moon-theme" class="change-theme"><img src="/img/moon.svg" alt="Lua"></span>
+                <span id="sun-theme" class="change-theme"><img src="/img/sun.svg" alt="Sol"></span>
+                <span class="icon-perfil"><img src="/img/profile.svg" alt=""></span>
                 <div class="perfil-items">
                     <div class="perfil-nome"></div>
                     <hr>
@@ -57,11 +58,11 @@
                 <p>Operação Curiosidade</p>
             </div>
             <div class="div-nav">
-                <span class="home"><a href="/index.html"><img id="home" src="/img/home 1.svg" alt=""><img id="home-black" src="/img/home1-black.svg" alt=""><p>Home</p></a></span>
-                <hr>
-                <span class="cadastro"><a href="/html/cadastro.html"><img id="cadastro" src="/img/account-multiple-plus 1.svg" alt=""><img id="cadastro-black" src="/img/account-multiple-plus-black.svg" alt=""><p>Cadastro</p></a></span>
-                <hr>
-                <span class="relatorio" ><a href="/html/relatorio.html"><img id="relatorio" src="/img/chart-box 1.svg" alt=""><img id="relatorio-black" src="/img/chart-box-black.svg" alt=""><p>Relatorios</p></a></span>
+                <span id="home-span"><a href="/index.html"><img id="home" src="/img/home 1.svg" alt=""><img id="home-black" src="/img/home1-black.svg" alt=""><p>Home</p></a></span>
+                
+                <span id="cadastro-span"><a href="/html/cadastro.html"><img id="cadastro" src="/img/account-multiple-plus 1.svg" alt=""><img id="cadastro-black" src="/img/account-multiple-plus-black.svg" alt=""><p>Cadastro</p></a></span>
+                
+                <span id="relatorio-span" ><a href="/html/relatorio.html"><img id="relatorio" src="/img/chart-box 1.svg" alt=""><img id="relatorio-black" src="/img/chart-box-black.svg" alt=""><p>Relatorios</p></a></span>
             </div>
         </nav> 
     </div>

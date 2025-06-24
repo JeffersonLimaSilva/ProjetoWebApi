@@ -1,0 +1,11 @@
+.nav-profile{
+    justify-self: center;
+    position: absolute;
+    z-index: 999;
+    
+    width: 70%;
+    display: flex;
+    min-height: 200vh;
+    margin-right: 3vh;
+}
+

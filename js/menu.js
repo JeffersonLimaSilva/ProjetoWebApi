@@ -21,12 +21,14 @@ function menu(){
 
         let body = document.querySelector('.body')
         let overlayer = document.createElement('div')
-        overlayer.className=('overlayer')
-        overlayer.style.width='100%'
-        overlayer.style.height='100%'
-        overlayer.style.backgroundColor='rgba(0, 0, 0, 0.42)'
-        overlayer.style.position='absolute'
-        overlayer.style.zIndex='900'
+        overlayer.className='overlayer'
+        overlayer.addEventListener('click', ()=>{
+        
+            if(countclick < 2){
+                countclick ++
+            }
+            menu()
+        })
         body.appendChild(overlayer)
         
         

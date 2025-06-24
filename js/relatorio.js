@@ -1,5 +1,13 @@
-let relcor = document.querySelector('.relatorio')
+let cadcor = document.querySelector('#cadastro-span')
+let homecor = document.querySelector('#home-span')
+let relcor = document.querySelector('#relatorio-span')
 
-relcor.style.backgroundColor='rgb(153, 153, 153)'
-relcor.style.boxShadow=' 0 2px 2px 1px rgba(83, 83, 83, 0.75)'
-relcor.style.borderRadius='3px'
+cadcor.classList='span-off'
+homecor.classList='span-off'
+relcor.classList='span-on'
+
+let relatorioblack = document.querySelector('#relatorio-black')
+let relatorio = document.querySelector('#relatorio')
+
+relatorio.classList.add('image-off')
+relatorioblack.className='image'

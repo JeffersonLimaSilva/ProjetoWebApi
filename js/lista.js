@@ -103,8 +103,10 @@ export function criaLista(search = ''){
                 //  || date === date
 
                 if(minName.includes(search) || minEmail.includes(search) || minStatus.includes(search)){
+                    if(date === user.date){
+                        auxiliar.push(user)
+                    }
                     
-                    auxiliar.push(user)
                 }
                 
             })
@@ -194,7 +196,6 @@ function listaItems(user, tbody, index){
     let spanEditar =document.createElement('span')
     spanEditar.className='spanEditar'
     spanEditar.classList='span'
-    spanEditar.style.border='solid 0.1px rgb(68, 68, 68)'
     spanEditar.style.height='2vh'
     spanEditar.style.width='2vh'
     spanEditar.style.borderRadius='1vh'
@@ -214,7 +215,6 @@ function listaItems(user, tbody, index){
 
     let spanEditarBlack =document.createElement('span')
     spanEditarBlack.className='spanEditar'
-    spanEditarBlack.style.border='solid 0.1px rgb(68, 68, 68)'
     spanEditarBlack.style.height='2vh'
     spanEditarBlack.style.width='2vh'
     spanEditarBlack.style.borderRadius='1vh'
@@ -230,13 +230,12 @@ function listaItems(user, tbody, index){
     imgEditarBlack.alt='Editar'
     imgEditarBlack.style.width='2vh'
     imgEditarBlack.style.height='2vh'
-    imgEditarBlack.id='editar-black'
+    
     
 
     let spanRemover = document.createElement('span')
     spanRemover.className='spanRemover'
     spanRemover.classList='span'
-    spanRemover.style.border='solid 0.1px rgb(68, 68, 68)'
     spanRemover.style.height='2vh'
     spanRemover.style.width='2vh'    
     spanRemover.style.borderRadius='1vh'
@@ -260,7 +259,7 @@ function listaItems(user, tbody, index){
 
     let spanRemoverBlack = document.createElement('span')
     spanRemoverBlack.classList='spanRemover'
-    spanRemoverBlack.style.border='solid 0.1px rgb(68, 68, 68)'
+    
     spanRemoverBlack.style.height='2vh'
     spanRemoverBlack.style.width='2vh'    
     spanRemoverBlack.style.borderRadius='1vh'
@@ -327,7 +326,7 @@ document.getElementById('search').addEventListener('input', function(e){
     criaLista(minSearch)
 })
 
-function removeUser(index){
+export function removeUser(index){
     let userOn =JSON.parse(localStorage.getItem('userOn')) || []
     let usersadm= JSON.parse(localStorage.getItem('usersadm')) || []
     
@@ -343,6 +342,7 @@ function removeUser(index){
 
     usersadm[userOn.index].users.reverse()
     localStorage.setItem('usersadm', JSON.stringify(usersadm))
+    console.log('entoru aq');
     
     
     criaLista()
