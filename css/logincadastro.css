@@ -74,7 +74,7 @@ header{
         align-items: center;
         justify-content: center;
         font-family: "Roboto", sans-serif;
-        font-size: 15px;
+        font-size: 13px;
 
         p{
             color: var(--box-cad-color);
@@ -146,7 +146,7 @@ header{
 @media(max-width: 450px){
     header{
         width: 90%;
-        margin-top: 7vh;
+        margin-top: 11vh;
     }
     .input-campo{
         height: 6vh;

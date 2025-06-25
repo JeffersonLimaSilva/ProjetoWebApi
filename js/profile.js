@@ -1,5 +1,6 @@
 import { mudaTema } from "./mudatema.js";
-
+import { showName } from "./showName.js";
+import { criaLogsUser } from "./logsUser.js";
 
 let countclick = 0
 
@@ -11,7 +12,11 @@ document.querySelector('#profile').addEventListener('click', ()=>{
     if(countclick < 2){
         countclick ++
     }
+    console.log("entrou aq");
+    
+    mudaTema(usersadm[userOn.index].countclick)
     profile()
+    showName()
 }) 
 
 
@@ -59,35 +64,76 @@ function profile(){
         let imgMoon = document.createElement('img')
         imgMoon.src= '/img/moon.svg'
         imgMoon.alt='Lua'
-        imgMoon.className='close-profile'
 
 
         let spanMoon = document.createElement('span')
+        spanMoon.id='nav-moon-theme'
         spanMoon.className='change-theme'
         spanMoon.addEventListener('click', ()=>{
-            console.log("passou aq");
-            console.log(usersadm[userOn.index].countclick);
-            
+        
             if (usersadm[userOn.index].countclick < 2) {
-                console.log(usersadm[userOn.index].countclick);
                 usersadm[userOn.index].countclick ++
                 localStorage.setItem('usersadm', JSON.stringify(usersadm))
             }
-            console.log(usersadm[userOn.index].countclick);
             
-            mudaTema()
+            
+            mudaTema(usersadm[userOn.index].countclick)
         })
+
+        let imgSun = document.createElement('img')
+        imgMoon.src= '/img/sun.svg'
+        imgMoon.alt='Sol'
+
         let spanSun = document.createElement('span')
-        spanSun.id='sun-theme'
         spanSun.className='change-theme'
+        spanSun.id='nav-sun-theme'
+        spanSun.addEventListener('click', ()=>{
+           
+            if (usersadm[userOn.index].countclick < 2) {
+                usersadm[userOn.index].countclick ++
+                localStorage.setItem('usersadm', JSON.stringify(usersadm))
+            }
+        
+            
+            mudaTema(usersadm[userOn.index].countclick)
+        })
+        let divLogout = document.createElement('div')
+        divLogout.className='div-logout'
+
+        let spanLogout = document.createElement('span')
+        spanLogout.addEventListener('click', function(e){
+            
+            let userOn = JSON.parse(localStorage.getItem('userOn')) || []
+            let usersadm = JSON.parse(localStorage.getItem('usersadm')) || []
+            
+            criaLogsUser(usersadm[userOn.index].name, usersadm[userOn.index].email, 'deslogou', '', 2)
+    
+            userOn.email = ''
+            userOn.index = ''
+            localStorage.setItem('userOn', JSON.stringify(userOn))
+            
+            window.location.href='/html/login.html' 
+        })
+        let p = document.createElement('p')
+        p.innerHTML='SAIR'
+
+        let divName = document.createElement('div')
+        divName.className='perfil-nome'
+
+        spanLogout.appendChild(p)
+        divLogout.appendChild(spanLogout)
 
         spanMoon.appendChild(imgMoon)
+        spanSun.appendChild(imgSun)
+
         spanClose.appendChild(imgClose)
         
         div.appendChild(spanClose)
         div.appendChild(spanMoon)
         div.appendChild(spanSun)
         nav.appendChild(div)
+        nav.appendChild(divName)
+        nav.appendChild(divLogout)
         body.appendChild(overlayer)
         body.appendChild(nav)
         
@@ -96,13 +142,15 @@ function profile(){
 
         let nav = document.querySelector('.nav-profile')
         let div = document.querySelector('.div-profile')
+        // let divName = document.querySelector('.perfil-nome')
         let body = document.querySelector('.body')
         let overlayer = document.querySelector('.overlayer')
 
         nav.removeChild(div)
+        // nav.removeChild(divName)
         body.removeChild(overlayer)
 
-        nav.className='teste'
+        nav.className='profile-off'
         countclick = 0
     }
 }

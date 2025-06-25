@@ -22,10 +22,11 @@ nav{
     background-color: var(--secondary-background-color);
     display: flex;
     
+    
     position: absolute;
     z-index: 999;
     
-    width: 70%;
+    width: 20%;
     display: flex;
     min-height: 200vh;
     margin-left: 18vh;
@@ -34,15 +35,19 @@ nav{
         display: flex;
         align-items: center;
         justify-content: space-between;
-        height: 8vh;
+        height: 9vh;
         width: 100%;
         background-color: var(--nav-profile-div);
-        margin-top: 1vh;
+        margin-top: 3vh;
         span{
-            display: flex;
             align-items: center;
         }
+        color: var(--nav-profile-div-color);
     }
+   
+}
+.profile-off{
+    display: none;
 }
 
 .nav-logo{

@@ -162,11 +162,12 @@ if (buttonEditar) {
             
         }
 
-    
+        
 
         modalcad.close()
 
-        
+        let deleteButton = document.querySelector('#button-delete')
+        deleteButton.style.display='none'
 
         let body = document.querySelector('.body')
         let overlayer = document.querySelector('.overlayer')
@@ -186,6 +187,9 @@ if (deleteButton) {
         alert("Cadastro Excluido")
         removeUser(index)
         modalcad.close()
+        let deleteButton = document.querySelector('#button-delete')
+        deleteButton.style.display='none'
+
         let body = document.querySelector('.body')
         let overlayer = document.querySelector('.overlayer')
         body.removeChild(overlayer)

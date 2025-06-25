@@ -21,7 +21,8 @@ if (buttonFechaModal){
         if (listEdit) {
             let inputNewCad = document.querySelectorAll('.box-list-editar input')
             let areaNewCad = document.querySelectorAll('.box-list-editar textarea')
-            
+            let deleteButton = document.querySelector('#button-delete')
+            deleteButton.style.display='none'
 
             inputNewCad.forEach(function(input){
                 input.className=''
