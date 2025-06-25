@@ -12,9 +12,10 @@
         <header>
             <input type="text" name="Search" id="search" placeholder="Pesquisa...">
             <div>
-                <span><img src="/img/profile.svg" alt="">Jefferson Silva</span>
+                <span id="muda-tema"><img src="/img/profile.svg" alt=""></span>
+                <div id="perfil-nome"></div>
                 <hr>
-                <span><a href="/html/login.html">SAIR</a></span>
+                <span id="logout">SAIR</span>
             </div>
         </header>
         <main class="main-box">
@@ -31,12 +32,67 @@
                     <p>STATUS</p>
                 </div>
                 <hr class="list-line">
-                <div class="div-box-list">
+                <div id="box-list-cad" class="div-box-list">
                     
                 </div>
                 
             </div>
             
+            <dialog id="modal-cad">
+                <div>
+                    <span id="fecha-modal"><img src="/img/svgRemover.svg" alt="Fechar"></span>
+                </div>
+                <main id="box-list-newcad" >
+                    <div class="cad-box">
+                        <div id="head-newCad">
+                            <p>Novo Cadastro</p>
+                            <div>
+                                <input type="checkbox" name="Ativo" id="ativo" value='Ativo'>
+                                <label for="ativo">Ativo</label>
+                            </div>
+
+                        </div>
+
+                        <p>1º Fatos e Dados</p>
+                        <div id="div-fatosedados">
+                            <label for="name">Nome</label>
+                            <input type="text" name="nome" id="name">
+                            <div id="duo-input">
+                                <div>
+                                    <label for="years-old">Idade</label>
+                                    <input type="text" name="idade" id="years-old">
+                                </div>
+                                
+                                <div>
+                                    <label for="email">E-mail</label>
+                                    <input type="text" name="email" id="email">
+                                </div>
+                            
+                            </div>
+                            <label for="address">Endereço</label>
+                            <input type="text" name="endereco" id="address">
+
+                            <label for="more-info">Outras Informações</label>
+                            <textarea name="informacoes" id="more-info"></textarea>
+                        </div>
+                    </div>
+                    <div>
+                        <p>2º Interesses</p>
+                        <textarea name="interesses" id="interesses"></textarea>
+                    </div>
+                    <div>
+                        <p>3º Sentimentos</p>
+                        <textarea name="sentimentos" id="sentimentos"></textarea>
+                    </div>
+                    <div>
+                        <p>4º Valores</p>
+                        <textarea name="valores" id="valores"></textarea>
+                    </div>
+                    
+                    <button id="button-gravar" class="button-cadastro">GRAVAR</button>
+                </main>
+
+            </dialog>
         </main>
     </div>
     <div class="nav-div">
@@ -56,6 +112,11 @@
     </div>
     
     <script type="module" src="/js/lista.js"></script>
-    <script src="/js/cadNewcad.js"></script>
+    <script type="module" src="/js/cadastro.js"></script>
+    <script type="module" src="/js/cadNewcad.js"></script>
+    <script type="module" src="/js/logout.js"></script>
+    <script type="module" src="/js/showName.js"></script>
+    <script type="module" src="/js/logsUser.js"></script>
+    <script type="module" src="/js/mudatema.js"></script>
 </body>
 </html>

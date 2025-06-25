@@ -12,9 +12,10 @@
         <header>
             <input type="text" name="Search" id="search" placeholder="Pesquisa...">
             <div>
-                <span><img src="/img/profile.svg" alt="">Jefferson Silva</span>
+                <span id="muda-tema"><img src="/img/profile.svg" alt=""></span>
+                <div id="perfil-nome"></div>
                 <hr>
-                <span><a href="/html/login.html">SAIR</a></span>
+                <span id="logout">SAIR</span>
             </div>
         </header>
         <main class="main-box">
@@ -26,6 +27,8 @@
                 <p>NOME</p>
                 <hr class="list-line">
                 <a href="/html/listausuario.html">Lista de Usuários</a>
+                <hr class="list-line">
+                <a href="/html/logsusuario.html">Logs do Usuário</a>
                 <hr class="list-line">
             </div>
             
@@ -46,6 +49,9 @@
             </div>
         </nav> 
     </div>
-
+    <script type="module" src="/js/logout.js"></script>
+    <script type="module" src="/js/showName.js"></script>
+    <script src="/js/mudatema.js"></script>
+    <script type="module" src="/js/logsUser.js"></script>
 </body>
 </html>

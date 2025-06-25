@@ -1,7 +1,9 @@
-
-
+import { criaLogsUser } from "./logsUser.js";
+import { criaLista } from "./lista.js";
 
 document.getElementById('button-gravar').addEventListener('click', function(e){
+    let modalcad = document.getElementById('modal-cad')
+
     let nome = document.getElementById('name').value
     let idade = parseInt(document.getElementById('years-old').value)
     let email = document.getElementById('email').value
@@ -12,6 +14,21 @@ document.getElementById('button-gravar').addEventListener('click', function(e){
     let interesses = document.getElementById('interesses').value
     let sentimentos = document.getElementById('sentimentos').value
     let valores = document.getElementById('valores').value
+
+    let usersadm= JSON.parse(localStorage.getItem('usersadm')) || []
+
+    let userOnEmail = JSON.parse(localStorage.getItem('userOn')).email || []
+
+    let logsUser= JSON
+    let index
+    usersadm.forEach(function(useradm){
+        if(useradm.email == userOnEmail){
+            index = useradm.index
+        }
+
+    })
+    
+
 
     if(nome == '' || email == ''){
         alert("Campo Nome e Email obrigatório")
@@ -26,6 +43,21 @@ document.getElementById('button-gravar').addEventListener('click', function(e){
         ativoInativo = "Ativo"
     }
 
+    if(!validaNome(nome)){
+        alert("Nome Invalido")
+        return false
+    }
+
+    if(!validaEmail(email)){
+        alert("Email Inválido.")
+        return false
+    }
+
+    if(verificaIgual(usersadm[index], email)){
+        alert("Email ja cadastrado")
+        return false
+    }
+
     let user= {
         name: nome, 
         idade: idade, 
@@ -37,34 +69,43 @@ document.getElementById('button-gravar').addEventListener('click', function(e){
         sentimentos: sentimentos, 
         valores: valores
     }
-
-    let users= JSON.parse(localStorage.getItem('users')) || []
-
-    if(verificaIgual(users, user.email)){
-        alert("Email ja cadastrado")
-        return false
-    }
     
-    
-    users.push(user)
+    criaLogsUser(usersadm[index].name, usersadm[index].email, 'cadastrou', email)
+    usersadm[index].users.push(user)
 
-    localStorage.setItem('users', JSON.stringify(users))
+    localStorage.setItem('usersadm', JSON.stringify(usersadm))
 
     document.getElementById('name').value = ''
     document.getElementById('years-old').value = ''
     document.getElementById('email').value = ''
     document.getElementById('ativo').checked= false
-    
+    document.getElementById('address').value =''
+    document.getElementById('more-info').value =''
+    document.getElementById('interesses').value =''
+    document.getElementById('sentimentos').value =''
+    document.getElementById('valores').value =''
     
 
     alert("Usuario cadastrado")
+    
+    criaLista()
+    modalcad.close()
 })
 
-function verificaIgual(users, email){
-    return users.some(function(user){
+function verificaIgual(usersadm, email){
+    return usersadm.users.some(function(user){
         return user.email === email  
     })
 }
 
+function validaEmail(email){
 
+    let remail = /^[^\s]+@[^\s]+\.[^\s]+$/
+    return remail.test(email)
+}
+
+function validaNome(nome){
+    let rnome = /^[A-Z][a-z]+[\s][A-Z][a-z]+$/
+    return rnome.test(nome)
+}
 

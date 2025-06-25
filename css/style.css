@@ -6,7 +6,7 @@ body{
     padding-right: 20px;
     margin: 0;
     height: 100%;
-
+    overflow: hidden;
     font-family: 'Roboto', sans-serif;
     color: rgb(68, 68, 68);
     user-select: none;
@@ -22,18 +22,11 @@ header{
     align-items: center;
     justify-content: space-between;
     
-    div{
+    > div{
         display: flex;
         align-items: center;
         margin-right: 30px;
-        width: 250px;
-
-        a{
-            text-decoration: none;
-            color: rgb(68, 68, 68);
-            background-color: transparent;
-            font-size: 15px;
-        }
+        width: 350px;
         img{
             width: 40px;
             height: 40px;
@@ -44,6 +37,18 @@ header{
         span{
             display: flex;
             align-items: center;
+           
+            padding: 7px 12px ;
+            
+        }
+        > div{
+            display: flex;
+            width: 120px;
+            justify-content: end;
+            margin-right: 5px;
+        }
+        #logout{
+            border-radius: 3px;
         }
     }
     hr{
@@ -116,33 +121,20 @@ main{
 }
 .main-box{
     background-color: rgb(255, 255, 255);
-    
-
+    height: 300px;
+    width: 1030px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
     > div{
-        width: 1015px;
+        width: 1000px;
         padding-left: 12px;
-        input{
-            width: 990px;
-            background-color: rgba(224, 224, 224, 0.747);
-            border: solid 1px rgb(156, 156, 156);
-            font-size: 15px;
-            padding-left: 5px;
-        }
-        textarea{
-            width: 990px;
-            background-color: rgba(224, 224, 224, 0.747);
-            border: solid 1px rgb(156, 156, 156);
-            height: 70px;
-            font-size: 15px;
-            padding-left: 5px;
-            padding-top: 5px;
-        }
         > p{
             border-bottom: solid 2px gray;
             width: 995px;
             padding-bottom: 5px;
         }
     }
+    
     #button-gravar{
         width: 150px;
         height: 30px;
@@ -167,27 +159,7 @@ main{
         }
         
     }
-    #head-newCad{
-        display: flex;
-        width: 985px;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-        div{
-            display: flex;
-            align-items: center;
-            height: 20px;
-        }
-        input{
-            display: flex;
-            width: 15px;
-            justify-self: end;
-            border-radius: 100px;
-        }
-        p{
-            font-weight: 600;
-        }
-    } 
+    
     #head-relatorio{
         p{
             border-bottom: 0px;
@@ -231,6 +203,97 @@ main{
     }
     
 }
+#box-list-newcad{
+    
+    height: 300px;
+    width: 750px;
+    overflow-x: hidden;
+    > div{
+        width: 900px;
+        padding-left: 12px;
+        input{
+            width: 700px;
+            background-color: rgba(224, 224, 224, 0.747);
+            border: solid 1px rgb(156, 156, 156);
+            font-size: 15px;
+            padding-left: 5px;
+        }
+        textarea{
+            width: 700px;
+            background-color: rgba(224, 224, 224, 0.747);
+            border: solid 1px rgb(156, 156, 156);
+            height: 70px;
+            font-size: 15px;
+            padding-left: 5px;
+            padding-top: 5px;
+        }
+        > p{
+            border-bottom: solid 2px gray;
+            width: 710px;
+            padding-bottom: 5px;
+        }
+    }
+    #head-newCad{
+        display: flex;
+        width: 700px;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        div{
+            display: flex;
+            align-items: center;
+            height: 20px;
+        }
+        input{
+            display: flex;
+            width: 15px;
+            justify-self: end;
+            border-radius: 100px;
+        }
+        p{
+            font-weight: 600;
+        }
+    } 
+}
+
+.cad-box{
+    display: flex;
+    flex-direction: column;
+
+    > div{
+        display: flex;
+        flex-direction: column;
+
+    }
+    input{
+        height: 25px;
+        margin-bottom: 10px;
+    }
+
+    #duo-input{
+        display: flex;
+        
+        div{
+            display: flex;
+            flex-direction: column;
+        }
+        
+        #years-old{
+            width: 200px;
+            margin-right: 24px;
+        }
+        #email{
+            width: 467px;
+            
+        }
+    }
+}
+
+#div-fatosedados{
+    > label{
+        width: 990px;
+    }
+}
 .button-cadastro{
     display: flex;
     align-self: center;
@@ -247,6 +310,7 @@ main{
     flex-direction: column;
     width: 1030px;
     flex-grow: 1;
+    
 }
 
 .div-dashboard{
@@ -256,12 +320,12 @@ main{
     margin-bottom: 20px;
     > *{
         width: 330px;
-        height: 180px;
+        height: 100px;
         background-color: rgb(255, 255, 255);
         display: flex;
         flex-direction: column;
         align-items: end;
-        
+        border-radius: 5px;
         div{
             display: flex;
             justify-content: center;
@@ -270,7 +334,9 @@ main{
             height: 155px;
         }
         p{
-            margin-right: 15px;
+            margin: 0px 15px 0px 0px;
+            
+            height: 40px;
         }
     }
 }
@@ -280,7 +346,10 @@ main{
     flex-direction: column;
     align-items: center;
     height: 100%;
-    background-color: rgb(255, 255, 255);
+    background-color: white;
+    
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
     p{
         margin: 20px 0px 0px 0px;
     }
@@ -302,7 +371,22 @@ main{
         }
         :nth-child(3){
             text-align: end;
-            margin-right: 15px;
+            padding-right: 80px;
+            width: 260px;
+        }
+    }
+    .div-cabecalho-logs{
+        display: flex;
+        justify-content: space-between;
+        padding: 0px 0px 0px 5px;
+        margin-bottom: 10px;
+        >*{
+            width: 290px;
+            height: 10px;
+            font-size: 15px;
+        }
+        :nth-child(1){
+            width: 110px;
         }
     }
     hr{
@@ -336,54 +420,64 @@ main{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 0px 15px 0px 15px;
+    padding: 0px 10px 0px 15px;
     
     
 }
 .box-list{
     display: flex;
     margin-top: 5px;
-    span{
-        width: 316px; 
+    span{ 
         font-size: 15px;
         
     }
 }
 
-.cad-box{
-    display: flex;
-    flex-direction: column;
 
-    > div{
-        display: flex;
-        flex-direction: column;
-    }
-    input{
-        height: 25px;
-        margin-bottom: 10px;
-    }
 
-    #duo-input{
-        display: flex;
-        
-        div{
-            display: flex;
-            flex-direction: column;
-        }
-        
-        #years-old{
-            width: 200px;
-            margin-right: 24px;
-        }
-        #email{
-            width: 757px;
-            
-        }
-    }
+#box-list-user{
+    height: 400px;
+    overflow-y: auto;
+    
+}
+#box-list-dash{
+    height: 350px;
+    overflow-y: auto;
 }
 
-.div-box-list{
+#box-list-newcad{
+    height: 400px;
+    overflow-y: auto;
+}
+
+#box-list-cad{
+    height: 400px;
     overflow-y: auto;
 }
 
 
+
+#modal-cad{
+    border: 0;
+    border-radius: 10px;
+
+    box-shadow: 0 0 8px 1px rgb(85, 85, 85);
+    
+    > div{
+        height: 20px;
+        display: flex;
+        justify-content: end;
+        margin-bottom: 5px;
+    }
+
+    /* ::backdrop{
+        background-color: rgba(0, 0, 0, 1) ;
+    } */
+}
+#fecha-modal{
+    display: flex;
+    justify-content: center;
+    width: 18px;
+    border-radius: 4px;
+    border: solid 0.1px black;
+}

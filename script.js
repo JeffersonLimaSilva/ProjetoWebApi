@@ -1,66 +1,87 @@
 
-let v1=0
-let v2= 0
-let v3= 10
 
+// function styleValue(x, colorC){
+//     var valueCad = document.createElement('span')
+//     valueCad.textContent = x;
+//     valueCad.style.color = colorC;
+//     valueCad.style.fontSize= '55px' 
+//     valueCad.style.marginTop= '10px'
 
+//     return valueCad
+// }
 
-function styleValue(x, colorC){
-    var valueCad = document.createElement('span')
-    valueCad.textContent = x;
-    valueCad.style.color = colorC;
-    valueCad.style.fontSize= '65px' 
-    valueCad.style.marginTop= '30px'
-
-    return valueCad
-}
-
-function showCad(){
-    v1=contaCad()
-    let c = document.getElementById('cad')
-    c.appendChild(styleValue(v1, 'blue'))
+// function showCad(){
     
-}
-function showCadMes(){
-    v2 =contaCad()
-    let c = document.getElementById('cad-mes')
-    c.appendChild(styleValue(v2, 'green'))
-}
-function showCadPend(){
-    let c = document.getElementById('cad-pend')
-    c.appendChild(styleValue(contaInativo(), 'red'))
-}
-function contaCad(){
-    let users = JSON.parse(localStorage.getItem('users')) || []
-    let numcad = 0
-    users.forEach(function(user, index){
-        if(users == []){
-            return 0
-        }
-        if(index >= numcad){
-            numcad = index 
-            numcad ++
-        }
+//     let c = document.getElementById('cad')
+//     c.innerHTML=''
+//     c.appendChild(styleValue(contaCad(), 'blue'))
+// }
+// function showCadMes(){
+//     let c = document.getElementById('cad-mes')
+//     c.innerHTML=''
+//     c.appendChild(styleValue(contaCad(), 'green'))
+// }
+// function showCadPend(){
+//     let c = document.getElementById('cad-pend')
+//     c.innerHTML=''
+//     c.appendChild(styleValue(contaInativo(), 'red'))
+// }
+// function contaCad(){
+//     let userOn = JSON.parse(localStorage.getItem('userOn')) || []
+//     let usersadm = JSON.parse(localStorage.getItem('usersadm')) || []
+//     let numcad = 0
+//     usersadm[userOn.index].users.forEach(function(user, index){
+//         if(usersadm[userOn.index].users == []){
+//             return 0
+//         }
+//         if(index >= numcad){
+//             numcad = index 
+//             numcad ++
+//         }
         
-    })
+//     })
 
-    return numcad
-}
-function contaInativo(){
-    let users = JSON.parse(localStorage.getItem('users')) || []
-    let numcad = 0
+//     return numcad
+// }
+// function contaInativo(){
+//     let userOn = JSON.parse(localStorage.getItem('userOn')) || []
+//     let usersadm = JSON.parse(localStorage.getItem('usersadm')) || []
+//     let numcad = 0
 
-    users.forEach(function(user){
-        if(user.ativo == 'Inativo'){
-            numcad ++
-        }
-    })
-    return numcad
-}
+//     usersadm[userOn.index].users.forEach(function(user){
+//         if(user.ativo == 'Inativo'){
+//             numcad ++
+//         }
+        
+//     })
+//     return numcad
+// }
 
-showCad()
-showCadMes()
-showCadPend()
 
+// let listDiv= document.querySelectorAll('.list-div')
+// listDiv.forEach((campoList, index) => {
+//     let spanRm = document.getElementsByClassName('spanRemover')
+
+    
+    
+// })
+    
+// document.querySelector('.spanRemover').addEventListener('click', function(e){
+//         alert("apagou",index)
+//         showCad()
+//         console.log('PASSOU ALERT', index)
+//         showCadMes()
+//         console.log("PASSOU MES", index)
+//         showCadPend()
+//         console.log("PASSOU PEND", index)
+//         criaLista()
+//         console.log("PASSOU list" ,index)
+
+// })
+
+
+// showCad()
+// showCadMes()
+// showCadPend()
 
 

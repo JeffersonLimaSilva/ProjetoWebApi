@@ -1,3 +1,9 @@
 document.getElementById('button-newCad').addEventListener('click', function(e){
-    window.location.href = '../html/novocadastro.html'
+    let modalad = document.getElementById('modal-cad')
+
+    modalad.show()
+})
+document.getElementById('fecha-modal').addEventListener('click', function(){
+    let modalad = document.getElementById('modal-cad')
+    modalad.close()
 })
