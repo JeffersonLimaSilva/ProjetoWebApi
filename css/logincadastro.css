@@ -1,16 +1,48 @@
+:root{
+    --main-background-color: rgb(236, 236, 236);
+    --box-center-background-color: rgba(255, 189, 75, 1);
+    --box-shadow-color: rgb(172, 160, 160);
+    --submit-background-color: black;
+    --submit-border-color: black;
+    --submit-color: white; 
+    --input-background-color: transparent;
+    --input-color: black;
+    --box-cad-color: black;
+}
+.theme-black{
+    --main-background-color: rgb(9, 24, 37);
+    --box-center-background-color: rgb(17, 34, 53);
+    --box-shadow-color: rgb(0, 0, 0);
+    --submit-background-color: rgb(255, 109, 45);
+    --submit-border-color: rgb(255, 109, 45);
+    --submit-color: white; 
+    --input-background-color: rgba(0, 0, 0, 0.329);
+    --input-color: white;
+    --box-cad-color: white;
+}
+
 body{
-    background-color:rgb(236, 236, 236);
+    background-color:var(--main-background-color);
     display: flex;
+    
     justify-content: center;
     align-items: center;
+    overflow: hidden;
+}
+header{
+    display: flex;
+    align-items: center;
+    margin-top: 3%;
+    height: 30%;
+    width: 40%;
 }
 #box-center{
-    background-color: rgba(255, 189, 75, 1);
-    width: 569px;
-    height: 543px;
+    background-color: var(--box-center-background-color);
+    width: 100%;
+    height: 100%;
     border-radius: 5px;
-    margin-top: 50px;
-    box-shadow: 0 0 10px 5px rgb(172, 160, 160);
+    
+    box-shadow: 0 0 10px 5px var(--box-shadow-color);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -21,16 +53,16 @@ body{
     form{
         display: flex;
         align-items: center;
-        width: 350px;
+        width: 60%;
         flex-direction: column;
         justify-content: space-between;
 
         .submit{
-            width: 343px;
+            width: 108%;
             height: 52px;
-            border: 2px solid black;
-            background-color: black;
-            color: white;
+            border: 2px solid var(--submit-border-color);
+            background-color: var(--submit-background-color);
+            color: var(--submit-color);
             border-radius: 5px;
             font-weight: 750;
             font-size: 12px;
@@ -38,11 +70,16 @@ body{
     }
     #box-cad{
         display: flex;
-        width: 250px;
+        width: 45vh;
         align-items: center;
-        justify-content: space-between;
+        justify-content: center;
         font-family: "Roboto", sans-serif;
         font-size: 15px;
+
+        p{
+            color: var(--box-cad-color);
+            margin-left: 1vh;
+        }
         
     }
     
@@ -55,34 +92,81 @@ body{
     align-items: center;
     width: 100px;
     height: 100px;
-    background-color: rgb(204, 201, 212);
+    
     border-radius: 100px;
-    margin-top: 25px;
 
     img{
         width: 70px;
         height: 70px;
-        box-shadow: 0 0 10px 5px rgb(99, 99, 99);
         border-radius: 100px;
     }
     
 }
 
 .input-campo{
-    width: 313px;
-    height: 52px;
-    border: 2px solid black;
+    width: 100%;
+    height: 8vh;
+    border: 2px solid var(--submit-border-color);
     padding-left: 20px;
     font-family: "Roboto", sans-serif;
     font-size: medium;
-
-    background-color: transparent;
+    color: var(--input-color);
+    background-color: var(--input-background-color);
+    outline: none;
 }
 
 #form-login{
-    height: 236px;
+    height: 40vh;
 }
 #form-cadastro{
-    height: 300px;
+    height: 45vh;
 }
 
+.change-theme{
+    display: none;
+}
+.show{
+    display: block;
+}
+.div-theme{
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    margin: 0 !important;
+    span{
+        margin-top: 2vh;
+        margin-right: 3vh;
+
+        img{
+            width: 5vh;
+        }
+    }
+}
+
+@media(max-width: 450px){
+    header{
+        width: 90%;
+        margin-top: 7vh;
+    }
+    .input-campo{
+        height: 6vh;
+    }
+    #form-cadastro{
+        height: 35vh;
+    }
+        #form-login{
+        height: 30vh;
+    }
+}
+
+@media(min-width:451px) and (max-width: 699px){
+    header{
+        width: 65%;
+    }
+}
+
+@media(min-width:700px) and (max-width: 1000px){
+    header{
+        width: 55%;
+    }
+}

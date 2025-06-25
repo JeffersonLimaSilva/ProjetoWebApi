@@ -5,23 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro</title>
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/mediaquery.css">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/main.css">
+
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
-<body>
+<body id="body-theme" class="body">
+    <script type="module" src="/js/mudatema.js"></script>
+    
     <div class="header-main">
         <header>
+            <div class="div-menu">
+                <span class="menuhead"><img src="/img/menu.svg" alt="Menu"></span>
+            </div>
             <input type="text" name="Search" id="search" placeholder="Pesquisa...">
             <div>
-                <span id="muda-tema"><img src="/img/profile.svg" alt=""></span>
-                <div id="perfil-nome"></div>
-                <hr>
-                <span id="logout">SAIR</span>
+                <span id="moon-theme" class="change-theme"><img src="/img/moon.svg" alt="Lua"></span>
+                <span id="sun-theme" class="change-theme"><img src="/img/sun.svg" alt="Sol"></span>
+                <span class="icon-perfil"><img src="/img/profile.svg" alt=""></span>
+                <div class="perfil-items">
+                    <div class="perfil-nome"></div>
+                    <hr>
+                    <span class="logout">SAIR</span>
+                </div>
             </div>
         </header>
         <main class="main-box">
 
             <div id="head-relatorio">
-                <p>Relatorios</p>
+                <p>Relatórios</p>
             </div>
             <div id="div-rel">
                 <p>NOME</p>
@@ -37,21 +51,28 @@
     <div class="nav-div">
        <nav>
             <div class="nav-logo">
-                <span><a href="/index.html"><img src="/img/logo.svg" alt="Logo"></a></span>
+                <span><img src="/img/logo.svg" alt="Logo"></span>
+                <div class="div-menu">
+                    <span class="menunav"><img src="/img/menu.svg" alt="Menu"></span>
+                </div>
                 <p>Operação Curiosidade</p>
             </div>
             <div class="div-nav">
-                <span><a href="/index.html"><img src="/img/home 1.svg" alt="">Home</a></span>
-                <hr>
-                <span><a href="/html/cadastro.html"><img src="/img/account-multiple-plus 1.svg" alt="">Cadastro</a></span>
-                <hr>
-                <span><a href="/html/relatorio.html"><img src="/img/chart-box 1.svg" alt="">Relatorios</a></span>
+                <span id="home-span"><a href="/index.html"><img id="home" src="/img/home 1.svg" alt=""><img id="home-black" src="/img/home1-black.svg" alt=""><p>Home</p></a></span>
+                
+                <span id="cadastro-span"><a href="/html/cadastro.html"><img id="cadastro" src="/img/account-multiple-plus 1.svg" alt=""><img id="cadastro-black" src="/img/account-multiple-plus-black.svg" alt=""><p>Cadastro</p></a></span>
+                
+                <span id="relatorio-span" ><a href="/html/relatorio.html"><img id="relatorio" src="/img/chart-box 1.svg" alt=""><img id="relatorio-black" src="/img/chart-box-black.svg" alt=""><p>Relatorios</p></a></span>
             </div>
         </nav> 
     </div>
+    <script src="/js/relatorio.js"></script>
     <script type="module" src="/js/logout.js"></script>
     <script type="module" src="/js/showName.js"></script>
-    <script src="/js/mudatema.js"></script>
+    
     <script type="module" src="/js/logsUser.js"></script>
+    <script src="/js/restricoes.js"></script>
+    <script src="/js/menu.js"></script>
+    <script src="/js/image.js"></script>
 </body>
 </html>

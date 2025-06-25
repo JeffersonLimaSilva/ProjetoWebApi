@@ -1,8 +1,9 @@
 import { criaLogsUser } from "./logsUser.js";
 import { criaLista } from "./lista.js";
 
+
 document.getElementById('button-gravar').addEventListener('click', function(e){
-    let modalcad = document.getElementById('modal-cad')
+    let modalcad = document.getElementById('modal')
 
     let nome = document.getElementById('name').value
     let idade = parseInt(document.getElementById('years-old').value)
@@ -17,12 +18,12 @@ document.getElementById('button-gravar').addEventListener('click', function(e){
 
     let usersadm= JSON.parse(localStorage.getItem('usersadm')) || []
 
-    let userOnEmail = JSON.parse(localStorage.getItem('userOn')).email || []
+    let userOn = JSON.parse(localStorage.getItem('userOn')) || []
 
-    let logsUser= JSON
+    
     let index
     usersadm.forEach(function(useradm){
-        if(useradm.email == userOnEmail){
+        if(useradm.email == userOn.email){
             index = useradm.index
         }
 
@@ -58,22 +59,34 @@ document.getElementById('button-gravar').addEventListener('click', function(e){
         return false
     }
 
+    let date = new Date;
+
+    let mes = (date.getMonth() + 1)
+
+    let dia = date.getDate()
+
+
     let user= {
         name: nome, 
-        idade: idade, 
+        yearold: idade, 
         email: email, 
-        ativo: ativoInativo, 
-        endereco: endereco, 
-        maisinformacoes: maisinformacoes, 
-        interesses: interesses, 
-        sentimentos: sentimentos, 
-        valores: valores
+        status: ativoInativo, 
+        address: endereco, 
+        moreinfo: maisinformacoes, 
+        interests: interesses, 
+        emotions: sentimentos, 
+        values: valores,
+        date: mes
     }
     
-    criaLogsUser(usersadm[index].name, usersadm[index].email, 'cadastrou', email)
+    
     usersadm[index].users.push(user)
 
     localStorage.setItem('usersadm', JSON.stringify(usersadm))
+
+    
+
+    criaLogsUser(usersadm[index].name, usersadm[index].email, 'cadastrou', email, 2)
 
     document.getElementById('name').value = ''
     document.getElementById('years-old').value = ''
@@ -85,11 +98,15 @@ document.getElementById('button-gravar').addEventListener('click', function(e){
     document.getElementById('sentimentos').value =''
     document.getElementById('valores').value =''
     
-
+    
     alert("Usuario cadastrado")
     
     criaLista()
     modalcad.close()
+
+    let body = document.querySelector('.body')
+    let overlayer = document.querySelector('.overlayer')
+    body.removeChild(overlayer)
 })
 
 function verificaIgual(usersadm, email){
@@ -109,3 +126,20 @@ function validaNome(nome){
     return rnome.test(nome)
 }
 
+function cadColor(){
+    let cadcor = document.querySelector('#cadastro-span')
+    let homecor = document.querySelector('#home-span')
+    let relcor = document.querySelector('#relatorio-span')
+
+    cadcor.classList='span-on'
+    homecor.classList='span-off'
+    relcor.classList='span-off'
+
+    let cadastroblack = document.querySelector('#cadastro-black')
+    let cadastro = document.querySelector('#cadastro')
+    cadastro.classList.add('image-off')
+    cadastroblack.className='image'
+    
+}
+
+cadColor()

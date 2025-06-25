@@ -1,4 +1,4 @@
-export function criaLogsUser(name, email, acao, alvo, teste){
+export function criaLogsUser(name, email, acao, alvo, aux){
     let logsuser = JSON.parse(localStorage.getItem('logsuser')) || []
     let userOn = JSON.parse(localStorage.getItem('userOn')) || []
 
@@ -11,14 +11,19 @@ export function criaLogsUser(name, email, acao, alvo, teste){
         email: email,
         infor: acao + ' ' + alvo
     }
-    let listas={
-        loguser: loguser
+    let lista = []
+    lista.push(loguser)
+    
+    if (aux === 1) {
+        logsuser.push(lista)
     }
-    if (teste === 1) {
-        logsuser.push(listas)
+    
+    if(aux === 2){
+        logsuser[userOn.index].push(loguser)
+        
     }
-    // if(teste === 2){
-    //     loguser[]
-    // }
     localStorage.setItem('logsuser', JSON.stringify(logsuser))
+
+    
 }
+

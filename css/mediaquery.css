@@ -1,0 +1,317 @@
+@media(max-width: 450px){
+    html body{
+        padding: 0;
+        flex-direction: row;
+        
+    }
+    body .nav-div{
+        display: none;
+       
+    }
+    
+    body .header-main{
+        justify-self: end;
+        padding: 0;
+        width: 100%;
+        margin: 0 2vh;
+        header{
+            height: 7vh;
+            margin: 1.5vh 0;
+
+            .perfil-items{
+                display: none;
+            }
+            .menuhead{
+                display: block;
+                height: 5vh;
+                background-color: rgb(236, 236, 236);
+                margin-left: 2vh;
+                border-radius: 0.5vh;
+            }
+            .div-menu{
+                display: flex;
+            }
+            #search{
+                height: 5.5vh;
+                width: 75%;
+                margin-right: 3%;
+            }
+            .icon-perfil{
+                padding: 2vh 0vh ;  
+                img{
+                    margin: 0 0 0 2vh;
+                }
+            }
+            .show{
+                display: none;
+            }
+            
+        }
+        .div-dashboard{
+            height: 15%;
+            margin-bottom: 1.5vh;
+            > *{
+                box-shadow: 0 0.1vh 2vh 0.1vh var(--dashboard-box-shadow-color);
+                div{
+                    span{
+                        font-size: 6vh;
+                    }
+                }
+                p{
+                    font-size: 1.4vh;
+                    margin:0 0.5vh 0.5vh 0;
+                    
+                }
+            }
+
+        }
+        
+    
+    }
+    main .div-list{
+        border-bottom-left-radius: 1vh;
+        border-bottom-right-radius: 1vh;
+        margin-bottom: 0.5vh;
+    
+        div{
+            .paginate{
+                margin-top: 1vh;
+                margin-right: 0.5vh;
+                font-size: 2vh;
+                width: 35%;
+
+                > div{
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    background-color: gray;
+                    color: black;
+                    border: solid 0.1vh black;
+                    border-radius: 0.5vh;
+                    width: 3vh;
+
+                }
+            }
+            .table-list{
+                margin-top: 1vh;
+
+                thead{
+                    .menu{
+                        width: 1.5vh;
+                    }
+                }
+                tbody{
+                    td{
+                        font-size: 1.4vh;
+                    }
+                    
+                }
+
+                .tdmenu{
+                    width: 3.4vh;
+                    height: 4vh;
+                    padding: 0;
+                    padding-top: 1vh;
+                    .span{
+                        display: none;
+                    }
+                    .menu2{
+                        display: block;
+                        
+                        
+                    }
+                }
+            }
+        }
+    }
+    body .main-box{
+        border-bottom-left-radius: 1vh;
+        border-bottom-right-radius: 1vh;
+        margin-bottom: 0.5vh;
+        #head-cad{
+            width: 49vh;
+        }
+        #button-newCad{
+            font-size: 1.3vh;
+            width: 30vh;
+            height: 3.5vh;
+            margin-right: 0;
+
+        }
+        #head-rel-list{
+            width: 49vh;
+            P{
+                font-size: 2vh;
+                padding-left: 1vh;
+            }
+            margin-bottom: 3vh;
+        }
+        #button-imprimir-users{
+            font-size: 1.5vh;
+            width: 20vh;
+            height: 3.5vh;
+            margin-right: 0;
+        }
+        #button-imprimir-logs{
+            font-size: 1.5vh;
+            width: 20vh;
+            height: 3.5vh;
+            margin-right: 0;
+        }
+
+        #div-rel hr{
+            width: 90%;
+        }
+    }
+      
+    main #modal{
+        width: 80%;
+        height: 55%;
+        margin-top: 20%;
+        .box-list-newcad{
+            input{
+                font-size: 2.5vh;
+                padding: 0;
+                padding-left: 1vh;
+            }
+            textarea{
+                height: 8vh;
+                font-size: 2.5vh;
+                padding-left: 1vh;
+            }
+        }
+        .dialog-edit{
+            .div-edit{
+                display: flex !important;
+                width: 10vh;
+                margin-right: 1vh;
+                margin-top: 1vh;
+                p{
+                    margin: 0;
+                }
+            }
+        }
+        .hide{
+            display: none;
+        }
+        #button-delete{
+            margin-right: 12vh;
+            background-color: red;
+        }
+    }
+    
+    nav .nav-logo{
+        p{
+            display: none;
+        }
+        .div-menu{
+            display: block;
+            margin-left: 6vh;
+            img{
+                width: 8vh;
+            }
+        }
+        a{
+            display: flex;
+            justify-content: center;
+        }
+    }
+     
+}
+@media(min-width: 451px) and (max-width: 700px){
+    body .nav-div{
+        width: 15%;
+    }
+    body .header-main{
+        width: 84%;
+    }
+    nav .nav-logo{
+        padding-left: 3px;
+        display: flex;
+        justify-content: center;
+        img{
+            width: 10vh;
+            height: 10vh;
+            align-self: center;
+        }
+        span{
+            height: 10vh;
+        }
+        p{
+            display: none;
+        }
+    }
+    nav .div-nav{
+        span{
+            padding-left: 1vh;
+            p{
+                display: none;
+            }
+            a{
+                display: flex;
+                justify-content: center;
+            }
+        }
+        width: 60%;
+    }
+    main .main-box{
+        #button-newCad{
+            font-size: 1.8vh;
+        }
+    }
+    main .div-list{
+        p{
+            margin: 2vh 0 0 3vh;
+            font-size: 2vh;
+        }
+    
+    
+        div{
+            
+            .table-list{
+                margin-top: 1vh;
+
+                
+                tbody{
+                    td{
+                        font-size: 1.8vh;
+                    }
+                }
+            }
+        }
+    }
+    .header-main{
+        header{
+            #search{
+                margin-right: 15%;
+            }
+        }
+    }
+}
+
+@media(min-width: 701px) and (max-width: 800px){
+    nav .nav-logo{
+        padding-left: 3px;
+        display: flex;
+        justify-content: center;
+        img{
+            width: 10vh;
+            height: 10vh;
+            align-self: center;
+        }
+        span{
+            height: 10vh;
+        }
+        p{
+            display: none;
+        
+        }
+    }
+    .header-main{
+        header{
+            #search{
+                margin-right: 20%;
+            }
+        }
+    }
+}

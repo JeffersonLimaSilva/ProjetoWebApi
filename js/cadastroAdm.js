@@ -40,7 +40,7 @@ document.querySelector('form').addEventListener('submit', function(e){
     
     usersadm.push(useradm)
 
-    criaLogsUser(nome, email, 'cadastrou-se', '', usersadm.length)
+    criaLogsUser(nome, email, 'cadastrou-se', '', 1)
 
     localStorage.setItem('usersadm', JSON.stringify(usersadm))
     

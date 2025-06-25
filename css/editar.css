@@ -1,0 +1,170 @@
+.box-list-editar{
+    
+    height: 90%;
+    width: 100%;
+    overflow-x: hidden;
+    outline: none;
+    > div{
+        label{
+            display: flex;
+        }
+        .buttons-editar{
+            display: block;
+            margin-left: 1vh;
+            img{
+                width: 2vh;
+            }
+        }
+        input{
+            width: 95%;
+            background-color: var(--cor-input);
+            border: var(--borda-input);
+            font-size: 3vh;
+            padding-left: 1vh;
+        }
+        textarea{
+            width: 95%;
+            background-color: var(--cor-input);
+            border: var(--borda-input);
+            height: 15vh;
+            font-size: 3vh;
+            padding-left: 1vh;
+            padding-top: 1vh;
+        }
+        > p{
+            border-bottom: solid 2px gray;
+            width: 97%;
+            padding-bottom: 1vh;
+        }
+    }
+    #head-newCad{
+        display: flex;
+        width: 95%;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        div{
+            display: flex;
+            align-items: center;
+            height: 1vh;
+        }
+        input{
+            display: flex;
+            width: 3vh;
+            justify-self: end;
+            margin: 0 1vh 0 0;
+        }
+        p{
+            font-weight: 600;
+            
+        }
+    } 
+    #button-editar{
+        display: block;
+        width: 20vh;
+        height: 5vh;
+        background-color: var(--submit-new-cad-background-color);
+        margin: auto;
+        margin-top: 5vh;
+
+    }
+    #button-gravar{
+        display: none;
+    }
+        
+}
+.cad-box{
+    display: flex;
+    flex-direction: column;
+
+    > div{
+        display: flex;
+        flex-direction: column;
+
+    }
+    input{
+        height: 4vh;
+        margin-bottom: 2.5vh;
+    }
+
+    #duo-input{
+        display: flex;
+        width: 95%;
+        div{
+            display: flex;
+            flex-direction: column;
+            width: 50%;
+            
+        }
+        .div-years-old{
+            width: 20%;
+            margin-right: 4vh;
+        }
+        .div-email{
+            width: 80%;
+        }
+        #years-old{
+            width: 100%;
+            margin-right: 5vh;
+        }
+        #email{
+            width: 100%;
+            
+        }
+    }
+}
+#modal{
+    
+    margin: auto;
+    width: 56%;
+    height: 78%;
+    border: 0;
+    border-radius: 1vh;
+    box-shadow: 0 0 2vh 0.5vh rgb(85, 85, 85);
+    z-index: 990;
+    > div{
+        
+        display: flex;
+        justify-content: end;
+        margin-bottom: 1vh;
+
+        #close-modal{
+            
+            display: flex;
+            justify-content: center;
+            width: 20px;
+            border-radius: 0.5vh;
+            border: solid 0.1vh var(--close-modal-border-color);
+        }
+    }
+
+   
+}
+#div-fatosedados{
+    label{
+        width: 95%;
+    }
+}
+
+.edit-off{
+    user-select: none;
+    pointer-events: none;
+
+    color: gray;
+}
+.box-list-newcad .edit-on{
+    color: black;
+}
+
+.dialog-edit{
+    .div-edit{
+        display: flex;
+        width: 15vh;
+        margin-right: 3vh;
+        margin-top: 1vh;
+        p{
+            margin: 0;
+        }
+    }
+    
+}

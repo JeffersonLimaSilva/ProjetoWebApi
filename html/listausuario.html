@@ -5,36 +5,143 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Relatorios</title>
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/mediaquery.css">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/editar.css">
+    
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
-<body>
+<body id="body-theme" class="body">
+    <script type="module" src="/js/mudatema.js"></script>
+    
     <div class="header-main">
         <header>
+            <div class="div-menu">
+                <span class="menuhead"><img src="/img/menu.svg" alt="Menu"></span>
+            </div>
             <input type="text" name="Search" id="search" placeholder="Pesquisa...">
             <div>
-                <span id="muda-tema"><img src="/img/profile.svg" alt=""></span>
-                <div id="perfil-nome"></div>
-                <hr>
-                <span id="logout">SAIR</span>
+                <span id="moon-theme" class="change-theme"><img src="/img/moon.svg" alt="Lua"></span>
+                <span id="sun-theme" class="change-theme"><img src="/img/sun.svg" alt="Sol"></span>
+                <span class="icon-perfil"><img src="/img/profile.svg" alt=""></span>
+                <div class="perfil-items">
+                    <div class="perfil-nome"></div>
+                    <hr>
+                    <span class="logout">SAIR</span>
+                </div>
             </div>
         </header>
         <main class="main-box">
-            <div id="head-rel-list">
-                <p>Relatórios > Lista de Usuários</p>
-                <button id="button-imprimir" class="button-cadastro">IMPRIMIR</button>
-            </div>
-            <div id="id-imprimir" class="div-list">
             
-                <div class="div-cabecalho">
-                    <p>NOME</p>
-                    <p>EMAIL</p>
-                    <p>STATUS</p>
+            <div id="id-imprimir" class="div-list">
+                <div id="head-rel-list">
+                    <p class="link-rel"><a href="/html/relatorio.html">Relatórios</a> > Lista de Usuários</p>
+                    <button id="button-imprimir-users" class="button">IMPRIMIR</button>
                 </div>
-                <hr class="list-line">
-                <div id="box-list-user" class="div-box-list">  
+            
+                <div >
+                    <div class="paginate">
+                        <div class="fist">&#171</div>
+                        <div class="prev">&lt</div>
+                        <div class="number">
+                            <div></div>
+                        </div>
+                        <div class="next">&gt</div>
+                        <div class="last">&#187</div>
+
+                    </div>
+                    <table id='imprimir-users' class="table-list">
+                        <thead>
+                            <tr>
+                                <th>NOME</th>
+                                <th>EMAIL</th>
+                                <th>STATUS</th>
+                                <th class="menu"></th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-users">
+                            
+                        </tbody>
+                    </table>
+                    
+
                 </div>
 
             </div>
+
+            <dialog id="modal" class="dialog-cad">
+                <div>
+                    <div>
+                        <button id="button-delete" class="button">EXCLUIR</button>
+                    </div>
+                    <div class="div-edit">
+                        <label for="edit-input">Editar</label>
+                        <span class="edit-span"><input type="checkbox" name="editar" id="edit-input"></span>
+                        <p class="edit-check"></p>
+                    </div>
+                    <div>
+                        <span id="close-modal"><img src="/img/svgRemover.svg" alt="Fechar"></span>
+                    </div>
+                </div>
+                
+                <section class="box-list-newcad" >
+                    <div class="cad-box">
+                        <div id="head-newCad">
+                            <p class="modaltitle"></p>
+                            <div>
+                                <input type="checkbox" name="Ativo" id="ativo" value='Ativo'>
+                                <label for="ativo">Ativo <span class="buttons-editar"></label>
+                            </div>
+
+                        </div>
+
+                        <p>1º Fatos e Dados</p>
+                        <div id="div-fatosedados">
+                            <label for="name">Nome <span class="buttons-editar"></span></label>
+                            <input type="text" name="nome" id="name">
+                            <div id="duo-input">
+                                <div class="div-years-old">
+                                    <label for="years-old">Idade<span class="buttons-editar"></label>
+                                    <input type="text" name="idade" id="years-old">
+                                </div>
+                                
+                                <div class="div-email">
+                                    <label for="email">E-mail<span class="buttons-editar"></label>
+                                    <input type="text" name="email" id="email">
+                                </div>
+                            
+                            </div>
+                            <label for="address">Endereço<span class="buttons-editar"></label>
+                            <input type="text" name="endereco" id="address">
+
+                            <label for="more-info">Outras Informações<span class="buttons-editar"></label>
+                            <textarea name="informacoes" id="more-info"></textarea>
+                        </div>
+                        
+                        
+
+
+                    </div>
+                    <div>
+                        <label for="interesses">2º Interesses<span class="buttons-editar"></label>
+                        <textarea name="interesses" id="interesses"></textarea>
+                    </div>
+                    <div>
+                        <label for="sentimentos"> 3º Sentimentos<span class="buttons-editar"></label> 
+                        <textarea name="sentimentos" id="sentimentos"></textarea>
+                    </div>
+                    <div>
+                        <label for="valores"> 4º Valores<span class="buttons-editar"></label> 
+                        <textarea name="valores" id="valores"></textarea>
+                    </div>
+                    
+                    <button id="button-gravar" class="button">GRAVAR</button>
+                    <button id="button-editar" class="button">EDITAR</button>
+                </section>
+
+            </dialog>
             
         </main>
     </div>
@@ -42,22 +149,28 @@
        <nav>
             <div class="nav-logo">
                 <span><img src="/img/logo.svg" alt="Logo"></span>
+                <div class="div-menu">
+                    <span class="menunav"><img src="/img/menu.svg" alt="Menu"></span>
+                </div>
                 <p>Operação Curiosidade</p>
             </div>
             <div class="div-nav">
-                <span><a href="/index.html"><img src="/img/home 1.svg" alt="">Home</a></span>
-                <hr>
-                <span><a href="/html/cadastro.html"><img src="/img/account-multiple-plus 1.svg" alt="">Cadastro</a></span>
-                <hr>
-                <span><a href="/html/relatorio.html"><img src="/img/chart-box 1.svg" alt="">Relatorios</a></span>
+                <span id="home-span"><a href="/index.html"><img id="home" src="/img/home 1.svg" alt=""><img id="home-black" src="/img/home1-black.svg" alt=""><p>Home</p></a></span>
+                
+                <span id="cadastro-span"><a href="/html/cadastro.html"><img id="cadastro" src="/img/account-multiple-plus 1.svg" alt=""><img id="cadastro-black" src="/img/account-multiple-plus-black.svg" alt=""><p>Cadastro</p></a></span>
+                
+                <span id="relatorio-span" ><a href="/html/relatorio.html"><img id="relatorio" src="/img/chart-box 1.svg" alt=""><img id="relatorio-black" src="/img/chart-box-black.svg" alt=""><p>Relatorios</p></a></span>
             </div>
-        </nav> 
+        </nav>
     </div>
-    
+    <script src="/js/relatorio.js"></script>
     <script type="module" src="/js/lista.js"></script>
-    <script src="/js/imprimir.js"></script>
-    <script src="/js/logout.js"></script>
+    <script type="module" src="/js/imprimir.js"></script>
+    <script type="module" src="/js/logout.js"></script>
     <script type="module" src="/js/showName.js"></script>
-    <script src="/js/mudatema.js"></script>
+    <script type="module" src="/js/editaruser.js"></script>
+    <script src="/js/restricoes.js"></script>
+    <script src="/js/menu.js"></script>
+    <script src="/js/image.js"></script>
 </body>
 </html>
