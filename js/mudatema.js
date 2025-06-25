@@ -30,24 +30,15 @@ document.addEventListener('DOMContentLoaded', function(){
 
 export function mudaTema(){
 
+   let userOn=JSON.parse(localStorage.getItem('userOn')) || []
+   let usersadm =JSON.parse(localStorage.getItem('usersadm')) || []
+
+      console.log("esse carai entrou aq");
+      console.log(usersadm[userOn.index].countclick);
+
       let bodyLogin = document.querySelector('#body-login') || false
       let bodyRegistration = document.querySelector('#body-registration') || false
       let bodyTheme = document.querySelector('#body-theme')
-
-      let a = document.querySelectorAll('a')
-
-      let cabecalhocolor = document.querySelectorAll('.table-list thead th')
-
-      let spanEditar = document.querySelectorAll('.spanEditar')
-      let spanRemover = document.querySelectorAll('.spanRemover')
-
-      let home = document.querySelector('#home')
-      let cadastro = document.querySelector('#cadastro')
-      let relatorio = document.querySelector('#relatorio')
-
-      let homeblack = document.querySelector('#home-black')
-      let cadastroblack = document.querySelector('#cadastro-black')
-      let relatorioblack = document.querySelector('#relatorio-black')
       
       let editar = document.querySelectorAll('#editar')
       let editarblack = document.querySelectorAll('#editar-black')
@@ -86,6 +77,7 @@ export function mudaTema(){
 
          let moon =document.getElementById('moon-theme')
          moon.className='change-theme'
+         
 
          let sun =document.getElementById('sun-theme')
          sun.className='show'
@@ -103,7 +95,7 @@ export function mudaTema(){
             bodyRegistration.className=''
          }
          if(bodyTheme){
-            bodyTheme.classList=''
+            bodyTheme.className='body'
          }
 
       

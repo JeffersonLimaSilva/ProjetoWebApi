@@ -19,7 +19,7 @@ nav{
 
 .nav-profile{
     
-    background-color: white;
+    background-color: var(--secondary-background-color);
     display: flex;
     
     position: absolute;
@@ -31,10 +31,13 @@ nav{
     margin-left: 18vh;
 
     > div{
-        height: 9vh;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 8vh;
         width: 100%;
-        background-color: red;
-
+        background-color: var(--nav-profile-div);
+        margin-top: 1vh;
         span{
             display: flex;
             align-items: center;
