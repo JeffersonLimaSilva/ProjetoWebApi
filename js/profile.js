@@ -129,8 +129,7 @@ function profile(){
         spanClose.appendChild(imgClose)
         
         div.appendChild(spanClose)
-        div.appendChild(spanMoon)
-        div.appendChild(spanSun)
+        
         nav.appendChild(div)
         nav.appendChild(divName)
         nav.appendChild(divLogout)

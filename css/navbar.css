@@ -34,15 +34,32 @@ nav{
     > div{
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        
         height: 9vh;
-        width: 100%;
+        
         background-color: var(--nav-profile-div);
         margin-top: 3vh;
         span{
             align-items: center;
         }
         color: var(--nav-profile-div-color);
+    }
+    .div-logout{
+        span{
+            display: flex;
+            align-self: center;
+            padding-left: 1vh;
+            height: 6vh;
+            width: 7vh;
+            margin-left: 2vh;
+            margin-right: 2vh;
+            border: solid 0.3vh white;
+            border-radius: 1vh;
+        }
+    }
+    .perfil-nome{
+        width: 20vh;
+        padding-left: 3vh;
     }
    
 }
