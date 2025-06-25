@@ -49,6 +49,7 @@ export function showModal(){
             dialogClass.className=('dialog-cad')
             let edit = document.getElementById('edit-input').checked = false
         }
+        let listEdit = document.querySelectorAll('.box-list-editar') || false
         if (listEdit) {
             let inputNewCad = document.querySelectorAll('.box-list-editar input')
             let areaNewCad = document.querySelectorAll('.box-list-editar textarea')
