@@ -1,17 +1,21 @@
 import { criaLogsUser } from "./logsUser.js";
-
-document.querySelector('.logout').addEventListener('click', function(e){
-    let userOn = JSON.parse(localStorage.getItem('userOn')) || []
-    let usersadm = JSON.parse(localStorage.getItem('usersadm')) || []
+let logout = document.querySelectorAll('.logout')
+logout.forEach(logout => {
     
-    criaLogsUser(usersadm[userOn.index].name, usersadm[userOn.index].email, 'deslogou', '', 2)
+    logout.addEventListener('click', function(e){
+        let userOn = JSON.parse(localStorage.getItem('userOn')) || []
+        let usersadm = JSON.parse(localStorage.getItem('usersadm')) || []
+        
+        criaLogsUser(usersadm[userOn.index].name, usersadm[userOn.index].email, 'deslogou', '', 2)
 
-    userOn.email = ''
-    userOn.index = ''
-    localStorage.setItem('userOn', JSON.stringify(userOn))
-    
-    window.location.href='/html/login.html' 
-})
+        userOn.email = ''
+        userOn.index = ''
+        localStorage.setItem('userOn', JSON.stringify(userOn))
+        
+        window.location.href='/html/login.html' 
+    })
+});
+
 
 document.addEventListener('DOMContentLoaded', function(e){
     let button = document.querySelector('.logout')

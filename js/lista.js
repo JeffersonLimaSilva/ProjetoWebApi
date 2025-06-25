@@ -163,7 +163,7 @@ export function criaLista(search = ''){
     }
     filter()
 
-    mudaTema()
+    mudaTema(usersadm[userOn.index].countclick)
    
 }
 
@@ -289,6 +289,8 @@ function listaItems(user, tbody, index){
     spanMenu.style.padding='0.5vh'
     spanMenu.style.border='0'
     spanMenu.addEventListener('click', ()=>{
+        let deleteButton = document.querySelector('#button-delete')
+        deleteButton.style.display='block'
         modalEditar(index, user)
     }) 
 

@@ -1,4 +1,7 @@
 import { criaLogsUser } from "./logsUser.js";
+import { mudaTema } from "./mudatema.js";
+
+let countclick = 0
 
 document.querySelector('form').addEventListener('submit', function(e){
     e.preventDefault()
@@ -67,3 +70,27 @@ function validaNome(nome){
     let rnome = /^[A-Z][a-z]+[\s][A-Z][a-z]+$/
     return rnome.test(nome)
 }
+
+document.addEventListener('DOMContentLoaded', function(){
+
+   let moon =document.getElementById('logcad-moon-theme')
+   moon.className='show'
+   
+   document.getElementById('logcad-moon-theme').addEventListener('click', ()=>{
+      
+      if (countclick < 2) {
+        countclick ++
+      }
+      mudaTema(countclick)
+      
+   })
+   document.getElementById('logcad-sun-theme').addEventListener('click', ()=>{
+      if (countclick < 2) {
+        countclick ++
+      }
+      mudaTema(countclick)
+      
+   })
+   mudaTema(countclick)
+
+})
