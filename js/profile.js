@@ -1,4 +1,4 @@
-import { mudaTema } from "./mudatema.js";
+import { changeTheme } from "./changeTheme.js";
 import { showName } from "./showName.js";
 import { criaLogsUser } from "../logsusers/logsUser.js";
 
@@ -14,7 +14,7 @@ document.querySelector('#profile').addEventListener('click', ()=>{
     }
     console.log("entrou aq");
     
-    mudaTema(usersadm[userOn.index].countclick)
+    changeTheme(usersadm[userOn.index].theme)
     profile()
     showName()
 }) 
@@ -77,7 +77,7 @@ function profile(){
             }
             
             
-            mudaTema(usersadm[userOn.index].countclick)
+            changeTheme(usersadm[userOn.index].theme)
         })
 
         let imgSun = document.createElement('img')
@@ -95,7 +95,7 @@ function profile(){
             }
         
             
-            mudaTema(usersadm[userOn.index].countclick)
+            changeTheme(usersadm[userOn.index].theme)
         })
         let divLogout = document.createElement('div')
         divLogout.className='div-logout'

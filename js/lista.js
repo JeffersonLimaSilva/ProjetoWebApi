@@ -1,7 +1,7 @@
 import { perPage } from "./perPage.js";
 import { criaLogsUser } from "../logsusers/logsUser.js";
 import { modalEditar } from "./editaruser.js";
-import { mudaTema } from "./mudatema.js";
+import { changeTheme } from "./changeTheme.js";
 
 export function criaLista(search = ''){
 
@@ -163,7 +163,7 @@ export function criaLista(search = ''){
     }
     filter()
 
-    mudaTema(usersadm[userOn.index].countclick)
+    changeTheme(usersadm[userOn.index].theme)
    
 }
 

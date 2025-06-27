@@ -12,9 +12,32 @@
     <link rel="stylesheet" href="/css/dashboard.css">
     <link rel="stylesheet" href="/css/editar.css">
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    
+    <script>
+        let userOn=JSON.parse(localStorage.getItem('userOn')) || [];
+        let usersadm =JSON.parse(localStorage.getItem('usersadm')) || [];
+        let theme = JSON.parse(localStorage.getItem('theme')) || [];
+
+        function checkTheme(){
+            if (userOn.email != '') {
+                let localTheme = usersadm[userOn.index].theme;
+                
+                if(localTheme){
+                    let bodyTheme = document.querySelector('#body-theme');
+                    bodyTheme.classList.add('theme-black');
+                }
+            }
+            else{
+                if (theme) {
+                    let bodyTheme = document.querySelector('#body-theme');
+                    bodyTheme.classList.add('theme-black');
+                }
+            }
+        }
+    </script>
 </head>
 <body id="body-theme" class="body">
-    <script type="module" src="/js/mudatema.js"></script>
+    <!-- <script type="module" src="/js/changeTheme.js"></script> -->
     
     <div class="header-main">
         <header>
@@ -23,9 +46,9 @@
             </div>
             <input type="text" name="Search" id="search" placeholder="Pesquisa...">
             <div class="div-header-items">
-                <span id="moon-theme" class="change-theme"><img src="/img/moon.svg" alt="Lua"></span>
-                <span id="sun-theme" class="change-theme"><img src="/img/sun.svg" alt="Sol"></span>
-                
+                <!-- <span id="moon-theme" class="change-theme"><img src="/img/moon.svg" alt="Lua"></span>
+                <span id="sun-theme" class="change-theme"><img src="/img/sun.svg" alt="Sol"></span> -->
+                <input type="checkbox" name="change-theme" id="change-theme">
                 <div >
                     <span id="profile" class="icon-perfil"><img src="/img/profile.svg" alt=""></span>
                     <div class="profile-items">
@@ -33,7 +56,6 @@
                         <hr>
                         <span class="logout">SAIR</span>
                     </div>
-                    
                 </div>
             </div>
         </header>

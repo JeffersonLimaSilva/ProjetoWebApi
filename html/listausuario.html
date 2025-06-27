@@ -14,7 +14,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 <body id="body-theme" class="body">
-    <script type="module" src="/js/mudatema.js"></script>
+    <script type="module" src="/js/changeTheme.js"></script>
     
     <div class="header-main">
         <header>
@@ -22,14 +22,17 @@
                 <span class="menuhead"><img src="/img/menu.svg" alt="Menu"></span>
             </div>
             <input type="text" name="Search" id="search" placeholder="Pesquisa...">
-            <div class="div-header-itens">
-                <span id="moon-theme" class="change-theme"><img src="/img/moon.svg" alt="Lua"></span>
-                <span id="sun-theme" class="change-theme"><img src="/img/sun.svg" alt="Sol"></span>
-                <span id="profile" class="icon-perfil"><img src="/img/profile.svg" alt=""></span>
-                <div class="profile-items">
-                    <div class="perfil-nome"></div>
-                    <hr>
-                    <span class="logout">SAIR</span>
+            <div class="div-header-items">
+                <!-- <span id="moon-theme" class="change-theme"><img src="/img/moon.svg" alt="Lua"></span>
+                <span id="sun-theme" class="change-theme"><img src="/img/sun.svg" alt="Sol"></span> -->
+                <input type="checkbox" name="change-theme" id="change-theme">
+                <div >
+                    <span id="profile" class="icon-perfil"><img src="/img/profile.svg" alt=""></span>
+                    <div class="profile-items">
+                        <div class="perfil-nome"></div>
+                        <hr>
+                        <span class="logout">SAIR</span>
+                    </div>
                 </div>
             </div>
         </header>

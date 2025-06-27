@@ -1,5 +1,5 @@
 import { criaLogsUser } from "../logsusers/logsUser.js";
-import { mudaTema } from "../js/mudatema.js";
+import { changeTheme } from "../js/changeTheme.js";
 
 let countclick = 0
 
@@ -69,26 +69,26 @@ function userOnIndex(usersadm, email){
     return index
 }
 
-document.addEventListener('DOMContentLoaded', function(){
+// document.addEventListener('DOMContentLoaded', function(){
 
-   let moon =document.getElementById('logcad-moon-theme')
-   moon.className='show'
+//    let moon =document.getElementById('logcad-moon-theme')
+//    moon.className='show'
    
-   document.getElementById('logcad-moon-theme').addEventListener('click', ()=>{
+//    document.getElementById('logcad-moon-theme').addEventListener('click', ()=>{
       
-      if (countclick < 2) {
-        countclick ++
-      }
-      mudaTema(countclick)
+//       if (countclick < 2) {
+//         countclick ++
+//       }
+//       changeTheme(countclick)
       
-   })
-   document.getElementById('logcad-sun-theme').addEventListener('click', ()=>{
-      if (countclick < 2) {
-        countclick ++
-      }
-      mudaTema(countclick)
+//    })
+//    document.getElementById('logcad-sun-theme').addEventListener('click', ()=>{
+//       if (countclick < 2) {
+//         countclick ++
+//       }
+//       changeTheme(countclick)
       
-   })
-   mudaTema(countclick)
+//    })
+//    changeTheme(countclick)
 
-})
+// })

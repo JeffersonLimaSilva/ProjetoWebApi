@@ -12,7 +12,7 @@ logout.forEach(logout => {
         userOn.index = ''
         localStorage.setItem('userOn', JSON.stringify(userOn))
         
-        window.location.href='/html/login.html' 
+        window.location.href='/login/login.html' 
     })
 });
 

@@ -1,5 +1,5 @@
 import { criaLogsUser } from "../logsusers/logsUser.js";
-import { mudaTema } from "./mudatema.js";
+// import { changeTheme } from "./changeTheme.js";
 
 let countclick = 0
 
@@ -37,7 +37,7 @@ document.querySelector('form').addEventListener('submit', function(e){
         email: email,
         password: senha,
         index: index,
-        countclick:0,
+        theme: false,
         users: [],
     }
     
@@ -46,11 +46,8 @@ document.querySelector('form').addEventListener('submit', function(e){
     criaLogsUser(nome, email, 'cadastrou-se', '', 1)
 
     localStorage.setItem('usersadm', JSON.stringify(usersadm))
-    
-    
-    
-
-    window.location.href='/html/login.html'
+    localStorage.setItem('theme', JSON.stringify(useradm.theme))
+    window.location.href='/login/login.html'
 
 })
 
@@ -71,26 +68,26 @@ function validaNome(nome){
     return rnome.test(nome)
 }
 
-document.addEventListener('DOMContentLoaded', function(){
+// document.addEventListener('DOMContentLoaded', function(){
 
-   let moon =document.getElementById('logcad-moon-theme')
-   moon.className='show'
+//    let moon =document.getElementById('logcad-moon-theme')
+//    moon.className='show'
    
-   document.getElementById('logcad-moon-theme').addEventListener('click', ()=>{
+//    document.getElementById('logcad-moon-theme').addEventListener('click', ()=>{
       
-      if (countclick < 2) {
-        countclick ++
-      }
-      mudaTema(countclick)
+//       if (countclick < 2) {
+//         countclick ++
+//       }
+//       changeTheme(countclick)
       
-   })
-   document.getElementById('logcad-sun-theme').addEventListener('click', ()=>{
-      if (countclick < 2) {
-        countclick ++
-      }
-      mudaTema(countclick)
+//    })
+//    document.getElementById('logcad-sun-theme').addEventListener('click', ()=>{
+//       if (countclick < 2) {
+//         countclick ++
+//       }
+//       changeTheme(countclick)
       
-   })
-   mudaTema(countclick)
+//    })
+//    changeTheme(countclick)
 
-})
+// })
