@@ -1,5 +1,5 @@
-import { criaLogsUser } from "./logsUser.js";
-import { criaLista } from "./lista.js";
+import { criaLogsUser } from "../logsusers/logsUser.js";
+import { criaLista } from "../js/lista.js";
 
 
 document.getElementById('button-gravar').addEventListener('click', function(e){

@@ -1,4 +1,4 @@
-import { criaLogsUser } from "./logsUser.js";
+import { criaLogsUser } from "../logsusers/logsUser.js";
 let logout = document.querySelectorAll('.logout')
 logout.forEach(logout => {
     

@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro</title>
+    <title>Relatorios</title>
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/mediaquery.css">
     <link rel="stylesheet" href="/css/navbar.css">
     <link rel="stylesheet" href="/css/header.css">
     <link rel="stylesheet" href="/css/main.css">
-
+    
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 <body id="body-theme" class="body">
@@ -21,11 +21,11 @@
                 <span class="menuhead"><img src="/img/menu.svg" alt="Menu"></span>
             </div>
             <input type="text" name="Search" id="search" placeholder="Pesquisa...">
-            <div>
+            <div class="div-header-itens">
                 <span id="moon-theme" class="change-theme"><img src="/img/moon.svg" alt="Lua"></span>
                 <span id="sun-theme" class="change-theme"><img src="/img/sun.svg" alt="Sol"></span>
                 <span id="profile" class="icon-perfil"><img src="/img/profile.svg" alt=""></span>
-                <div class="perfil-items">
+                <div class="profile-items">
                     <div class="perfil-nome"></div>
                     <hr>
                     <span class="logout">SAIR</span>
@@ -33,17 +33,39 @@
             </div>
         </header>
         <main class="main-box">
+            
+            <div class="div-list">
+                <div id="head-rel-list">
+                    <p class="link-rel"><a href="/html/relatorio.html">Relatórios</a> > Logs do Usuário</p>
+                    <button id="button-imprimir-logs" class="button" >IMPRIMIR</button>
+                </div>
+                <div>
+                    <div class="paginate">
+                        <div class="fist">&#171</div>
+                        <div class="prev">&lt</div>
+                        <div class="number">
+                            <div></div>
+                        </div>
+                        <div class="next">&gt</div>
+                        <div class="last">&#187</div>
 
-            <div id="head-relatorio">
-                <p>Relatórios</p>
-            </div>
-            <div id="div-rel">
-                <p>NOME</p>
-                <hr class="list-line">
-                <a href="/html/listausuario.html">Lista de Usuários</a>
-                <hr class="list-line">
-                <a href="/html/logsusuario.html">Logs do Usuário</a>
-                <hr class="list-line">
+                    </div>
+                    <table id="imprimir-logs" class="table-list">
+                        <thead>
+                            <tr>
+                                <th>DATA</th>
+                                <th>NOME</th>
+                                <th>EMAIL</th>
+                                <th id="acao">AÇÃO</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-logs">
+                            
+                        </tbody>
+                    </table>
+                    
+
+                </div>
             </div>
             
         </main>
@@ -60,17 +82,21 @@
             <div class="div-nav">
                 <span id="home-span"><a href="/index.html"><img id="home" src="/img/home 1.svg" alt=""><img id="home-black" src="/img/home1-black.svg" alt=""><p>Home</p></a></span>
                 
-                <span id="cadastro-span"><a href="/html/cadastro.html"><img id="cadastro" src="/img/account-multiple-plus 1.svg" alt=""><img id="cadastro-black" src="/img/account-multiple-plus-black.svg" alt=""><p>Cadastro</p></a></span>
+                <span id="cadastro-span"><a href="/register/register.html"><img id="cadastro" src="/img/account-multiple-plus 1.svg" alt=""><img id="cadastro-black" src="/img/account-multiple-plus-black.svg" alt=""><p>Cadastro</p></a></span>
                 
-                <span id="relatorio-span" ><a href="/html/relatorio.html"><img id="relatorio" src="/img/chart-box 1.svg" alt=""><img id="relatorio-black" src="/img/chart-box-black.svg" alt=""><p>Relatorios</p></a></span>
+                <span id="relatorio-span" ><a href="/report/relatorio.html"><img id="relatorio" src="/img/chart-box 1.svg" alt=""><img id="relatorio-black" src="/img/chart-box-black.svg" alt=""><p>Relatorios</p></a></span>
             </div>
         </nav> 
     </div>
-    <script src="/js/relatorio.js"></script>
+
+    <script src="/report/relatorio.js"></script>
     <script type="module" src="/js/logout.js"></script>
     <script type="module" src="/js/showName.js"></script>
     <script type="module" src="/js/profile.js"></script>
-    <script type="module" src="/js/logsUser.js"></script>
+    <script type="module" src="/logsusers/logsUser.js"></script>
+    <script type="module" src="/js/listalogs.js"></script>
+    <script type="module" src="/js/imprimir.js"></script>
+    <script type="module" src="/js/perPage.js"></script>
     <script src="/js/restricoes.js"></script>
     <script src="/js/menu.js"></script>
     <script src="/js/image.js"></script>

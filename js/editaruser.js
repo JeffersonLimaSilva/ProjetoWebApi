@@ -1,6 +1,6 @@
 import { showModal } from "./cadNewcad.js";
 import { criaLista, showCadPend, removeUser } from "./lista.js";
-import { criaLogsUser } from "./logsUser.js";
+import { criaLogsUser } from "../logsusers/logsUser.js";
 
 let auxI = null
 let auxU = null
@@ -11,51 +11,6 @@ export function modalEditar(index, user){
     let modalClass = document.querySelector('.box-list-newcad')
     modalClass.className=('box-list-editar')
 
-    let edit = document.getElementById('edit-input').checked = false
-    console.log(edit);
-    if(!edit){
-        let inputNewCad = document.querySelectorAll('.box-list-editar input')
-        let areaNewCad = document.querySelectorAll('.box-list-editar textarea')
-        let pedit = document.querySelector('.edit-check')
-
-        inputNewCad.forEach(function(input){
-            input.className='edit-off'
-        })
-        areaNewCad.forEach(function(textarea){
-            textarea.className='edit-off'
-        })
-        pedit.innerText='Off'
-    }
-    
-    
-    document.querySelector('.edit-span').addEventListener('click', ()=>{
-        let edit = document.getElementById('edit-input').checked
-        
-        let modalcad = document.getElementById('modal')
-        let pedit = document.querySelector('.edit-check')
-        
-        console.log(edit);
-        if(edit){
-            let editOn = document.querySelectorAll('.edit-off')
-            editOn.forEach(function(text){
-                text.className='edit-on'
-            })
-            pedit.innerText='On'
-        }
-        if(!edit){
-            let editOn = document.querySelectorAll('.edit-on')
-            editOn.forEach(function(text){
-                text.className='edit-off'
-            })
-            pedit.innerText='Off'
-        }
-
-        modalcad.close()
-        let body = document.querySelector('.body')
-        let overlayer = document.querySelector('.overlayer')
-        body.removeChild(overlayer)
-        showModal()
-    })
 
     document.getElementById('name').value = user.name
     document.getElementById('years-old').value = user.yearold
@@ -173,10 +128,7 @@ if (buttonEditar) {
         let overlayer = document.querySelector('.overlayer')
         body.removeChild(overlayer)
 
-    })
-
-    
-
+    }) 
 }
 let deleteButton = document.getElementById('button-delete') || false
 if (deleteButton) {

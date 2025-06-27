@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
     if(userOn.email == '' && userOn.index == ''){
 
-        window.location.href='/html/login.html'
+        window.location.href='/login/login.html'
     }
     
 })

@@ -22,11 +22,11 @@
                 <span class="menuhead"><img src="/img/menu.svg" alt="Menu"></span>
             </div>
             <input type="text" name="Search" id="search" placeholder="Pesquisa...">
-            <div>
+            <div class="div-header-itens">
                 <span id="moon-theme" class="change-theme"><img src="/img/moon.svg" alt="Lua"></span>
                 <span id="sun-theme" class="change-theme"><img src="/img/sun.svg" alt="Sol"></span>
                 <span id="profile" class="icon-perfil"><img src="/img/profile.svg" alt=""></span>
-                <div class="perfil-items">
+                <div class="profile-items">
                     <div class="perfil-nome"></div>
                     <hr>
                     <span class="logout">SAIR</span>
@@ -76,11 +76,6 @@
                     <div>
                         <button id="button-delete" class="button">EXCLUIR</button>
                     </div>
-                    <div class="div-edit">
-                        <label for="edit-input">Editar</label>
-                        <span class="edit-span"><input type="checkbox" name="editar" id="edit-input"></span>
-                        <p class="edit-check"></p>
-                    </div>
                     <div>
                         <span id="close-modal"><img src="/img/svgRemover.svg" alt="Fechar"></span>
                     </div>
@@ -125,15 +120,15 @@
 
                     </div>
                     <div>
-                        <label for="interesses">2º Interesses<span class="buttons-editar"></label>
+                        <p>2º Interesses</p>
                         <textarea name="interesses" id="interesses"></textarea>
                     </div>
                     <div>
-                        <label for="sentimentos"> 3º Sentimentos<span class="buttons-editar"></label> 
+                        <p> 3º Sentimentos</p> 
                         <textarea name="sentimentos" id="sentimentos"></textarea>
                     </div>
                     <div>
-                        <label for="valores"> 4º Valores<span class="buttons-editar"></label> 
+                        <p> 4º Valores</p> 
                         <textarea name="valores" id="valores"></textarea>
                     </div>
                     
@@ -157,13 +152,13 @@
             <div class="div-nav">
                 <span id="home-span"><a href="/index.html"><img id="home" src="/img/home 1.svg" alt=""><img id="home-black" src="/img/home1-black.svg" alt=""><p>Home</p></a></span>
                 
-                <span id="cadastro-span"><a href="/html/cadastro.html"><img id="cadastro" src="/img/account-multiple-plus 1.svg" alt=""><img id="cadastro-black" src="/img/account-multiple-plus-black.svg" alt=""><p>Cadastro</p></a></span>
+                <span id="cadastro-span"><a href="/register/register.html"><img id="cadastro" src="/img/account-multiple-plus 1.svg" alt=""><img id="cadastro-black" src="/img/account-multiple-plus-black.svg" alt=""><p>Cadastro</p></a></span>
                 
-                <span id="relatorio-span" ><a href="/html/relatorio.html"><img id="relatorio" src="/img/chart-box 1.svg" alt=""><img id="relatorio-black" src="/img/chart-box-black.svg" alt=""><p>Relatorios</p></a></span>
+                <span id="relatorio-span" ><a href="/report/relatorio.html"><img id="relatorio" src="/img/chart-box 1.svg" alt=""><img id="relatorio-black" src="/img/chart-box-black.svg" alt=""><p>Relatorios</p></a></span>
             </div>
         </nav>
     </div>
-    <script src="/js/relatorio.js"></script>
+    <script src="/report/relatorio.js"></script>
     <script type="module" src="/js/lista.js"></script>
     <script type="module" src="/js/imprimir.js"></script>
     <script type="module" src="/js/logout.js"></script>

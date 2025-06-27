@@ -1,4 +1,4 @@
-import { criaLogsUser } from "./logsUser.js";
+import { criaLogsUser } from "../logsusers/logsUser.js";
 import { mudaTema } from "./mudatema.js";
 
 let countclick = 0

@@ -59,7 +59,7 @@ html{
     --button-color: white;
     --nav-box-shadow-color: rgba(0, 0, 0, 0.48);
     --span-on-background-color: rgb(21, 12, 78);
-    --span-on-color: rgb(68, 68, 68);
+    --span-on-color: rgba(255, 143, 30, 1);
     --nav-span-off-hover: rgb(151, 151, 151);
 
     --span-hover-background-color: rgba(255, 143, 30, 1);

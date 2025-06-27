@@ -1,6 +1,6 @@
 import { mudaTema } from "./mudatema.js";
 import { showName } from "./showName.js";
-import { criaLogsUser } from "./logsUser.js";
+import { criaLogsUser } from "../logsusers/logsUser.js";
 
 let countclick = 0
 

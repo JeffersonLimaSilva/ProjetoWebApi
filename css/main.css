@@ -136,28 +136,7 @@ main{
         }
     }
     
-    #div-rel{
-        display: flex;
-        flex-direction: column;
-        margin-left: 20px;
-        margin-top: 12px;
-        p{
-            border-bottom: 0;
-            margin: 0;
-            padding: 0;
-            font-size: 2.5vh;
-            
-        }
-        hr{
-            margin: 0px;
-            width: 96%;
-        }
-        a{
-            text-decoration: none;
-            color: var(--cor-font);
-            padding: 1vh 0;
-        }
-    }
+    
     
 }
 

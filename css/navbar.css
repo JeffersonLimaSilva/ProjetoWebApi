@@ -92,6 +92,7 @@ nav{
 .div-nav{
     display: flex;
     flex-direction: column;
+    align-items: center;
     justify-content: space-between;
     margin-top: 5vh;
     width: 90%;
@@ -99,11 +100,11 @@ nav{
     span{
         display: flex;
         align-items: center;
-        width: 100%;
-        height: 5vh;
+        width: 90%;
+        height: 7vh;
         margin-top: 2%;
         margin-bottom: 2%;
-        padding-left: 2%;
+        padding-left: 3%;
         a{
             display: flex;
             align-self: center;

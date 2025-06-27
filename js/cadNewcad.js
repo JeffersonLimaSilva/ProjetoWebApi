@@ -15,7 +15,6 @@ if (buttonFechaModal){
         let dialogClass = document.querySelector('.dialog-edit') || false
         if (dialogClass) {
             dialogClass.className=('dialog-cad')
-            let edit = document.getElementById('edit-input').checked = false
         }
         let listEdit = document.querySelectorAll('.box-list-editar') || false
         if (listEdit) {
@@ -48,7 +47,6 @@ export function showModal(){
         let dialogClass = document.querySelector('.dialog-edit') || false
         if (dialogClass) {
             dialogClass.className=('dialog-cad')
-            let edit = document.getElementById('edit-input').checked = false
         }
         let listEdit = document.querySelectorAll('.box-list-editar') || false
         if (listEdit) {

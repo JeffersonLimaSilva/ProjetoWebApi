@@ -1,5 +1,5 @@
 import { perPage } from "./perPage.js";
-import { criaLogsUser } from "./logsUser.js";
+import { criaLogsUser } from "../logsusers/logsUser.js";
 import { modalEditar } from "./editaruser.js";
 import { mudaTema } from "./mudatema.js";
 
@@ -252,7 +252,7 @@ function listaItems(user, tbody, index){
     })
     
     let imgRemover = document.createElement('img')
-    imgRemover.src= '/img/svgRemover.svg'
+    imgRemover.src= '/img/delete.svg'
     imgRemover.alt='Remover'
     imgRemover.style.width='2vh'
     imgRemover.className='imagem'
