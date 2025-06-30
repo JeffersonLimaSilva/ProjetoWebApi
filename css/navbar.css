@@ -105,6 +105,11 @@ nav{
         margin-top: 2%;
         margin-bottom: 2%;
         padding-left: 3%;
+
+        background-color: var(--nav-span-off-hover);
+        box-shadow: 0 2px 2px 1px rgba(83, 83, 83, 0.75);
+        border-radius:0.5vh;
+        
         a{
             display: flex;
             align-self: center;
@@ -150,20 +155,6 @@ nav{
         width: 3.5vh;
         padding: 0.5vh;
     }
-}
-
-.image{
-    display: block;
-}
-
-.image-off{
-    display: none;
-}
-
-.span-off{
-    background-color: var(--nav-span-off-hover);
-    box-shadow: 0 2px 2px 1px rgba(83, 83, 83, 0.75);
-    border-radius:0.5vh;
 }
 nav .span-on{
     background-color: var(--span-on-background-color);

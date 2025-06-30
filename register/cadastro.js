@@ -63,9 +63,6 @@ document.getElementById('button-gravar').addEventListener('click', function(e){
 
     let mes = (date.getMonth() + 1)
 
-    let dia = date.getDate()
-
-
     let user= {
         name: nome, 
         yearold: idade, 
@@ -79,8 +76,11 @@ document.getElementById('button-gravar').addEventListener('click', function(e){
         date: mes
     }
     
+    console.log("ta passando aq");
+    console.log(usersadm[index].users);
     
     usersadm[index].users.push(user)
+    console.log(usersadm[index].users);
 
     localStorage.setItem('usersadm', JSON.stringify(usersadm))
 
@@ -128,18 +128,8 @@ function validaNome(nome){
 
 function cadColor(){
     let cadcor = document.querySelector('#cadastro-span')
-    let homecor = document.querySelector('#home-span')
-    let relcor = document.querySelector('#relatorio-span')
 
     cadcor.classList='span-on'
-    homecor.classList='span-off'
-    relcor.classList='span-off'
-
-    let cadastroblack = document.querySelector('#cadastro-black')
-    let cadastro = document.querySelector('#cadastro')
-    cadastro.classList.add('image-off')
-    cadastroblack.className='image'
-    
 }
 
 cadColor()
