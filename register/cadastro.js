@@ -3,7 +3,7 @@ import { criaLista } from "../js/lista.js";
 
 
 document.getElementById('button-gravar').addEventListener('click', function(e){
-    let modalcad = document.getElementById('modal')
+    let modalcad = document.getElementById('modal-form')
     let nome = document.getElementById('name').value
     let idade = parseInt(document.getElementById('years-old').value)
     let email = document.getElementById('email').value

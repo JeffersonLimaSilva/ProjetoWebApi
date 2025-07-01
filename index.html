@@ -25,9 +25,11 @@
             </div>
             <input type="text" name="Search" id="search" placeholder="Pesquisa...">
             <div class="div-header-items">
-                <!-- <span id="moon-theme" class="change-theme"><img src="/img/moon.svg" alt="Lua"></span>
-                <span id="sun-theme" class="change-theme"><img src="/img/sun.svg" alt="Sol"></span> -->
-                <input type="checkbox" name="change-theme" id="change-theme">
+                <div class="div-change-theme">
+                    <input type="checkbox" name="change-theme" id="change-theme">
+                    <label for="change-theme" id="moon-theme"><img src="/img/moon.svg" alt="Lua"></label>
+                    <label for="change-theme" id="sun-theme"><img src="/img/sun.svg" alt="Sol"></label>
+                </div>
                 <div >
                     <span id="profile" class="icon-perfil"><img src="/img/profile.svg" alt=""></span>
                     <div class="profile-items">
@@ -90,15 +92,10 @@
                 
             </div>
 
-            <dialog id="modal" class="dialog-cad">
+            <dialog id="modal-form" class="dialog-cad">
                 <div>
                     <div>
                         <button id="button-delete" class="button">EXCLUIR</button>
-                    </div>
-                    <div class="div-edit">
-                        <label for="edit-input">Editar</label>
-                        <span class="edit-span"><input type="checkbox" name="editar" id="edit-input"></span>
-                        <p class="edit-check"></p>
                     </div>
                     <div>
                         <span id="close-modal"><img src="/img/svgRemover.svg" alt="Fechar"></span>
@@ -192,6 +189,7 @@
     <script type="module" src="/js/profile.js"></script>
     <script src="/js/menu.js"></script>
     <script src="/js/restricoes.js"></script>
+    <script type="module" src="/modals/modals.js"></script>
     
 </body>
 </html>

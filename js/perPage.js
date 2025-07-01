@@ -10,5 +10,6 @@ export function setPerPage(newperPage){
     perPage = aux
     
 }
+console.log(perPage);
 
 

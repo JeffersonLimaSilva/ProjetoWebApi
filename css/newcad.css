@@ -107,7 +107,7 @@
 
 }
 
-#modal{
+#modal-form{
     margin: auto;
     background-color: var(--modal-background-color);
     color: var(--modal-color);

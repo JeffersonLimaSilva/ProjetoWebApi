@@ -5,13 +5,10 @@ import { modalEditar } from "./editaruser.js";
 
 export function criaLista(search = ''){
 
-    console.log("entrou no criaLista");
-    
 
     let usersadm= JSON.parse(localStorage.getItem('usersadm')) || []
     let userOn = JSON.parse(localStorage.getItem('userOn')) || []
 
-    console.log("dados no comeco do criaLista", usersadm[userOn.index].users);
     
     let tbody = document.getElementById('tbody-users') || false
 
@@ -150,12 +147,8 @@ export function criaLista(search = ''){
             })
         }
     
-    
     }
     filter()
-
-    // changeTheme(usersadm[userOn.index].theme)
-    console.log("dados no final do criaLista", usersadm[userOn.index].users);
 }
 
 function listaItems(user, tbody, index){
@@ -334,8 +327,6 @@ export function removeUser(index){
 
     usersadm[userOn.index].users.reverse()
     localStorage.setItem('usersadm', JSON.stringify(usersadm))
-    console.log('entoru aq');
-    
     
     criaLista()
     
@@ -343,8 +334,6 @@ export function removeUser(index){
 
 function showCad(){
     let c = document.getElementById('cad') || false
-    
-    
     if (c) {
         c.innerHTML=''
         c.appendChild(styleValue(contaCad(), 'blue'))
@@ -352,24 +341,17 @@ function showCad(){
 }
 function showCadMes(){
     let c = document.getElementById('cad-mes') || false
-
-    
     if (c) {
         c.innerHTML=''
         c.appendChild(styleValue(contaCadMes(), 'green'))
     }
-  
 }
 export function showCadPend(){
     let c = document.getElementById('cad-pend') || false
-
-    
     if (c) {
         c.innerHTML=''
         c.appendChild(styleValue(contaInativo(), 'red'))
-    }
-    
-    
+    } 
 }
 
 function styleValue(x, colorC){

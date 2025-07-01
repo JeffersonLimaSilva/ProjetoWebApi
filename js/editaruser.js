@@ -1,6 +1,8 @@
 import { showModal } from "./cadNewcad.js";
 import { criaLista, showCadPend, removeUser } from "./lista.js";
 import { criaLogsUser } from "../logsusers/logsUser.js";
+import { modalAlert } from "../modals/modals.js";
+
 
 let auxI = null
 let auxU = null
@@ -51,7 +53,7 @@ if (buttonEditar) {
         let user = auxU
         
         
-        let modalcad = document.getElementById('modal')
+        let modalcad = document.getElementById('modal-form')
         
 
         let nome = document.getElementById('name').value
@@ -117,7 +119,7 @@ if (buttonEditar) {
             
         }
 
-        
+        modalAlert('Usuário Editado');
 
         modalcad.close()
 
@@ -133,7 +135,7 @@ if (buttonEditar) {
 let deleteButton = document.getElementById('button-delete') || false
 if (deleteButton) {
     deleteButton.addEventListener('click', ()=>{
-        let modalcad = document.getElementById('modal')
+        let modalcad = document.getElementById('modal-form')
         let index = auxI
 
         alert("Cadastro Excluido")

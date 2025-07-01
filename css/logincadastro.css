@@ -122,8 +122,42 @@ header{
     height: 45vh;
 }
 
-.change-theme{
-    display: none;
+.div-change-theme{
+    margin-top: 2vh;
+    margin-right: 2vh;
+    width: 5vh;
+}
+.div-change-theme input{
+    width: 5vh;
+    height: 5vh;
+    margin: 0;
+    opacity: 0;
+    position: absolute;
+}
+.div-change-theme input:checked ~ #sun-theme {
+    transition: 1s;
+    opacity: 1;
+}
+.div-change-theme input:checked ~ #moon-theme {
+    opacity: 0;
+}
+#sun-theme{
+    position: absolute;
+    opacity: 0;
+
+    img{
+        width: 5vh;
+        height: 5vh;
+    }
+}
+#moon-theme{
+    transition: 0.5s;
+    position: absolute;
+    opacity: 1;
+    img{
+        width: 5vh;
+        height: 5vh;
+    }
 }
 .show{
     display: block;

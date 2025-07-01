@@ -129,8 +129,8 @@ nav{
         }
     }
     span:hover{
-        background-color: var(--hover-background-color);
-        box-shadow: 0 0.5vh 0.5vh 0.5vh var(--hover-box-shadow-color) ;
+        background-color: var(--span-hover-background-color);
+        box-shadow: 0 0.5vh 0.5vh 0.2vh var(--span-hover-box-shadow-color) ;
         transition: 0.2s;
         border-radius: 0.5vh;
         
@@ -158,16 +158,13 @@ nav{
 }
 nav .span-on{
     background-color: var(--span-on-background-color);
+    box-shadow: 0 2px 2px 2px rgba(97, 69, 10, 0.75);
     
     p{
         color: var(--span-on-color);
     }
-    
-    box-shadow: 0 2px 2px 1px rgb(0, 0, 0);
-    border-radius:0.5vh;
 }
 nav .span-on:hover{
     background-color: var(--span-on-background-color);
-    box-shadow: 0 2px 2px 1px rgb(0, 0, 0);
-    border-radius:0.5vh;
+    box-shadow: 0 2px 2px 1px rgba(112, 80, 11, 0.75);
 }

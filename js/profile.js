@@ -93,8 +93,6 @@ function profile(){
                 usersadm[userOn.index].countclick ++
                 localStorage.setItem('usersadm', JSON.stringify(usersadm))
             }
-        
-            
             changeTheme(usersadm[userOn.index].theme)
         })
         let divLogout = document.createElement('div')
@@ -147,9 +145,9 @@ function profile(){
 
         nav.removeChild(div)
         // nav.removeChild(divName)
+        body.removeChild(nav)
         body.removeChild(overlayer)
-
-        nav.className='profile-off'
+        
         countclick = 0
     }
 }

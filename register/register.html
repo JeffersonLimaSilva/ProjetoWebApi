@@ -24,9 +24,11 @@
             <input type="text" name="Search" id="search" placeholder="Pesquisa...">
             
             <div class="div-header-items">
-                <!-- <span id="moon-theme" class="change-theme"><img src="/img/moon.svg" alt="Lua"></span>
-                <span id="sun-theme" class="change-theme"><img src="/img/sun.svg" alt="Sol"></span> -->
-                <input type="checkbox" name="change-theme" id="change-theme">
+                <div class="div-change-theme">
+                    <input type="checkbox" name="change-theme" id="change-theme">
+                    <label for="change-theme" id="moon-theme"><img src="/img/moon.svg" alt="Lua"></label>
+                    <label for="change-theme" id="sun-theme"><img src="/img/sun.svg" alt="Sol"></label>
+                </div>
                 <div >
                     <span id="profile" class="icon-perfil"><img src="/img/profile.svg" alt=""></span>
                     <div class="profile-items">
@@ -76,7 +78,7 @@
                 
             </div>
             
-            <dialog id="modal" class="dialog-cad">
+            <dialog id="modal-form" class="dialog-cad">
                 <div>
                     <div>
                         <button id="button-delete" class="button">EXCLUIR</button>
@@ -120,10 +122,6 @@
                             <label for="more-info">Outras Informações</label>
                             <textarea name="informacoes" id="more-info"></textarea>
                         </div>
-                        
-                        
-
-
                     </div>
                     <div>
                         <p>2º Interesses</p>

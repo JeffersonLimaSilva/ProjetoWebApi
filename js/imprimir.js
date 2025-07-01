@@ -23,7 +23,7 @@ document.querySelector('.button').addEventListener('click', function(e){
     
     if(users){        
 
-        setPerPage(usersadm[userOn.index].users.length)
+        setPerPage(usersadm[userOn.index].users.length);
         
         let html= document.querySelector('#imprimir-users').innerHTML || false
         

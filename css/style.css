@@ -9,11 +9,14 @@ html{
 
     --button-color: white;
     --nav-box-shadow-color: rgb(182, 182, 182);
-    --span-on-background-color: rgb(28, 23, 61);
-    --span-on-color: rgba(255, 143, 30, 1);
+    --span-on-background-color: rgba(255, 143, 30, 1);
+    --span-on-color: rgb(105, 105, 105);
     --nav-span-off-hover: rgb(153, 153, 153);
     --nav-profile-div: rgb(28, 23, 61);
     --nav-profile-div-color: white;
+
+    --span-hover-background-color: rgb(28, 23, 61);
+    --span-hover-box-shadow-color: rgb(0, 0, 0);
 
     --hover-background-color: rgba(255, 143, 30, 1);
     --hover-box-shadow-color: rgba(112, 80, 11, 0.75);
@@ -59,13 +62,18 @@ html{
     --ternary-background-color: rgb(13, 25, 39);
 
     --button-color: white;
-    --nav-box-shadow-color: rgba(0, 0, 0, 0.48);
-    --span-on-background-color: rgb(21, 12, 78);
-    --span-on-color: rgba(255, 143, 30, 1);
-    --nav-span-off-hover: rgb(151, 151, 151);
+    --nav-box-shadow-color: rgb(17, 17, 17);
+    --span-on-background-color: rgba(255, 143, 30, 1);
+    --span-on-color: rgb(105, 105, 105);
+    --nav-span-off-hover: rgb(153, 153, 153);
+    --nav-profile-div: rgb(28, 23, 61);
+    --nav-profile-div-color: white;
 
-    --span-hover-background-color: rgba(255, 143, 30, 1);
-    --span-hover-box-shadow-color: rgba(112, 80, 11, 0.75);
+    --span-hover-background-color: rgb(28, 23, 61);
+    --span-hover-box-shadow-color: rgb(0, 0, 0);
+
+    --hover-background-color: rgba(255, 143, 30, 1);
+    --hover-box-shadow-color: rgba(112, 80, 11, 0.75);
 
     --submit-new-cad-background-color: rgb(24, 182, 24);
     --submit-print-background-color: rgb(74, 74, 250);
@@ -136,11 +144,25 @@ body{
     z-index: 900;
 }
 
+.modal-class{
+    width: 32%;
+    height: 10%;
+    background-color: var(--secondary-background-color);
+    border: 0;
+    border-radius: 1vh;
+    margin-top: 2.5vh;
+    box-shadow: 0 0.5vh 5vh 1vh var(--dashboard-box-shadow-color);
+    outline: none;
+    transition: 1s;
+    
+    > div{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
 
-
-
-
-
-
-
-
+.modal-class::backdrop{
+    backdrop-filter: blur(5px);
+    background-color: black;
+}
