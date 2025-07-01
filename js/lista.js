@@ -1,7 +1,7 @@
 import { perPage } from "./perPage.js";
 import { criaLogsUser } from "../logsusers/logsUser.js";
 import { modalEditar } from "./editaruser.js";
-import { changeTheme } from "./changeTheme.js";
+// import { changeTheme } from "./changeTheme.js";
 
 export function criaLista(search = ''){
 
@@ -154,7 +154,7 @@ export function criaLista(search = ''){
     }
     filter()
 
-    changeTheme(usersadm[userOn.index].theme)
+    // changeTheme(usersadm[userOn.index].theme)
     console.log("dados no final do criaLista", usersadm[userOn.index].users);
 }
 
