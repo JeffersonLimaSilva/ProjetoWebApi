@@ -4,7 +4,6 @@ import { criaLista } from "../js/lista.js";
 
 document.getElementById('button-gravar').addEventListener('click', function(e){
     let modalcad = document.getElementById('modal')
-
     let nome = document.getElementById('name').value
     let idade = parseInt(document.getElementById('years-old').value)
     let email = document.getElementById('email').value
@@ -15,21 +14,8 @@ document.getElementById('button-gravar').addEventListener('click', function(e){
     let interesses = document.getElementById('interesses').value
     let sentimentos = document.getElementById('sentimentos').value
     let valores = document.getElementById('valores').value
-
     let usersadm= JSON.parse(localStorage.getItem('usersadm')) || []
-
     let userOn = JSON.parse(localStorage.getItem('userOn')) || []
-
-    
-    let index
-    usersadm.forEach(function(useradm){
-        if(useradm.email == userOn.email){
-            index = useradm.index
-        }
-
-    })
-    
-
 
     if(nome == '' || email == ''){
         alert("Campo Nome e Email obrigatório")
@@ -54,7 +40,7 @@ document.getElementById('button-gravar').addEventListener('click', function(e){
         return false
     }
 
-    if(verificaIgual(usersadm[index], email)){
+    if(verificaIgual(usersadm[userOn.index], email)){
         alert("Email ja cadastrado")
         return false
     }
@@ -75,18 +61,11 @@ document.getElementById('button-gravar').addEventListener('click', function(e){
         values: valores,
         date: mes
     }
-    
-    console.log("ta passando aq");
-    console.log(usersadm[index].users);
-    
-    usersadm[index].users.push(user)
-    console.log(usersadm[index].users);
 
+    usersadm[userOn.index].users.push(user)
     localStorage.setItem('usersadm', JSON.stringify(usersadm))
-
     
-
-    criaLogsUser(usersadm[index].name, usersadm[index].email, 'cadastrou', email, 2)
+    criaLogsUser(usersadm[userOn.index].name, usersadm[userOn.index].email, 'cadastrou', email, 2)
 
     document.getElementById('name').value = ''
     document.getElementById('years-old').value = ''

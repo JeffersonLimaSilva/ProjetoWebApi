@@ -120,7 +120,7 @@
     height: 78%;
     border: 0;
     border-radius: 1vh;
-    box-shadow: 0 0 2vh 0.5vh rgb(85, 85, 85);
+    /* box-shadow: 0 0 2vh 0.5vh rgb(85, 85, 85); */
     z-index: 990;
     > div{
         
@@ -156,18 +156,6 @@
     color: black;
 }
 
-.dialog-edit{
-    .div-edit{
-        display: flex;
-        width: 15vh;
-        margin-right: 3vh;
-        margin-top: 1vh;
-        p{
-            margin: 0;
-        }
-    }
-    
-}
 #button-delete{
     display: none;
 }

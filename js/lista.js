@@ -5,8 +5,13 @@ import { changeTheme } from "./changeTheme.js";
 
 export function criaLista(search = ''){
 
+    console.log("entrou no criaLista");
+    
+
     let usersadm= JSON.parse(localStorage.getItem('usersadm')) || []
     let userOn = JSON.parse(localStorage.getItem('userOn')) || []
+
+    console.log("dados no comeco do criaLista", usersadm[userOn.index].users);
     
     let tbody = document.getElementById('tbody-users') || false
 
@@ -17,23 +22,16 @@ export function criaLista(search = ''){
     tbody.innerHTML=''
 
     usersadm[userOn.index].users.reverse()
-
-    
-
     const state={
         page: 1,
         perPage: perPage,
         totalPages: Math.ceil(usersadm[userOn.index].users.length / perPage)
     }
-
-    
-    
     const html ={
         get(element){
             return document.querySelector(element)
         }
     }
-
     const controsls={
         next(){
             state.page++
@@ -98,23 +96,16 @@ export function criaLista(search = ''){
                 let minEmail = user.email.toLowerCase()
                 let minStatus = user.status.toLowerCase()
                 date = user.date
-
-                
-                //  || date === date
-
                 if(minName.includes(search) || minEmail.includes(search) || minStatus.includes(search)){
                     if(date === user.date){
                         auxiliar.push(user)
-                    }
-                    
+                    } 
                 }
-                
             })
 
             state.totalPages= Math.ceil(auxiliar.length / perPage)
             const paginatedItems = auxiliar.slice(start, end)
-            
-            
+    
             paginatedItems.forEach(function(user, index){
                 list.create(user, index)
             });
@@ -164,12 +155,11 @@ export function criaLista(search = ''){
     filter()
 
     changeTheme(usersadm[userOn.index].theme)
-   
+    console.log("dados no final do criaLista", usersadm[userOn.index].users);
 }
 
 function listaItems(user, tbody, index){
-
-    
+ 
     let trbody = document.createElement('tr')
     let tdname = document.createElement('td')
     let tdemail = document.createElement('td')

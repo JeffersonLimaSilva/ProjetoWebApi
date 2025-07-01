@@ -1,8 +1,4 @@
 import { criaLogsUser } from "../logsusers/logsUser.js";
-import { changeTheme } from "../js/changeTheme.js";
-
-let countclick = 0
-
 
 document.querySelector('form').addEventListener('submit', function(e){
     e.preventDefault()
@@ -25,8 +21,7 @@ document.querySelector('form').addEventListener('submit', function(e){
                 email: email,
                 index: userOnIndex(usersadm, email)
             }
-            
-            
+
             
             localStorage.setItem('userOn', JSON.stringify(userOn))
 
@@ -69,26 +64,3 @@ function userOnIndex(usersadm, email){
     return index
 }
 
-// document.addEventListener('DOMContentLoaded', function(){
-
-//    let moon =document.getElementById('logcad-moon-theme')
-//    moon.className='show'
-   
-//    document.getElementById('logcad-moon-theme').addEventListener('click', ()=>{
-      
-//       if (countclick < 2) {
-//         countclick ++
-//       }
-//       changeTheme(countclick)
-      
-//    })
-//    document.getElementById('logcad-sun-theme').addEventListener('click', ()=>{
-//       if (countclick < 2) {
-//         countclick ++
-//       }
-//       changeTheme(countclick)
-      
-//    })
-//    changeTheme(countclick)
-
-// })
