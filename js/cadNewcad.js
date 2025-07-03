@@ -64,9 +64,12 @@ export function showModal(){
         closeModal();
     })
     body.appendChild(overlayer);
+    
         
 
     modalad.show();
+    let nome = document.getElementById('name')
+    nome.focus()
 }
 
 export function closeModal(){
@@ -89,7 +92,7 @@ export function closeModal(){
     document.getElementById('interesses').value ='';
     document.getElementById('sentimentos').value ='';
     document.getElementById('valores').value ='';
-;
+
     
     modalad.close();
 }

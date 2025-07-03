@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login OC</title>
     <link rel="stylesheet" href="../css/logincadastro.css">
-    
+    <link rel="stylesheet" href="../modals/modals.css">
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
-<body id="body-login">
+<body id="body-login" class="body">
     <script src="/js/mudaTema.js"></script>
     <script type="module" src="/js/changeTheme.js"></script>
     <span class="muda-tema" class="icon-perfil"><img src="/img/profile.svg" alt=""></span>
@@ -28,8 +28,10 @@
             </div>
             
             <form id="form-login" method="post" action="/index.html">
-                <input class="input-campo" type="email" name="Email" id="f-email" placeholder="Email">
-                <input class="input-campo" type="password" name="Senha" id="f-password" placeholder="Senha">
+                <label for="f-email">E-mail</label>
+                <input class="input-campo" type="email" name="Email" id="f-email" placeholder="Email...">
+                <label for="f-password">Senha</label>
+                <input class="input-campo" type="password" name="Senha" id="f-password" placeholder="Senha...">
 
                 <input id="submit-login" class="submit" type="submit" value="ENTRAR">
             </form>

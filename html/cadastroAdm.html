@@ -5,9 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro OC</title>
     <link rel="stylesheet" href="../css/logincadastro.css">
+    <link rel="stylesheet" href="../modals/modals.css">
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
-<body id="body-registration">
+<body id="body-registration" class="body">
     <script src="/js/mudaTema.js"></script>
     <script type="module" src="/js/changeTheme.js"></script>
     <header>
@@ -24,9 +25,12 @@
                 
             </div>
             <form id="form-cadastro" method="post" action="/index.html">
-                <input class="input-campo" type="text" name="nome" id="cad-name" placeholder="Nome">
-                <input class="input-campo" type="email" name="Email" id="cad-email" placeholder="Email">
-                <input class="input-campo" type="password" name="Senha" id="cad-password" placeholder="Senha">
+                <label for="cad-name">Nome</label>
+                <input class="input-campo" type="text" name="nome" id="cad-name" placeholder="Nome...">
+                <label for="cad-email">E-mail</label>
+                <input class="input-campo" type="email" name="Email" id="cad-email" placeholder="Email...">
+                <label for="cad-password">Senha</label>
+                <input class="input-campo" type="password" name="Senha" id="cad-password" placeholder="Senha...">
 
                 <input id="submit-cadastro" class="submit" type="submit" value="CADASTRAR">
             </form>

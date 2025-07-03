@@ -187,12 +187,21 @@ main{
         }
         .tdmenu{
             width: 10vh;
-            padding-top: 1vh;
+            padding-top: 0.5vh;
             display: flex;
 
             span{
-                
-                display: none;
+                width: 2vh;
+                height: 2vh;
+                padding: 1vh 1vh;
+                border-radius: 1vh;
+                margin-bottom: 0.5vh;
+                margin-right: 1vh;
+
+                img{
+                    width: 2vh;
+                    height: 2vh;
+                }
                    
             }
             .span{
@@ -205,10 +214,22 @@ main{
 
                 
             }
+            .icon-black{
+                position: absolute;
+                opacity: 0;
+            }
         }
         
     }
     
+}
+.body:has(.div-change-theme input:checked) .icon-white{
+    position: absolute;
+    opacity: 0;
+}
+.body:has(.div-change-theme input:checked) .icon-black{
+    position: static;
+    opacity: 1;
 }
 
 

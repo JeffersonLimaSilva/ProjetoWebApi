@@ -119,8 +119,8 @@ if (buttonEditar) {
             
         }
 
-        modalAlert('Usuário Editado');
-
+        modalAlert(`<p>As informações de <strong>${email}</strong> foram salvas.</p>`);
+        
         modalcad.close()
 
         let deleteButton = document.querySelector('#button-delete')

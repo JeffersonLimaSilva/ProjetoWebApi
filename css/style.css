@@ -143,26 +143,3 @@ body{
     position: absolute;
     z-index: 900;
 }
-
-.modal-class{
-    width: 32%;
-    height: 10%;
-    background-color: var(--secondary-background-color);
-    border: 0;
-    border-radius: 1vh;
-    margin-top: 2.5vh;
-    box-shadow: 0 0.5vh 5vh 1vh var(--dashboard-box-shadow-color);
-    outline: none;
-    transition: 1s;
-    
-    > div{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-}
-
-.modal-class::backdrop{
-    backdrop-filter: blur(5px);
-    background-color: black;
-}

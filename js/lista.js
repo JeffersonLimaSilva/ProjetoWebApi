@@ -1,9 +1,10 @@
 import { perPage } from "./perPage.js";
 import { criaLogsUser } from "../logsusers/logsUser.js";
 import { modalEditar } from "./editaruser.js";
+import { modalConfirm } from "../modals/modals.js";
 // import { changeTheme } from "./changeTheme.js";
 
-export function criaLista(search = ''){
+export function criaLista(search = '', date = 0){
 
 
     let usersadm= JSON.parse(localStorage.getItem('usersadm')) || []
@@ -78,9 +79,10 @@ export function criaLista(search = ''){
         create(user, index){
             listaItems(user, tbody, index)
         },
-        update( date = 0){
+        update(){
             html.get('#tbody-users').innerHTML = ""
-
+            console.log(date);
+            
             let page = state.page - 1
             let start = page * state.perPage
             let end = start + state.perPage
@@ -94,6 +96,7 @@ export function criaLista(search = ''){
                 let minStatus = user.status.toLowerCase()
                 date = user.date
                 if(minName.includes(search) || minEmail.includes(search) || minStatus.includes(search)){
+                    
                     if(date === user.date){
                         auxiliar.push(user)
                     } 
@@ -132,14 +135,13 @@ export function criaLista(search = ''){
 
         if(cad){
             document.querySelector('#cad').addEventListener('click', function(e){
-                
                 criaLista()
             })
             document.querySelector('#cad-mes').addEventListener('click', function(e){
                 let date = new Date;
                 let mes= (date.getMonth() + 1)
-                list.update(mes)
-                criaLista()
+                criaLista('', mes)
+                
             })
             document.querySelector('#cad-pend').addEventListener('click', function(e){
                 
@@ -163,8 +165,6 @@ function listaItems(user, tbody, index){
     tdemail.textContent =  user.email
     tdativo.textContent = user.status
 
-    
-        
     if(user.status === 'Ativo'){
     
         tdativo.style.color='green'
@@ -179,11 +179,6 @@ function listaItems(user, tbody, index){
     let spanEditar =document.createElement('span')
     spanEditar.className='spanEditar'
     spanEditar.classList='span'
-    spanEditar.style.height='2vh'
-    spanEditar.style.width='2vh'
-    spanEditar.style.borderRadius='1vh'
-    spanEditar.style.padding='1vh 1vh'
-    spanEditar.style.marginBottom='1vh'
     spanEditar.id='editar'
 
     spanEditar.addEventListener('click', ()=>{
@@ -193,82 +188,33 @@ function listaItems(user, tbody, index){
     let imgEditar = document.createElement('img')
     imgEditar.src='/img/svgEditar.svg'
     imgEditar.alt='Editar'
-    imgEditar.style.width='2vh'
-    imgEditar.className='imagem'
-
-    let spanEditarBlack =document.createElement('span')
-    spanEditarBlack.className='spanEditar'
-    spanEditarBlack.style.height='2vh'
-    spanEditarBlack.style.width='2vh'
-    spanEditarBlack.style.borderRadius='1vh'
-    spanEditarBlack.style.padding='1vh 1vh'
-    spanEditarBlack.style.marginBottom='1vh'
-    spanEditarBlack.id='editar-black'
-    spanEditarBlack.addEventListener('click', ()=>{
-        modalEditar(index, user)
-    }) 
+    imgEditar.className='icon-white'
 
     let imgEditarBlack = document.createElement('img')
     imgEditarBlack.src='/img/svgEditar-black.svg'
     imgEditarBlack.alt='Editar'
-    imgEditarBlack.style.width='2vh'
-    imgEditarBlack.style.height='2vh'
-    
-    
+    imgEditarBlack.className='icon-black'
 
     let spanRemover = document.createElement('span')
     spanRemover.className='spanRemover'
     spanRemover.classList='span'
-    spanRemover.style.height='2vh'
-    spanRemover.style.width='2vh'    
-    spanRemover.style.borderRadius='1vh'
-    spanRemover.style.padding='1vh 1vh'
-    spanRemover.style.marginBottom='1vh'
-    spanRemover.style.marginLeft='1vh'
     spanRemover.id='remover'
     spanRemover.addEventListener('click', ()=>{
-        
-        removeUser(index)
-        showCad()
-        showCadMes()
-        showCadPend()
+        modalConfirm(index, user.email)
     })
     
     let imgRemover = document.createElement('img')
     imgRemover.src= '/img/delete.svg'
     imgRemover.alt='Remover'
-    imgRemover.style.width='2vh'
-    imgRemover.className='imagem'
-
-    let spanRemoverBlack = document.createElement('span')
-    spanRemoverBlack.classList='spanRemover'
-    
-    spanRemoverBlack.style.height='2vh'
-    spanRemoverBlack.style.width='2vh'    
-    spanRemoverBlack.style.borderRadius='1vh'
-    spanRemoverBlack.style.padding='1vh 1vh'
-    spanRemoverBlack.style.marginBottom='1vh'
-    spanRemoverBlack.style.marginLeft='1vh'
-    spanRemoverBlack.id='remover-black'
-    spanRemoverBlack.addEventListener('click', ()=>{
-        
-        removeUser(index)
-        showCad()
-        showCadMes()
-        showCadPend()
-    })
+    imgRemover.className='icon-white'
 
     let imgRemoverBlack = document.createElement('img')
-    imgRemoverBlack.src='/img/svgRemover-black.svg'
+    imgRemoverBlack.src='/img/delete-black.svg'
     imgRemoverBlack.alt='Editar'
-    imgRemoverBlack.style.width='2vh'
-    imgRemoverBlack.style.height='2vh'
-    
+    imgRemoverBlack.className='icon-black'
 
     let spanMenu = document.createElement('span')
-    spanMenu.className='menu2'
-    spanMenu.style.height='2vh'
-    spanMenu.style.width='2vh'    
+    spanMenu.className='menu2'    
     spanMenu.style.padding='0.5vh'
     spanMenu.style.border='0'
     spanMenu.addEventListener('click', ()=>{
@@ -280,19 +226,15 @@ function listaItems(user, tbody, index){
     let imgMenu = document.createElement('img')
     imgMenu.src='/img/menu2.svg'
     imgMenu.alt='Menu'
-    imgMenu.style.width='2vh'
-    imgMenu.style.height='2vh'
     
     spanEditar.appendChild(imgEditar)
-    spanEditarBlack.appendChild(imgEditarBlack)
+    spanEditar.appendChild(imgEditarBlack)
     spanRemover.appendChild(imgRemover)
-    spanRemoverBlack.appendChild(imgRemoverBlack)
+    spanRemover.appendChild(imgRemoverBlack)
     spanMenu.appendChild(imgMenu)
 
     tdmenu.appendChild(spanEditar)
     tdmenu.appendChild(spanRemover)
-    tdmenu.appendChild(spanEditarBlack)
-    tdmenu.appendChild(spanRemoverBlack)
     tdmenu.appendChild(spanMenu)
 
     trbody.appendChild(tdname)
@@ -301,9 +243,6 @@ function listaItems(user, tbody, index){
     
     trbody.appendChild(tdmenu)
     tbody.appendChild(trbody)
-
-    
-
 }
 
 document.getElementById('search').addEventListener('input', function(e){
@@ -315,10 +254,7 @@ export function removeUser(index){
     let userOn =JSON.parse(localStorage.getItem('userOn')) || []
     let usersadm= JSON.parse(localStorage.getItem('usersadm')) || []
     
-    
     usersadm[userOn.index].users.reverse()
-
-    
 
     criaLogsUser(usersadm[userOn.index].name, usersadm[userOn.index].email, 'deletou ', usersadm[userOn.index].users[index].email, 2)
     
@@ -329,6 +265,9 @@ export function removeUser(index){
     localStorage.setItem('usersadm', JSON.stringify(usersadm))
     
     criaLista()
+    showCad()
+    showCadMes()
+    showCadPend()
     
 }
 

@@ -1,5 +1,6 @@
 import { criaLogsUser } from "../logsusers/logsUser.js";
 import { criaLista } from "../js/lista.js";
+import { modalAlert } from "../modals/modals.js";
 
 
 document.getElementById('button-gravar').addEventListener('click', function(e){
@@ -18,11 +19,11 @@ document.getElementById('button-gravar').addEventListener('click', function(e){
     let userOn = JSON.parse(localStorage.getItem('userOn')) || []
 
     if(nome == '' || email == ''){
-        alert("Campo Nome e Email obrigatório")
+        modalAlert(`<p><strong>Campo Nome e Email obrigatório.</strong></p>`);
         return false
     }
     if(idade < 18 || idade > 90){
-        alert("Campo Idade irregular")
+        modalAlert(`<p><strong>Campo Idade irregular.</strong></p>`);
         return false
     }
     
@@ -31,17 +32,17 @@ document.getElementById('button-gravar').addEventListener('click', function(e){
     }
 
     if(!validaNome(nome)){
-        alert("Nome Invalido")
+        modalAlert(`<p><strong>Nome Invalido.</strong></p>`);
         return false
     }
 
     if(!validaEmail(email)){
-        alert("Email Inválido.")
+        modalAlert(`<p><strong>Email Inválido.</strong></p>`);
         return false
     }
 
     if(verificaIgual(usersadm[userOn.index], email)){
-        alert("Email ja cadastrado")
+        modalAlert(`<p><strong>Email já cadastrado.</strong></p>`);
         return false
     }
 
@@ -78,7 +79,8 @@ document.getElementById('button-gravar').addEventListener('click', function(e){
     document.getElementById('valores').value =''
     
     
-    alert("Usuario cadastrado")
+    
+    modalAlert(`<p>O usuário <strong>${email}</strong> foi adicionado.</p>`);
     
     criaLista()
     modalcad.close()

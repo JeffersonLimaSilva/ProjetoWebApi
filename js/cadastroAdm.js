@@ -1,41 +1,47 @@
 import { criaLogsUser } from "../logsusers/logsUser.js";
-// import { changeTheme } from "./changeTheme.js";
+import { modalAlert } from "../modals/modals.js";
 
-let countclick = 0
 
 document.querySelector('form').addEventListener('submit', function(e){
     e.preventDefault()
 
-    let nome = document.getElementById('cad-name').value
-    let email =document.getElementById('cad-email').value
-    let senha = document.getElementById('cad-password').value
+    let nome = document.getElementById('cad-name')
+    let email =document.getElementById('cad-email')
+    let senha = document.getElementById('cad-password')
 
     let usersadm = JSON.parse(localStorage.getItem('usersadm')) || []
     let index = usersadm.length
-    if( nome == '' || email == '' || senha == ''){
-        alert("Preencha todos os campos.")
+    if( nome.value == '' || email.value == '' || senha.value == ''){
+        modalAlert(`<p><strong>É necessário preencher todos os campos.</strong></p>`);
+        // nome.classList.add('border-erro');
+        // email.classList.add('border-erro');
+        // senha.classList.add('border-erro');
         return false
     }
 
-    if(!validaNome(nome)){
-        alert("Nome Invalido")
+    // nome.addEventListener('focus', ()=>{
+    //     nome.classList.remove('border-erro')
+    // })
+
+    if(!validaNome(nome.value)){
+        modalAlert(`<p><strong>Nome Invalido.</strong></p>`);
         return false
     } 
     
-    if(!validaEmail(email)){
-        alert("Email Inválido.")
+    if(!validaEmail(email.value)){
+        modalAlert(`<p><strong>Email Inválido.</strong></p>`);
         return false
     }
 
-    if(verificaIgualEmailCad(usersadm, email)){
-        alert("Email ja cadastrado.")
+    if(verificaIgualEmailCad(usersadm, email.value)){
+        modalAlert(`<p><strong>Email já cadastrado.</strong></p>`);
         return false
     }
 
     let useradm = {
-        name: nome,
-        email: email,
-        password: senha,
+        name: nome.value,
+        email: email.value,
+        password: senha.value,
         index: index,
         theme: false,
         users: [],
@@ -67,27 +73,3 @@ function validaNome(nome){
     let rnome = /^[A-Z][a-z]+[\s][A-Z][a-z]+$/
     return rnome.test(nome)
 }
-
-// document.addEventListener('DOMContentLoaded', function(){
-
-//    let moon =document.getElementById('logcad-moon-theme')
-//    moon.className='show'
-   
-//    document.getElementById('logcad-moon-theme').addEventListener('click', ()=>{
-      
-//       if (countclick < 2) {
-//         countclick ++
-//       }
-//       changeTheme(countclick)
-      
-//    })
-//    document.getElementById('logcad-sun-theme').addEventListener('click', ()=>{
-//       if (countclick < 2) {
-//         countclick ++
-//       }
-//       changeTheme(countclick)
-      
-//    })
-//    changeTheme(countclick)
-
-// })

@@ -1,4 +1,5 @@
 import { criaLogsUser } from "../logsusers/logsUser.js";
+import { modalAlert } from "../modals/modals.js";
 
 document.querySelector('form').addEventListener('submit', function(e){
     e.preventDefault()
@@ -12,7 +13,7 @@ document.querySelector('form').addEventListener('submit', function(e){
     let nome
 
     if(email== '' || senha==''){
-        alert("Preencha todos os campos.")
+        modalAlert(`<p><strong>É necessário preencher todos os campos.</strong></p>`)
         return false
     } 
     if(verificaIgualEmailLogin(usersadm, email)){
@@ -33,11 +34,10 @@ document.querySelector('form').addEventListener('submit', function(e){
             return false
         }
         
-        alert("Senha Incorreta.")
+        modalAlert(`<p><strong>Senha Incorreta.</strong></p>`)
         return false
     }
-    alert("Email não cadastrado.")
-    
+    modalAlert(`<p><strong>Email não cadastrado.</strong></p>`)
 })
 
 function verificaIgualEmailLogin(usersadm, email){

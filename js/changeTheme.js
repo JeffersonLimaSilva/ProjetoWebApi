@@ -40,55 +40,26 @@ export function changeTheme(booleantheme){
 
    if(booleantheme){
       if(bodyLogin){
-         bodyLogin.className='theme-black';
+         bodyLogin.classList.add('theme-black');
       }
       if(bodyRegistration){
-         bodyRegistration.className='theme-black';
+         bodyRegistration.classList.add('theme-black');
       }
       if(bodyTheme){
          bodyTheme.classList.add('theme-black');
       }
-      editar.forEach(function(span){
-         span.className='';
-      })
-      remover.forEach(function(span){
-         span.className='';
-      })
-      editarblack.forEach(function(span){
-         span.className='span';
-      })
-      removerblack.forEach(function(span){
-         span.className='span';
-      })
       localStorage.setItem('usersadm', JSON.stringify(usersadm));
    }
    else{
       if(bodyLogin){
-         bodyLogin.className='';
+         bodyLogin.className='body';
       }
       if(bodyRegistration){
-         bodyRegistration.className='';
+         bodyRegistration.className='body';
       }
       if(bodyTheme){
          bodyTheme.className='body';
       }
-
-      editar.forEach(function(span){
-         span.className='span';
-      
-      })
-      remover.forEach(function(span){
-         span.className='span';
-      })
-      
-      editarblack.forEach(function(span){
-         span.className='';
-      
-      })
-      removerblack.forEach(function(span){
-         span.className='';
-      })
-
       localStorage.setItem('usersadm', JSON.stringify(usersadm));
    }
 }
