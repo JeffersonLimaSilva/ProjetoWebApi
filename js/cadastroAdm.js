@@ -13,16 +13,8 @@ document.querySelector('form').addEventListener('submit', function(e){
     let index = usersadm.length
     if( nome.value == '' || email.value == '' || senha.value == ''){
         modalAlert(`<p><strong>É necessário preencher todos os campos.</strong></p>`);
-        // nome.classList.add('border-erro');
-        // email.classList.add('border-erro');
-        // senha.classList.add('border-erro');
         return false
     }
-
-    // nome.addEventListener('focus', ()=>{
-    //     nome.classList.remove('border-erro')
-    // })
-
     if(!validaNome(nome.value)){
         modalAlert(`<p><strong>Nome Invalido.</strong></p>`);
         return false

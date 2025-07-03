@@ -1,5 +1,5 @@
 .modal-class{
-    z-index: 950;
+    z-index: 991;
     background-color: var(--secondary-background-color);
     border: 0;
     border-radius: 1vh;
@@ -8,7 +8,7 @@
     outline: none;
     transition: 1s;
     color: var(--cor-font);
-    
+    box-shadow: -0.6vh 0vh 0.1vh 0vh rgb(255, 3, 3);
     > div{
         height: 100%;
         
@@ -44,13 +44,11 @@
                 box-shadow: 0 0.3vh 0.1vh 0.3vh rgb(101, 101, 101);
             }
             .span-confirm:hover{
-                background-color: rgb(13, 188, 13);
-                box-shadow: 0 0.3vh 0.1vh 0.3vh rgb(15, 133, 15);
-            }
-            .span-cancel:hover{
                 background-color: rgb(188, 13, 13);
                 box-shadow: 0 0.3vh 0.1vh 0.3vh rgb(133, 15, 15);
+                
             }
+            
         }
     }
 }
@@ -62,4 +60,13 @@
 .body:has(.div-change-theme input:checked) .alert-white{
     position: static;
     opacity: 1;
+}
+
+.overlayer-modal{
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.692);
+    position: absolute;
+    z-index: 990;
+    backdrop-filter: blur(4px);
 }

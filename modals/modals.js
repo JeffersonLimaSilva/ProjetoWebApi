@@ -57,7 +57,7 @@ export function modalConfirm(index, email) {
     })
 
     let overlayer = document.createElement('div')
-    overlayer.className='overlayer'
+    overlayer.className='overlayer-modal'
     overlayer.backgroundColor='rgba(0, 0, 0, 0.48)'
     overlayer.addEventListener('click', ()=>{
         modal.close()

@@ -65,8 +65,6 @@ export function showModal(){
     })
     body.appendChild(overlayer);
     
-        
-
     modalad.show();
     let nome = document.getElementById('name')
     nome.focus()

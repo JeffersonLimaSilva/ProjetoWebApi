@@ -1,172 +1,143 @@
 import { showModal } from "./cadNewcad.js";
 import { criaLista, showCadPend, removeUser } from "./lista.js";
 import { criaLogsUser } from "../logsusers/logsUser.js";
-import { modalAlert } from "../modals/modals.js";
+import { modalAlert, modalConfirm } from "../modals/modals.js";
 
 
-let auxI = null
-let auxU = null
+let auxI = null;
+let auxU = null;
 
 
 export function modalEditar(index, user){
 
-    let modalClass = document.querySelector('.box-list-newcad')
-    modalClass.className=('box-list-editar')
+    let modalClass = document.querySelector('.box-list-newcad');
+    modalClass.className=('box-list-editar');
 
 
-    document.getElementById('name').value = user.name
-    document.getElementById('years-old').value = user.yearold
-    document.getElementById('email').value = user.email
+    document.getElementById('name').value = user.name;
+    document.getElementById('years-old').value = user.yearold;
+    document.getElementById('email').value = user.email;
     if(user.status === 'Inativo'){
-        document.getElementById('ativo').checked= false
+        document.getElementById('ativo').checked= false;
     }
     if(user.status === 'Ativo'){
-        document.getElementById('ativo').checked= true
+        document.getElementById('ativo').checked= true;
     }
     
     
-    document.getElementById('address').value =user.address
-    document.getElementById('more-info').value =user.moreinfo
-    document.getElementById('interesses').value =user.interests
-    document.getElementById('sentimentos').value =user.emotions
-    document.getElementById('valores').value =user.values
+    document.getElementById('address').value =user.address;
+    document.getElementById('more-info').value =user.moreinfo;
+    document.getElementById('interesses').value =user.interests;
+    document.getElementById('sentimentos').value =user.emotions;
+    document.getElementById('valores').value =user.values;
 
+    let dialogClass = document.querySelector('.dialog-cad');
+    dialogClass.className=('dialog-edit');
+
+    let modaltitle = document.querySelector('.modaltitle');
+    modaltitle.innerText='Editar Cadastro';
     
+    auxI = index;
+    auxU = user;
 
-    let dialogClass = document.querySelector('.dialog-cad')
-    dialogClass.className=('dialog-edit')
-
-    let modaltitle = document.querySelector('.modaltitle')
-    modaltitle.innerText='Editar Cadastro'
-    
-    auxI = index
-    auxU = user
-
-    showModal()
+    showModal();
 }
 
-let buttonEditar =document.getElementById('button-editar') || false
+let buttonEditar =document.getElementById('button-editar') || false;
 if (buttonEditar) {
     buttonEditar.addEventListener('click', function(e){
 
-        let index = auxI
-        let user = auxU
+        let index = auxI;
+        let user = auxU;
         
-        
-        let modalcad = document.getElementById('modal-form')
-        
+        let modalcad = document.getElementById('modal-form');
 
-        let nome = document.getElementById('name').value
+        let nome = document.getElementById('name').value;
         if(nome != user.name){
-            
-            
-            editarUser(index, 'name', nome)
+            editarUser(index, 'name', nome);
         }
-        let idade = parseInt(document.getElementById('years-old').value)
+        let idade = parseInt(document.getElementById('years-old').value);
         if(idade != user.yearold){
-            
-            editarUser(index, 'yearold', idade)
+            editarUser(index, 'yearold', idade);
         }
-        let email = document.getElementById('email').value
+        let email = document.getElementById('email').value;
         if(email != user.email){
-            
-            editarUser(index, 'email', email)
+            editarUser(index, 'email', email);
         }
-        let ativo = document.getElementById('ativo').checked
+        let ativo = document.getElementById('ativo').checked;
         if(ativo){
-            let ativoInativo = 'Ativo'
+            let ativoInativo = 'Ativo';
             if (ativoInativo != user.status) {
-                
-                editarUser(index, 'status', ativoInativo)
+                editarUser(index, 'status', ativoInativo);
             }
         }
         if(!ativo){
-            let ativoInativo = 'Inativo'
+            let ativoInativo = 'Inativo';
             if (ativoInativo != user.status) {
-                editarUser(index, 'status', ativoInativo)
+                editarUser(index, 'status', ativoInativo);
             }
         }
-        let endereco = document.getElementById('address').value
+        let endereco = document.getElementById('address').value;
         if(endereco != user.address){
-            editarUser(index, 'address', endereco)
+            editarUser(index, 'address', endereco);
         }
-        let maisinformacoes = document.getElementById('more-info').value
+        let maisinformacoes = document.getElementById('more-info').value;
         if(maisinformacoes != user.moreinfo){
-            editarUser(index, 'moreinfo', maisinformacoes)
+            editarUser(index, 'moreinfo', maisinformacoes);
         }
-        let interesses = document.getElementById('interesses').value
+        let interesses = document.getElementById('interesses').value;
         if(interesses != user.interests){
-            editarUser(index, 'interests', interesses)
+            editarUser(index, 'interests', interesses);
         }
-        let sentimentos = document.getElementById('sentimentos').value
+        let sentimentos = document.getElementById('sentimentos').value;
         if(sentimentos != user.emotions){
-            editarUser(index, 'emotions', sentimentos)
+            editarUser(index, 'emotions', sentimentos);
         }
-        let valores = document.getElementById('valores').value
+        let valores = document.getElementById('valores').value;
         if(valores != user.values){
-            editarUser(index, 'values', valores)
+            editarUser(index, 'values', valores);
         }
-        
-
-        let modalClass = document.querySelector('.box-list-editar') || false
+        let modalClass = document.querySelector('.box-list-editar') || false;
         if(modalClass){
-            modalClass.className=('box-list-newcad')
+            modalClass.className=('box-list-newcad');
         }
-
-        let dialogClass = document.querySelector('.dialog-edit') || false
+        let dialogClass = document.querySelector('.dialog-edit') || false;
         if (dialogClass) {
-            dialogClass.className=('dialog-cad')
-            
+            dialogClass.className=('dialog-cad');
         }
 
         modalAlert(`<p>As informações de <strong>${email}</strong> foram salvas.</p>`);
         
-        modalcad.close()
+        modalcad.close();
 
-        let deleteButton = document.querySelector('#button-delete')
-        deleteButton.style.display='none'
+        let deleteButton = document.querySelector('#button-delete');
+        deleteButton.style.display='none';
 
-        let body = document.querySelector('.body')
-        let overlayer = document.querySelector('.overlayer')
-        body.removeChild(overlayer)
+        let body = document.querySelector('.body');
+        let overlayer = document.querySelector('.overlayer');
+        body.removeChild(overlayer);
 
     }) 
 }
 let deleteButton = document.getElementById('button-delete') || false
 if (deleteButton) {
     deleteButton.addEventListener('click', ()=>{
-        let modalcad = document.getElementById('modal-form')
         let index = auxI
-
-        alert("Cadastro Excluido")
-        removeUser(index)
-        modalcad.close()
-        let deleteButton = document.querySelector('#button-delete')
-        deleteButton.style.display='none'
-
-        let body = document.querySelector('.body')
-        let overlayer = document.querySelector('.overlayer')
-        body.removeChild(overlayer)
+        modalConfirm(index, auxU.email)
+        
     })
 }
-
-
 function editarUser(index, campo, conteudo){
-    
     
     let userOn =JSON.parse(localStorage.getItem('userOn')) || []
     let usersadm = JSON.parse(localStorage.getItem('usersadm')) || []
-
-        
     usersadm[userOn.index].users.reverse()
     usersadm[userOn.index].users[index][campo] = conteudo
-    
     
     criaLogsUser(usersadm[userOn.index].name, usersadm[userOn.index].email, `editou o(a) ${campo} de`, usersadm[userOn.index].users[index].email, 2)
 
     usersadm[userOn.index].users.reverse()
     localStorage.setItem('usersadm', JSON.stringify(usersadm))
-
     showCadPend()
     criaLista()
 }

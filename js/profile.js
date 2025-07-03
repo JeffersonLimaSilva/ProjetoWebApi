@@ -14,7 +14,7 @@ document.querySelector('#profile').addEventListener('click', ()=>{
     }
     console.log("entrou aq");
     
-    changeTheme(usersadm[userOn.index].theme)
+    // changeTheme(usersadm[userOn.index].theme)
     profile()
     showName()
 }) 

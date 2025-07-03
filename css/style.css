@@ -142,4 +142,5 @@ body{
     background-color: rgba(0, 0, 0, 0.692);
     position: absolute;
     z-index: 900;
+    backdrop-filter: blur(4px);
 }
