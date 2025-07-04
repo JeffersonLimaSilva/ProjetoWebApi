@@ -24,7 +24,7 @@ document.querySelector('.button').addEventListener('click', function(e){
     if(users){        
 
         setPerPage(usersadm[userOn.index].users.length);
-        
+        criaLista()
         let html= document.querySelector('#imprimir-users').innerHTML || false
         
         estilos += '.div-list{display: flex;flex-direction: column;align-items: center;height: 100%;background-color: rgb(255, 255, 255);}'
@@ -36,7 +36,7 @@ document.querySelector('.button').addEventListener('click', function(e){
     }if(logs){
 
         setPerPage(logsuser[userOn.index].length)
-        
+        criaListaLogs()
         let html=document.querySelector('#imprimir-logs').innerHTML || false
 
         estilos += '.div-list{display: flex;flex-direction: column;align-items: center;height: 100%;background-color: rgb(255, 255, 255);}'
@@ -64,11 +64,17 @@ document.querySelector('.button').addEventListener('click', function(e){
     
     win.print()
     if(users){
-        criaLista()
+        
+        if (!win.closed) {
+            setPerPage(9);
+            criaLista();
+        }
     }
     if(logs){
-        criaListaLogs()
+        if (!win.closed) {
+            setPerPage(11)
+            criaListaLogs()
+        }
     }
-    
     
 })

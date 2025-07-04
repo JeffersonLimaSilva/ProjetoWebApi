@@ -2,7 +2,7 @@ import { perPage } from "./perPage.js";
 import { criaLogsUser } from "../logsusers/logsUser.js";
 import { modalEditar } from "./editaruser.js";
 import { modalConfirm } from "../modals/modals.js";
-// import { changeTheme } from "./changeTheme.js";
+
 
 export function criaLista(search = '', date = 0){
 

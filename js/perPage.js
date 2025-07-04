@@ -1,14 +1,13 @@
-import { criaListaLogs } from "./listalogs.js";
-let aux= 9
-export let perPage= aux
+export let perPage = 0
+let aux = 0
 
 export function setPerPage(newperPage){
+    console.log(newperPage);
     
-    perPage= newperPage;
-
-    criaListaLogs()
-    perPage = aux
-    
+    aux= newperPage;
+    perPage = aux;
+    console.log(aux);
+    return newperPage
 }
 
 

@@ -1,4 +1,5 @@
 import { perPage } from "./perPage.js";
+console.log(perPage);
 
 export function criaListaLogs( search =''){
 

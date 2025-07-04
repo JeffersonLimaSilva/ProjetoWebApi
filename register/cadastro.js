@@ -1,6 +1,10 @@
 import { criaLogsUser } from "../logsusers/logsUser.js";
 import { criaLista } from "../js/lista.js";
 import { modalAlert } from "../modals/modals.js";
+import { setPerPage } from "../js/perPage.js";
+
+setPerPage(12)
+criaLista()
 
 
 document.getElementById('button-gravar').addEventListener('click', function(e){
