@@ -1,0 +1,3 @@
+{  "Id": "da5af659-95b2-4a3e-aac5-478c9c2a81b9",  "Name": "Felipe Scalco",  "Email": "scalco@gmail.com",  "Password": "outrasenha"}
+{  "Id": "97b00de7-b927-46d0-9d72-851fd0e5f836",  "Name": "Jefferson Lima",  "Email": "jeffer@gmail.com",  "Password": "senha456"}
+{  "Id": "8d55bca7-e855-401d-ae16-144f805b83b4",  "Name": "Rafael Souza",  "Email": "rafael@gmail.com",  "Password": "teste456"}
