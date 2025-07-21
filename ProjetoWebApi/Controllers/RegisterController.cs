@@ -21,7 +21,7 @@ namespace ProjetoWebApi.Controllers
 
         [HttpPost]
         [Route("/register/add")]
-        public IActionResult Add([FromForm] RegisterDto registerDto)
+        public IActionResult Add([FromBody] RegisterDto registerDto)
         {
             try
             {

@@ -16,7 +16,7 @@ namespace ProjetoWebApi.Services
             _registerRepository = registerRepository ?? throw new ArgumentNullException();
         }
         
-        public void CheckLogin(LoginDto loginDto)
+        public object CheckLogin(LoginDto loginDto)
         {
             List<Register> registersL = _connection.GetAll();
             var register = registersL.FirstOrDefault(l => l.Email == loginDto.Email);
@@ -29,7 +29,7 @@ namespace ProjetoWebApi.Services
             {
                 throw new InvalidOperationException("Email ou Senha incorreta.");
             }
-            _loginRepository.Auth(register);
+            return _loginRepository.Auth(register);
         }
         public Register CheckId(Guid id)
         {

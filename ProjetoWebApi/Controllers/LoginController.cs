@@ -9,25 +9,24 @@ using System.Collections.Generic;
 namespace ProjetoWebApi.Controllers
 {
     [ApiController]
-    [Route("/login")]
+    [Route("api/[controller]")]
     public class LoginController : ControllerBase
     {
         private readonly IRegisterRepository _registerRepository;
         private readonly ILoginServices _loginServices;
         public LoginController( IRegisterRepository registerRepository, ILoginServices loginServices)
         {
-            _registerRepository = registerRepository ?? throw new ArgumentNullException();
-            _loginServices = loginServices ?? throw new ArgumentNullException();
+            _registerRepository = registerRepository ?? throw new ArgumentNullException(nameof(registerRepository));
+            _loginServices = loginServices ?? throw new ArgumentNullException(nameof(loginServices));
         }
         
         [HttpPost]
-
-        public IActionResult Login([FromForm]LoginDto loginDto)
+        [Route("/login/check")]
+        public IActionResult Login([FromBody]LoginDto loginDto)
         {
             try
             {
-                _loginServices.CheckLogin(loginDto);
-                return Ok();
+                return Ok(_loginServices.CheckLogin(loginDto));
             }
             catch (InvalidOperationException ex)
             {
