@@ -2,11 +2,15 @@
 
 namespace ProjetoWebApi.Controllers
 {
-    public class HomeController : Controller
+    [Route("api/home/")]
+    [ApiController]
+    public class HomeController : ControllerBase
     {
-        public IActionResult Index()
+        [HttpGet]
+
+        public IActionResult VerifyToken()
         {
-            return View();
+            return Ok();
         }
     }
 }

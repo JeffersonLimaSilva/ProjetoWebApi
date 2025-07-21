@@ -8,14 +8,16 @@ namespace ProjetoWebApi.Services
 {
     public class TokenServices
     {
-        public static object GenerateToken(Register login)
+        public static object GenerateToken(Register register)
         {
             var key = Encoding.ASCII.GetBytes(Key.Secret);
             var tokenConfig = new SecurityTokenDescriptor
             {
                 Subject = new System.Security.Claims.ClaimsIdentity(new Claim[]
                 {
-                    new Claim("loginId", login.Id.ToString()),
+                    new Claim("registerId", register.Id.ToString()),
+                    new Claim("registerName", register.Name.ToString()),
+                    new Claim("registerEmail", register.Email.ToString())
                 }),
                 Expires = DateTime.UtcNow.AddHours(3),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)

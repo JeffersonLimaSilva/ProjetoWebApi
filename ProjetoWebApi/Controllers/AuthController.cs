@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ProjetoWebApi.Services;
+using System.Security.Claims;
 
 namespace ProjetoWebApi.Controllers
 {
     [ApiController]
-    [Route("/auth")]
+    [Route("api/[controller]")]
     public class AuthController : Controller
     {
         [HttpPost]
@@ -16,6 +18,21 @@ namespace ProjetoWebApi.Controllers
                 return Ok(token);
             }
             return NotFound("Email ou Senha incorreta.");
+        }
+        [Authorize]
+        [HttpGet]
+        [Route("verify")]
+        public IActionResult VerifyToken()
+        {
+            var Id = User.FindFirst("registerId")?.Value;
+            var Name = User.FindFirst("registerName")?.Value;
+            var Email = User.FindFirst("registerEmail")?.Value;
+            return Ok(new
+                {
+                UserId = Id,
+                UserName = Name,
+                UserEmail = Email,
+            });
         }
     }
 }

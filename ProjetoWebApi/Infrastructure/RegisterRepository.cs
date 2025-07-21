@@ -15,7 +15,7 @@ namespace ProjetoWebApi.Infrastructure
         public void Add(RegisterDto registerDto)
         {
             var registerL = _connection.GetAll();
-            registerL.Add(new Register(Guid.NewGuid(), registerDto.Name, registerDto.Email, registerDto.Password));
+            registerL.Add(new Register(Guid.NewGuid(), registerDto.Name, registerDto.Email, registerDto.Password, false));
             _connection.SaveAll(registerL);
         }
         public void Update(List<Register> registerL, LoginDto updateLogin)
