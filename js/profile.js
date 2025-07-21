@@ -1,11 +1,11 @@
-import { changeTheme } from "./changeTheme.js";
+// import { changeTheme } from "./changeTheme.js";
 import { showName } from "./showName.js";
 import { criaLogsUser } from "../logsusers/logsUser.js";
 
 let countclick = 0
 
-let userOn=JSON.parse(localStorage.getItem('userOn')) || []
-let usersadm =JSON.parse(localStorage.getItem('usersadm')) || []
+// let userOn=JSON.parse(localStorage.getItem('userOn')) || []
+// let usersadm =JSON.parse(localStorage.getItem('usersadm')) || []
 
 document.querySelector('#profile').addEventListener('click', ()=>{
     
@@ -15,8 +15,8 @@ document.querySelector('#profile').addEventListener('click', ()=>{
     console.log("entrou aq");
     
     // changeTheme(usersadm[userOn.index].theme)
-    profile()
-    showName()
+    // profile()
+    // showName()
 }) 
 
 

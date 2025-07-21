@@ -7,8 +7,8 @@ import { modalConfirm } from "../modals/modals.js";
 export function criaLista(search = '', date = 0){
 
 
-    let usersadm= JSON.parse(localStorage.getItem('usersadm')) || []
-    let userOn = JSON.parse(localStorage.getItem('userOn')) || []
+    // let usersadm= JSON.parse(localStorage.getItem('usersadm')) || []
+    // let userOn = JSON.parse(localStorage.getItem('userOn')) || []
 
     
     let tbody = document.getElementById('tbody-users') || false
@@ -19,7 +19,7 @@ export function criaLista(search = '', date = 0){
 
     tbody.innerHTML=''
 
-    usersadm[userOn.index].users.reverse()
+    // usersadm[userOn.index].users.reverse()
     const state={
         page: 1,
         perPage: perPage,
@@ -244,11 +244,14 @@ function listaItems(user, tbody, index){
     trbody.appendChild(tdmenu)
     tbody.appendChild(trbody)
 }
+let search = document.getElementById('search') || false;
+if (search) {
+    search.addEventListener('input', function(e){
+        let minSearch = this.value.toLowerCase()
+        criaLista(minSearch)
+    })
+}
 
-document.getElementById('search').addEventListener('input', function(e){
-    let minSearch = this.value.toLowerCase()
-    criaLista(minSearch)
-})
 
 export function removeUser(index){
     let userOn =JSON.parse(localStorage.getItem('userOn')) || []
@@ -304,49 +307,49 @@ function styleValue(x, colorC){
 }
 
 function contaCad(){
-    let userOn = JSON.parse(localStorage.getItem('userOn')) || []
-    let usersadm = JSON.parse(localStorage.getItem('usersadm')) || []
+    // let userOn = JSON.parse(localStorage.getItem('userOn')) || []
+    // let usersadm = JSON.parse(localStorage.getItem('usersadm')) || []
     let numcad = 0
-    usersadm[userOn.index].users.forEach(function(user, index){
-        if(usersadm[userOn.index].users == []){
-            return 0
-        }
-        if(index >= numcad){
-            numcad = index 
-            numcad ++
-        }
+    // usersadm[userOn.index].users.forEach(function(user, index){
+    //     if(usersadm[userOn.index].users == []){
+    //         return 0
+    //     }
+    //     if(index >= numcad){
+    //         numcad = index 
+    //         numcad ++
+    //     }
         
-    })
+    // })
 
     return numcad
 }
 function contaCadMes(){
-    let userOn = JSON.parse(localStorage.getItem('userOn')) || []
-    let usersadm = JSON.parse(localStorage.getItem('usersadm')) || []
+    // let userOn = JSON.parse(localStorage.getItem('userOn')) || []
+    // let usersadm = JSON.parse(localStorage.getItem('usersadm')) || []
     let numcad = 0
-    let date = new Date;
-    let mes= (date.getMonth() + 1)
-    usersadm[userOn.index].users.forEach(function(user, index){
-        if(user.date === mes){
-            numcad ++
-        }
+    // let date = new Date;
+    // let mes= (date.getMonth() + 1)
+    // usersadm[userOn.index].users.forEach(function(user, index){
+    //     if(user.date === mes){
+    //         numcad ++
+    //     }
         
-    })
+    // })
 
     return numcad
 
 }
 function contaInativo(){
-    let userOn = JSON.parse(localStorage.getItem('userOn')) || []
-    let usersadm = JSON.parse(localStorage.getItem('usersadm')) || []
+    // let userOn = JSON.parse(localStorage.getItem('userOn')) || []
+    // let usersadm = JSON.parse(localStorage.getItem('usersadm')) || []
     let numcad = 0
 
-    usersadm[userOn.index].users.forEach(function(user){
-        if(user.status == 'Inativo'){
-            numcad ++
-        }
+    // usersadm[userOn.index].users.forEach(function(user){
+    //     if(user.status == 'Inativo'){
+    //         numcad ++
+    //     }
         
-    })
+    // })
     return numcad
 }
 
@@ -368,8 +371,8 @@ function verificaIgual(usersadm, email){
 }
 
 
-
-criaLista() 
 showCad()
 showCadMes()
 showCadPend()
+// criaLista() 
+

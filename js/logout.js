@@ -4,14 +4,16 @@ logout.forEach(logout => {
     
     logout.addEventListener('click', function(e){
         let userOn = JSON.parse(localStorage.getItem('userOn')) || []
-        let usersadm = JSON.parse(localStorage.getItem('usersadm')) || []
         
-        criaLogsUser(usersadm[userOn.index].name, usersadm[userOn.index].email, 'deslogou', '', 2)
+        // criaLogsUser(usersadm[userOn.index].name, usersadm[userOn.index].email, 'deslogou', '', 2)
 
-        userOn.email = ''
-        userOn.index = ''
+        userOn ={
+            token: '',
+            id: '',
+            name: '',
+            email: ''
+        }
         localStorage.setItem('userOn', JSON.stringify(userOn))
-        
         window.location.href='/login/login.html' 
     })
 });

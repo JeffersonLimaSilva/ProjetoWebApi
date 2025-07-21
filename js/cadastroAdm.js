@@ -25,36 +25,42 @@ document.querySelector('form').addEventListener('submit', function(e){
         return false
     }
 
-    if(verificaIgualEmailCad(usersadm, email.value)){
-        modalAlert(`<p><strong>Email já cadastrado.</strong></p>`);
-        return false
-    }
-
     let useradm = {
-        name: nome.value,
-        email: email.value,
-        password: senha.value,
-        index: index,
-        theme: false,
-        users: [],
+        Name: nome.value,
+        Email: email.value,
+        Password: senha.value,
+        
     }
     
-    usersadm.push(useradm)
+    criaRegistro(useradm)
 
     criaLogsUser(nome, email, 'cadastrou-se', '', 1)
 
-    localStorage.setItem('usersadm', JSON.stringify(usersadm))
-    localStorage.setItem('theme', JSON.stringify(useradm.theme))
+    
     window.location.href='/login/login.html'
 
 })
 
-function verificaIgualEmailCad(usersadm, email){
-    
-    return usersadm.some(function(useradm){
-        return useradm.email === email  
-    })
+
+async function criaRegistro(register){
+    const apiEndpoint = 'https://localhost:7114/register/add';
+    try {
+        const response = await fetch(apiEndpoint, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json' 
+            },
+            body: JSON.stringify(register)
+        });
+    }
+    catch (error) {
+        console.error('Erro ao enviar produto para a API:', error);
+        modalAlert($`<p><strong>Erro:${error}.</strong></p>`)
+        throw error; 
+    }
 }
+
+
 
 function validaEmail(email){
     let regex = /^[^\s]+@[^\s]+\.[^\s]+$/
