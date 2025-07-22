@@ -34,16 +34,13 @@ document.querySelector('form').addEventListener('submit', function(e){
     
     criaRegistro(useradm)
 
-    criaLogsUser(nome, email, 'cadastrou-se', '', 1)
-
-    
-    window.location.href='/login/login.html'
+    criaLogsUser(nome, email, 'cadastrou-se', '', 1);
 
 })
 
 
 async function criaRegistro(register){
-    const apiEndpoint = 'https://localhost:7114/register/add';
+    const apiEndpoint = 'https://localhost:7114/api/Admin/add';
     try {
         const response = await fetch(apiEndpoint, {
             method: 'POST',
@@ -51,7 +48,11 @@ async function criaRegistro(register){
                 'Content-Type': 'application/json' 
             },
             body: JSON.stringify(register)
+            
+            
         });
+        window.location.href="/login/login.html"
+
     }
     catch (error) {
         console.error('Erro ao enviar produto para a API:', error);
