@@ -7,9 +7,9 @@ namespace ProjetoWebApi.Infrastructure
 {
     public class LoginRepository : ILoginRepository
     {
-        public object Auth(Register register)
+        public object Auth(Admin admin)
         {
-            var token = TokenServices.GenerateToken(register);
+            var token = TokenServices.GenerateToken(admin);
             Console.WriteLine(token);
             return token;
         }

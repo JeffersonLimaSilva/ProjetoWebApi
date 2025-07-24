@@ -2,7 +2,7 @@
 
 namespace ProjetoWebApi.DTOs
 {
-    public class RegisterDto
+    public class AdminDto
     {
         [Required(ErrorMessage = "Campo Nome Obrigatório")]
         public string Name { get; set; }

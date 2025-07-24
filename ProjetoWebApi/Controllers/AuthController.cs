@@ -14,7 +14,7 @@ namespace ProjetoWebApi.Controllers
         {
             if(email =="adm@gmail.com" && password == "adm123")
             {
-                var token = TokenServices.GenerateToken(new Model.Register());
+                var token = TokenServices.GenerateToken(new Model.Admin());
                 return Ok(token);
             }
             return NotFound("Email ou Senha incorreta.");

@@ -7,9 +7,10 @@ namespace ProjetoWebApi.Services
     {
         private readonly ILoginRepository _loginRepository;
         private readonly IContextConnection _connection;
-        private readonly IRegisterRepository _registerRepository;
+        private readonly IAdminRepository _registerRepository;
 
-        public LoginServices(ILoginRepository loginRepository, IContextConnection connection, IRegisterRepository registerRepository)
+
+        public LoginServices(ILoginRepository loginRepository, IContextConnection connection, IAdminRepository registerRepository)
         {
             _loginRepository = loginRepository ?? throw new ArgumentNullException();
             _connection = connection ?? throw new ArgumentNullException();
@@ -18,42 +19,42 @@ namespace ProjetoWebApi.Services
         
         public object CheckLogin(LoginDto loginDto)
         {
-            List<Register> registersL = _connection.GetAll();
-            var register = registersL.FirstOrDefault(l => l.Email == loginDto.Email);
+            List<Admin> AdminsL = _connection.GetAll();
+            var admin = AdminsL.FirstOrDefault(l => l.Email == loginDto.Email);
             
-            if (register == null)
+            if (admin == null)
             {
                 throw new InvalidOperationException("Email ou Senha incorreta.");
             }
-            if (register.Password != loginDto.Password)
+            if (admin.Password != loginDto.Password)
             {
                 throw new InvalidOperationException("Email ou Senha incorreta.");
             }
-            return _loginRepository.Auth(register);
+            return _loginRepository.Auth(admin);
         }
-        public Register CheckId(Guid id)
+        public Admin CheckId(Guid id)
         {
-            List<Register> registersL = _connection.GetAll();
-            var register = registersL.FirstOrDefault(r => r.Id == id);
+            
+            var admin = _connection.GetAll().FirstOrDefault(r => r.Id == id);
 
-            if (register == null)
+            if (admin == null)
             {
-                throw new InvalidOperationException("Registro inválido.");
+                throw new InvalidOperationException($"Registro inválido.[{_connection.GetAll().ToList()}]");
             }
 
-            return(register);
+            return(admin);
         }
         public void CheckEmail(LoginDto loginUpdate)
-        {
-            List<Register> registersL = _connection.GetAll();
-            var register = registersL.FirstOrDefault(r => r.Email == loginUpdate.Email);
+        {   
+            List<Admin> AdminsL = _connection.GetAll();
+            var register = AdminsL.FirstOrDefault(r => r.Email == loginUpdate.Email);
 
             if (register == null)
             {
                 throw new InvalidOperationException("Email incorreto.");
             }
 
-            _registerRepository.Update(registersL, loginUpdate);
+            _registerRepository.Update(AdminsL, loginUpdate);
         }
     }
 }

@@ -12,9 +12,9 @@ namespace ProjetoWebApi.Controllers
     [Route("api/[controller]")]
     public class LoginController : ControllerBase
     {
-        private readonly IRegisterRepository _registerRepository;
+        private readonly IAdminRepository _registerRepository;
         private readonly ILoginServices _loginServices;
-        public LoginController( IRegisterRepository registerRepository, ILoginServices loginServices)
+        public LoginController( IAdminRepository registerRepository, ILoginServices loginServices)
         {
             _registerRepository = registerRepository ?? throw new ArgumentNullException(nameof(registerRepository));
             _loginServices = loginServices ?? throw new ArgumentNullException(nameof(loginServices));
@@ -22,7 +22,7 @@ namespace ProjetoWebApi.Controllers
         
         [HttpPost]
         [Route("/login/check")]
-        public IActionResult Login([FromBody]LoginDto loginDto)
+        public IActionResult Login([FromBody] LoginDto loginDto)
         {
             try
             {
@@ -38,7 +38,14 @@ namespace ProjetoWebApi.Controllers
         [Route("/login/get-update")]
         public IActionResult Update(Guid id)
         {
-            return Ok(_loginServices.CheckId(id));
+            try
+            {
+                return Ok(_loginServices.CheckId(id));
+            }
+            catch(Exception ex)
+            {
+                return NotFound($"Ex: {ex.Message}");
+            }
         }
         [Authorize]
         [HttpPut]

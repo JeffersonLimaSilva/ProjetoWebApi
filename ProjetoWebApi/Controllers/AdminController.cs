@@ -3,29 +3,31 @@ using Microsoft.AspNetCore.Mvc;
 using ProjetoWebApi.DTOs;
 using ProjetoWebApi.Infrastructure;
 using ProjetoWebApi.Model;
+using ProjetoWebApi.Services;
 
 namespace ProjetoWebApi.Controllers
 {
     [ApiController]
-    [Route("/register")]
-    public class RegisterController : ControllerBase
+    [Route("api/[controller]")]
+    public class AdminController : ControllerBase
     {
-        private readonly IRegisterServices _registerServices;
+        private readonly IAdminServices _adminServices;
         private readonly IContextConnection _connection;
 
-        public RegisterController( IRegisterServices registerServices, IContextConnection connection)
+
+        public AdminController( IAdminServices adminServices, IContextConnection connection)
         {
-            _registerServices = registerServices ?? throw new ArgumentNullException();
+            _adminServices = adminServices ?? throw new ArgumentNullException();
             _connection = connection ?? throw new ArgumentNullException();
         }
 
         [HttpPost]
-        [Route("/register/add")]
-        public IActionResult Add([FromBody] RegisterDto registerDto)
+        [Route("add/")]
+        public IActionResult Add([FromBody] AdminDto adminDto)
         {
             try
             {
-                _registerServices.NewRegister(registerDto);
+                _adminServices.NewAdmin(adminDto);
                 return RedirectToAction(nameof(List));
             }
             catch (InvalidOperationException ex) {
@@ -34,18 +36,18 @@ namespace ProjetoWebApi.Controllers
             
         }
         [HttpGet]
-        [Route("/register/list")]
+        [Route("list/")]
         public IActionResult List()
         {
             return Ok(_connection.GetAll().ToList());
         }
         [HttpDelete]
-        [Route("/register/delete/{id}")]
+        [Route("delete/{id}")]
         public IActionResult Delete(Guid id)
         {
             try
             {
-                _registerServices.CheckRegister(id);
+                _adminServices.CheckAdmin(id);
                 return Ok();
             }
             catch (InvalidOperationException ex)

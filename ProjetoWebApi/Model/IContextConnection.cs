@@ -2,7 +2,7 @@
 {
     public interface IContextConnection
     {
-        List<Register> GetAll();
-        void SaveAll(List<Register> registersL);
+        List<Admin> GetAll();
+        void SaveAll<TList>(IEnumerable<TList> list);
     }
 }

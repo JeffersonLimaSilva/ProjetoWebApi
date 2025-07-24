@@ -8,7 +8,7 @@ namespace ProjetoWebApi.Services
 {
     public class TokenServices
     {
-        public static object GenerateToken(Register register)
+        public static object GenerateToken(Admin register)
         {
             var key = Encoding.ASCII.GetBytes(Key.Secret);
             var tokenConfig = new SecurityTokenDescriptor

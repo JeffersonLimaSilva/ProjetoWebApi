@@ -4,6 +4,6 @@ namespace ProjetoWebApi.Model
 {
     public interface ILoginRepository
     {
-        object Auth(Register register);
+        object Auth(Admin admin);
     }
 }

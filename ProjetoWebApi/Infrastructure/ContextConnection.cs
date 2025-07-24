@@ -7,10 +7,12 @@ namespace ProjetoWebApi.Infrastructure
     public class ContextConnection : IContextConnection
     {
         private readonly string path = "C:/Users/JeffersonLimaSilva/OneDrive/Documentos/ProjetoWebApi/ProjetoWebApi/FileBase/BaseRegister.txt";
-        public List<Register> GetAll()
+
+        public List<Admin> GetAll()
         {
-            List<Register> list = new List<Register>();
-            File.AppendAllText(path, "");
+
+            List<Admin> list = new List<Admin>();
+            
             using (StreamReader sr = new StreamReader(path))
             {
                 string line;
@@ -18,8 +20,8 @@ namespace ProjetoWebApi.Infrastructure
                 {
                     try
                     {
-                        Register registerL = JsonConvert.DeserializeObject<Register>(line);
-                        list.Add(registerL);
+                        Admin item = JsonConvert.DeserializeObject<Admin>(line);
+                        list.Add(item);
                     }
                     catch (Exception ex)
                     {
@@ -30,12 +32,12 @@ namespace ProjetoWebApi.Infrastructure
             return list;
         }
 
-        public void SaveAll(List<Register> registersL)
+        public void SaveAll<TList>(IEnumerable<TList> list)
         {
             File.WriteAllText(path, "");
-            foreach (Register register in registersL)
+            foreach (var item in list)
             {
-                string json = JsonConvert.SerializeObject(register, Formatting.Indented);
+                string json = JsonConvert.SerializeObject(item, Formatting.Indented);
 
                 using (StreamWriter sw = new StreamWriter(path, true))
                 {
