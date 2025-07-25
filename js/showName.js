@@ -6,13 +6,10 @@ export function showName(){
   
     if(names){
         names.forEach(name => {
-            name.innerText= userOn.name;
+            name.innerHTML= `<p>${userOn.name}</p>`;
         });
         
     } 
-    console.log(name);
-    
-
 }
 showName()
 

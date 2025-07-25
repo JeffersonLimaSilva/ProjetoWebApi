@@ -25,34 +25,16 @@ document.querySelector('form').addEventListener('submit', function(e){
         Password: senha
     }
     console.log(login);
-    
-
-    tetarLogar(login)
-    
-    // if(verificaIgualEmailLogin(usersadm, email)){
-    //     if(verificaIgualSenhaLogin(usersadm, senha)){
-    //         userOn={
-    //             email: email,
-    //             index: userOnIndex(usersadm, email)
-    //         }
-
-            
-    //         localStorage.setItem('userOn', JSON.stringify(userOn))
-
-    //         nome= usersadm[userOnIndex(usersadm, email)].name
+    tryLogin(login)
 
     //         criaLogsUser(nome, email, 'logou-se', '', 2)
 
-    //         window.location.href = '/index.html';
-    //         return false
-    //     }
         
     //     modalAlert(`<p><strong>Senha Incorreta.</strong></p>`)
-    //     return false
-    // }
+    
     // modalAlert(`<p><strong>Email não cadastrado.</strong></p>`)
 })
-async function tetarLogar(login){
+async function tryLogin(login){
     const apiEndpoint = 'https://localhost:7114/login/check';
     try {
         const response = await fetch(apiEndpoint, {
@@ -71,8 +53,7 @@ async function tetarLogar(login){
         changeHome();
     }
     catch (error) {
-        console.error('Erro ao enviar produto para a API:', error);
-        modalAlert($`<p><strong>Erro:${error}.</strong></p>`)
+        console.error('Erro ao Logar:', error);
         throw error; 
     }
 }

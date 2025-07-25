@@ -1,35 +1,37 @@
 import { showModal } from "./cadNewcad.js";
-import { criaLista, showCadPend, removeUser } from "./lista.js";
+import { criaLista, showCadPend} from "./lista.js";
 import { criaLogsUser } from "../logsusers/logsUser.js";
 import { modalAlert, modalConfirm } from "../modals/modals.js";
 
 
-let auxI = null;
-let auxU = null;
+
+let auxC = null;
 
 
-export function modalEditar(index, user){
+export function modalEditar(client){
+    console.log(client);
+    
 
     let modalClass = document.querySelector('.box-list-newcad');
     modalClass.className=('box-list-editar');
 
 
-    document.getElementById('name').value = user.name;
-    document.getElementById('years-old').value = user.yearold;
-    document.getElementById('email').value = user.email;
-    if(user.status === 'Inativo'){
+    document.getElementById('name').value = client.name;
+    document.getElementById('years-old').value = client.age;
+    document.getElementById('email').value = client.email;
+    if(client.status === 'Inativo'){
         document.getElementById('ativo').checked= false;
     }
-    if(user.status === 'Ativo'){
+    if(client.status === 'Ativo'){
         document.getElementById('ativo').checked= true;
     }
     
     
-    document.getElementById('address').value =user.address;
-    document.getElementById('more-info').value =user.moreinfo;
-    document.getElementById('interesses').value =user.interests;
-    document.getElementById('sentimentos').value =user.emotions;
-    document.getElementById('valores').value =user.values;
+    document.getElementById('address').value =client.address;
+    document.getElementById('more-info').value =client.moreInfor;
+    document.getElementById('interesses').value =client.interests;
+    document.getElementById('sentimentos').value =client.emotions;
+    document.getElementById('valores').value =client.value;
 
     let dialogClass = document.querySelector('.dialog-cad');
     dialogClass.className=('dialog-edit');
@@ -37,65 +39,61 @@ export function modalEditar(index, user){
     let modaltitle = document.querySelector('.modaltitle');
     modaltitle.innerText='Editar Cadastro';
     
-    auxI = index;
-    auxU = user;
+    auxC = client;
 
     showModal();
 }
 
 let buttonEditar =document.getElementById('button-editar') || false;
 if (buttonEditar) {
-    buttonEditar.addEventListener('click', function(e){
-
-        let index = auxI;
-        let user = auxU;
+    buttonEditar.addEventListener('click', async function(e){
+        let client = auxC;
         
         let modalcad = document.getElementById('modal-form');
 
-        let nome = document.getElementById('name').value;
-        if(nome != user.name){
-            editarUser(index, 'name', nome);
+        let name = document.getElementById('name').value;
+        if(name != client.name){
+            client.name = name;
         }
-        let idade = parseInt(document.getElementById('years-old').value);
-        if(idade != user.yearold){
-            editarUser(index, 'yearold', idade);
+        let age = parseInt(document.getElementById('years-old').value);
+        if(age != client.age){
+            client.age = age;
         }
         let email = document.getElementById('email').value;
-        if(email != user.email){
-            editarUser(index, 'email', email);
+        if(email != client.email){
+            client.email = email;
         }
-        let ativo = document.getElementById('ativo').checked;
-        if(ativo){
+        let status = document.getElementById('ativo').checked;
+        if(status){
             let ativoInativo = 'Ativo';
-            if (ativoInativo != user.status) {
-                editarUser(index, 'status', ativoInativo);
+            if (ativoInativo != client.status) {
+                client.status = ativoInativo;
             }
-        }
-        if(!ativo){
+        }else{
             let ativoInativo = 'Inativo';
-            if (ativoInativo != user.status) {
-                editarUser(index, 'status', ativoInativo);
+            if (ativoInativo != client.status) {
+                client.status = ativoInativo;
             }
         }
-        let endereco = document.getElementById('address').value;
-        if(endereco != user.address){
-            editarUser(index, 'address', endereco);
+        let address = document.getElementById('address').value;
+        if(address != client.address){
+            client.address = address;
         }
-        let maisinformacoes = document.getElementById('more-info').value;
-        if(maisinformacoes != user.moreinfo){
-            editarUser(index, 'moreinfo', maisinformacoes);
+        let moreInfor = document.getElementById('more-info').value;
+        if(moreInfor != client.moreInfor){
+            client.moreInfor = moreInfor;
         }
-        let interesses = document.getElementById('interesses').value;
-        if(interesses != user.interests){
-            editarUser(index, 'interests', interesses);
+        let interests = document.getElementById('interesses').value;
+        if(interests != client.interests){
+            client.interests = interests;
         }
-        let sentimentos = document.getElementById('sentimentos').value;
-        if(sentimentos != user.emotions){
-            editarUser(index, 'emotions', sentimentos);
+        let emotions = document.getElementById('sentimentos').value;
+        if(emotions != client.emotions){
+            client.emotions = emotions;
         }
-        let valores = document.getElementById('valores').value;
-        if(valores != user.values){
-            editarUser(index, 'values', valores);
+        let value = document.getElementById('valores').value;
+        if(value != client.value){
+            client.value = value;
         }
         let modalClass = document.querySelector('.box-list-editar') || false;
         if(modalClass){
@@ -105,9 +103,22 @@ if (buttonEditar) {
         if (dialogClass) {
             dialogClass.className=('dialog-cad');
         }
-
+        let Client= {
+            Name: client.name, 
+            Email: client.email, 
+            Age: client.age, 
+            Address: client.address, 
+            MoreInfor: client.moreInfor, 
+            Interests: client.interests, 
+            Emotions: client.emotions, 
+            Value: client.value,
+            Status: client.status,
+        }
+        console.log(client);
+        await UpdateClient(client.id, Client);
         modalAlert(`<p>As informações de <strong>${email}</strong> foram salvas.</p>`);
-        
+
+        await criaLista();
         modalcad.close();
 
         let deleteButton = document.querySelector('#button-delete');
@@ -116,17 +127,41 @@ if (buttonEditar) {
         let body = document.querySelector('.body');
         let overlayer = document.querySelector('.overlayer');
         body.removeChild(overlayer);
-
+        
     }) 
 }
 let deleteButton = document.getElementById('button-delete') || false
 if (deleteButton) {
+    
     deleteButton.addEventListener('click', ()=>{
-        let index = auxI
-        modalConfirm(index, auxU.email)
-        
+        let client = auxC;
+        modalConfirm(client.id, client.email);
     })
 }
+async function UpdateClient(id, Client){
+    const apiEndpoint = `https://localhost:7114/api/Client/${id}/update`;
+    let userOn = JSON.parse(localStorage.getItem('userOn')) || []
+    try {
+        const response = await fetch(apiEndpoint, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization' : `Bearer ${userOn.token}`
+            },
+            body: JSON.stringify(Client)
+        });
+        if(!response.ok){
+            var errodata= response.json().catch(()=>{});
+            console.log(response.statusText);
+            
+            throw Error(errodata.error);
+        }
+    }
+    catch (error) {
+        console.error(`Erro ao atualizar o Cliente:${error}`);
+    }
+}
+
 function editarUser(index, campo, conteudo){
     
     let userOn =JSON.parse(localStorage.getItem('userOn')) || []

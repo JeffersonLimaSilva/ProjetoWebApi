@@ -4,13 +4,11 @@ import { modalEditar } from "./editaruser.js";
 import { modalConfirm } from "../modals/modals.js";
 
 
-export function criaLista(search = '', date = 0){
-
-
-    // let usersadm= JSON.parse(localStorage.getItem('usersadm')) || []
-    // let userOn = JSON.parse(localStorage.getItem('userOn')) || []
-
+export async function criaLista(search = '', date = 0){
     
+    let userOn = JSON.parse(localStorage.getItem('userOn')) || []
+    var clients = await ClientsListApi(userOn.id);
+        
     let tbody = document.getElementById('tbody-users') || false
 
      if(!tbody){
@@ -19,11 +17,11 @@ export function criaLista(search = '', date = 0){
 
     tbody.innerHTML=''
 
-    // usersadm[userOn.index].users.reverse()
+    clients.reverse()
     const state={
         page: 1,
         perPage: perPage,
-        totalPages: Math.ceil(usersadm[userOn.index].users.length / perPage)
+        totalPages: Math.ceil(clients.length / perPage) > 1 ? Math.ceil(clients.length / perPage) : 1 
     }
     const html ={
         get(element){
@@ -59,29 +57,39 @@ export function criaLista(search = '', date = 0){
             html.get('.fist').addEventListener('click', ()=>{
                 controsls.goTo(1)
                 update()
+                buttons()
             })
             html.get('.last').addEventListener('click', ()=>{
                 controsls.goTo(state.totalPages)
                 update()
+                buttons()
             })
             html.get('.prev').addEventListener('click', ()=>{
                 controsls.prev()
                 update()
+                buttons()
             })
             html.get('.next').addEventListener('click', ()=>{
                 controsls.next()
                 update()
+                buttons()
             })
+        },
+        buttons(){
+            if(state.page == 1){
+                var fist = html.get('.fist')
+                fist.style.color="blue";
+            }
         }
     }
 
     const list = {
-        create(user, index){
-            listaItems(user, tbody, index)
+        create(client, index){
+            listaItems(client, tbody, index)
         },
         update(){
             html.get('#tbody-users').innerHTML = ""
-            console.log(date);
+            
             
             let page = state.page - 1
             let start = page * state.perPage
@@ -89,16 +97,16 @@ export function criaLista(search = '', date = 0){
 
             let auxiliar=[]
 
-            usersadm[userOn.index].users.forEach(function(user){
+            clients.forEach(function(client){
 
-                let minName = user.name.toLowerCase()
-                let minEmail = user.email.toLowerCase()
-                let minStatus = user.status.toLowerCase()
-                date = user.date
+                let minName = client.name.toLowerCase()
+                let minEmail = client.email.toLowerCase()
+                let minStatus = client.status.toLowerCase()
+                date = client.date
                 if(minName.includes(search) || minEmail.includes(search) || minStatus.includes(search)){
                     
-                    if(date === user.date){
-                        auxiliar.push(user)
+                    if(date === client.date){
+                        auxiliar.push(client)
                     } 
                 }
             })
@@ -106,10 +114,11 @@ export function criaLista(search = '', date = 0){
             state.totalPages= Math.ceil(auxiliar.length / perPage)
             const paginatedItems = auxiliar.slice(start, end)
     
-            paginatedItems.forEach(function(user, index){
-                list.create(user, index)
+            paginatedItems.forEach(function(client, index){
+                list.create(client, index)
             });
         }
+        
 
     }
 
@@ -125,7 +134,7 @@ export function criaLista(search = '', date = 0){
     }
 
     function number(){
-        html.get('.number div').textContent = state.page
+        html.get('.number div').innerHTML = `${state.page} / ${state.totalPages}`
     }
     init()
 
@@ -151,9 +160,53 @@ export function criaLista(search = '', date = 0){
     
     }
     filter()
+    await showCad()
 }
 
-function listaItems(user, tbody, index){
+async function ClientsListApi(id){
+    const apiEndpoint = `https://localhost:7114/api/Client/${id}/list`;
+    try{
+        const response = await fetch(apiEndpoint,{
+            method: 'GET',
+            headers :{
+                'Content-Type' : 'application/json'
+
+            },
+            
+
+        });
+        var data = response.json();
+        return data;
+    }
+    catch(error){
+        
+        throw error;
+    }
+    
+}
+async function GetClientsByIdApi(id){
+    const apiEndpoint = `https://localhost:7114/api/Client/${id}/get-by-id`;
+    let userOn = JSON.parse(localStorage.getItem('userOn')) || [];
+    try{
+        const response = await fetch(apiEndpoint,{
+            method: 'GET',
+            headers :{
+                'Content-Type' : 'application/json',
+                'Authorization' : `Bearer ${userOn.token}`
+            },
+            
+        });
+        var data = response.json();
+        return data;
+    }
+    catch(error){
+        
+        throw error;
+    }
+    
+}
+
+async function listaItems(client, tbody, index){
  
     let trbody = document.createElement('tr')
     let tdname = document.createElement('td')
@@ -161,15 +214,15 @@ function listaItems(user, tbody, index){
     let tdativo = document.createElement('td')
     let tdmenu = document.createElement('td')
     
-    tdname.textContent =   user.name
-    tdemail.textContent =  user.email
-    tdativo.textContent = user.status
+    tdname.textContent =   client.name
+    tdemail.textContent =  client.email
+    tdativo.textContent = client.status
 
-    if(user.status === 'Ativo'){
+    if(client.status === 'Ativo'){
     
         tdativo.style.color='green'
     }
-    if(user.status === 'Inativo'){
+    if(client.status === 'Inativo'){
         tdativo.style.color='red'
     }
     tdmenu.className=('tdmenu')
@@ -181,8 +234,8 @@ function listaItems(user, tbody, index){
     spanEditar.classList='span'
     spanEditar.id='editar'
 
-    spanEditar.addEventListener('click', ()=>{
-        modalEditar(index, user)
+    spanEditar.addEventListener('click', async ()=>{
+        modalEditar(await GetClientsByIdApi(client.id))
     })
 
     let imgEditar = document.createElement('img')
@@ -200,7 +253,7 @@ function listaItems(user, tbody, index){
     spanRemover.classList='span'
     spanRemover.id='remover'
     spanRemover.addEventListener('click', ()=>{
-        modalConfirm(index, user.email)
+        modalConfirm(client.id, client.email)
     })
     
     let imgRemover = document.createElement('img')
@@ -274,18 +327,18 @@ export function removeUser(index){
     
 }
 
-function showCad(){
+async function showCad(){
     let c = document.getElementById('cad') || false
     if (c) {
-        c.innerHTML=''
-        c.appendChild(styleValue(contaCad(), 'blue'))
+        c.innerHTML= ''
+        c.appendChild(styleValue(await countRegistration(), 'blue'))
     }
 }
 function showCadMes(){
     let c = document.getElementById('cad-mes') || false
     if (c) {
         c.innerHTML=''
-        c.appendChild(styleValue(contaCadMes(), 'green'))
+        // c.appendChild(styleValue(count(), 'green'))
     }
 }
 export function showCadPend(){
@@ -306,24 +359,26 @@ function styleValue(x, colorC){
     return valueCad
 }
 
-function contaCad(){
-    // let userOn = JSON.parse(localStorage.getItem('userOn')) || []
-    // let usersadm = JSON.parse(localStorage.getItem('usersadm')) || []
-    let numcad = 0
-    // usersadm[userOn.index].users.forEach(function(user, index){
-    //     if(usersadm[userOn.index].users == []){
-    //         return 0
-    //     }
-    //     if(index >= numcad){
-    //         numcad = index 
-    //         numcad ++
-    //     }
+async function countRegistration() {
+    let userOn = JSON.parse(localStorage.getItem('userOn')) || [];
+    const apiEndpoint = `https://localhost:7114/api/Dashboard/${userOn.id}/total-registration`;
+    try{
+        const response = await fetch(apiEndpoint,{
+            method: 'GET',
+            headers :{
+                'Content-Type' : 'application/json'
+            },
+            
+        });
+        var data = await response.json();
+        return data;
+    }
+    catch(error){
         
-    // })
-
-    return numcad
+        throw error;
+    }
 }
-function contaCadMes(){
+function count(){
     // let userOn = JSON.parse(localStorage.getItem('userOn')) || []
     // let usersadm = JSON.parse(localStorage.getItem('usersadm')) || []
     let numcad = 0
@@ -374,5 +429,5 @@ function verificaIgual(usersadm, email){
 showCad()
 showCadMes()
 showCadPend()
-// criaLista() 
+criaLista() 
 

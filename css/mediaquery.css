@@ -365,7 +365,18 @@
     .header-main{
         header{
             #search{
-                margin-right: 15%;
+                margin-right: 10%;
+            }
+            .logout{
+                padding: 1vh;
+                margin: 1.5vh 0;
+            }
+            .icon-perfil{
+                padding: 2vh 0.5vh;
+            }
+            .perfil-nome p{
+                font-size: 1.9vh;
+                width: 14vh;
             }
         }
         .div-dashboard{

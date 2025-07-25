@@ -7,7 +7,7 @@ setPerPage(12)
 criaLista()
 
 
-document.getElementById('button-gravar').addEventListener('click', function(e){
+document.getElementById('button-gravar').addEventListener('click', async function(e){
     let modalcad = document.getElementById('modal-form')
     let nome = document.getElementById('name').value
     let idade = parseInt(document.getElementById('years-old').value)
@@ -19,11 +19,15 @@ document.getElementById('button-gravar').addEventListener('click', function(e){
     let interesses = document.getElementById('interesses').value
     let sentimentos = document.getElementById('sentimentos').value
     let valores = document.getElementById('valores').value
-    let usersadm= JSON.parse(localStorage.getItem('usersadm')) || []
+    
     let userOn = JSON.parse(localStorage.getItem('userOn')) || []
 
     if(nome == '' || email == ''){
         modalAlert(`<p><strong>Campo Nome e Email obrigatório.</strong></p>`);
+        return false
+    }
+    if(!idade){
+        modalAlert(`<p><strong>Campo Idade obrigatório.</strong></p>`);
         return false
     }
     if(idade < 18 || idade > 90){
@@ -45,32 +49,28 @@ document.getElementById('button-gravar').addEventListener('click', function(e){
         return false
     }
 
-    if(verificaIgual(usersadm[userOn.index], email)){
-        modalAlert(`<p><strong>Email já cadastrado.</strong></p>`);
-        return false
-    }
+    // if(verificaIgual(usersadm[userOn.index], email)){
+    //     modalAlert(`<p><strong>Email já cadastrado.</strong></p>`);
+    //     return false
+    // }
 
     let date = new Date;
 
     let mes = (date.getMonth() + 1)
 
-    let user= {
-        name: nome, 
-        yearold: idade, 
-        email: email, 
-        status: ativoInativo, 
-        address: endereco, 
-        moreinfo: maisinformacoes, 
-        interests: interesses, 
-        emotions: sentimentos, 
-        values: valores,
-        date: mes
+    let Client= {
+        Name: nome, 
+        Email: email, 
+        Age: idade, 
+        Address: endereco, 
+        MoreInfor: maisinformacoes, 
+        Interests: interesses, 
+        Emotions: sentimentos, 
+        Value: valores,
+        status: ativoInativo,
     }
-
-    usersadm[userOn.index].users.push(user)
-    localStorage.setItem('usersadm', JSON.stringify(usersadm))
-    
-    criaLogsUser(usersadm[userOn.index].name, usersadm[userOn.index].email, 'cadastrou', email, 2)
+    await CreateClient(userOn.id, Client)
+    // criaLogsUser(usersadm[userOn.index].name, usersadm[userOn.index].email, 'cadastrou', email, 2)
 
     document.getElementById('name').value = ''
     document.getElementById('years-old').value = ''
@@ -84,15 +84,40 @@ document.getElementById('button-gravar').addEventListener('click', function(e){
     
     
     
-    modalAlert(`<p>O usuário <strong>${email}</strong> foi adicionado.</p>`);
     
-    criaLista()
+    await criaLista();
     modalcad.close()
 
     let body = document.querySelector('.body')
     let overlayer = document.querySelector('.overlayer')
     body.removeChild(overlayer)
 })
+
+async function CreateClient(id, Client){
+    const apiEndpoint = `https://localhost:7114/api/Client/${id}/add`;
+    
+    
+    try {
+        const response = await fetch(apiEndpoint, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json' 
+            },
+            body: JSON.stringify(Client)
+        });
+        if(!response.ok){
+            var errodata= response.json().catch(()=>{});
+            console.log(response.statusText);
+            
+            throw Error(errodata.error);
+        }
+        modalAlert(`<p>O usuário <strong>${Client.Email}</strong> foi adicionado.</p>`);
+
+    }
+    catch (error) {
+        console.error(`Erro ao cadastrar um Cliente:${error}`);
+    }
+}
 
 function verificaIgual(usersadm, email){
     return usersadm.users.some(function(user){

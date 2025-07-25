@@ -1,4 +1,4 @@
-import { removeUser } from "../js/lista.js";
+import { criaLista } from "../js/lista.js";
 let body = document.querySelector('.body')
 
 
@@ -28,7 +28,7 @@ export function modalAlert(mensage) {
     }, 3000);
 }
 
-export function modalConfirm(index, email) {
+export function modalConfirm(id, email) {
     verificaModal()
     
     let modal = document.createElement('dialog')
@@ -41,10 +41,14 @@ export function modalConfirm(index, email) {
     let spanConfirm = document.createElement('span')
     spanConfirm.className='span-confirm'
     spanConfirm.innerText='Corfirmar'
-    spanConfirm.addEventListener('click', ()=>{
-        removeUser(index)
+    spanConfirm.addEventListener('click', async()=>{
+        await ClientsDeleteApi(id);
         modalAlert(`<p>O usuário <strong>${email}</strong> foi deletado.</p>`);
-        body.removeChild(overlayer)
+        body.removeChild(overlayer);
+        console.log("oi");
+        await criaLista();
+        
+        
     })
     let spanCancel = document.createElement('span')
     spanCancel.className='span-cancel'
@@ -83,4 +87,24 @@ function verificaModal() {
     if (modalcheck != false) {
         body.removeChild(modalcheck)
     }
+}
+
+async function ClientsDeleteApi(id){
+    const apiEndpoint = `https://localhost:7114/api/Client/${id}/delete`;
+    let userOn = JSON.parse(localStorage.getItem('userOn')) || []
+    try{
+        const response = await fetch(apiEndpoint,{
+            method: 'DELETE',
+            headers :{
+                'Content-Type' : 'application/json',
+                'Authorization': `Bearer ${userOn.token}`
+            },
+            
+
+        });
+    }
+    catch(error){
+        
+        throw error;
+    } 
 }
