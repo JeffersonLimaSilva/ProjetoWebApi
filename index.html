@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="/css/navbar.css">
     <link rel="stylesheet" href="/css/header.css">
     <link rel="stylesheet" href="/css/main.css">
-    <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="/Dashboard/dashboard.css">
     <link rel="stylesheet" href="/css/editar.css">
     <link rel="stylesheet" href="./modals/modals.css">
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
@@ -41,7 +41,7 @@
                 </div>
             </div>
         </header>
-        <main>
+        <main class="main-dash">
             <div class="div-dashboard">
                 <div id="div-cad">
                     <div id="cad">
@@ -71,95 +71,25 @@
                             <div></div>
                         </div>
                         <div class="next">&gt</div>
-                        <div class="last">&#187</div>
+                        <div class="last">&#187</div> 
 
                     </div>
                     <table class="table-list">
                         <thead>
                             <tr>
+                                <th>DATA</th>
                                 <th>NOME</th>
                                 <th>EMAIL</th>
                                 <th>ATIVO</th>
-                                <th class="menu"></th>
                             </tr>
                         </thead>
                         <tbody id="tbody-users">
                             
                         </tbody>
                     </table>
-                    
-
                 </div>
                 
             </div>
-
-            <dialog id="modal-form" class="dialog-cad">
-                <div>
-                    <div>
-                        <button id="button-delete" class="button">EXCLUIR</button>
-                    </div>
-                    <div>
-                        <span id="close-modal"><img src="/img/svgRemover.svg" alt="Fechar"></span>
-                    </div>
-                </div>
-                
-                <section class="box-list-newcad" >
-                    <div class="cad-box">
-                        <div id="head-newCad">
-                            <p class="modaltitle"></p>
-                            <div>
-                                <input type="checkbox" name="Ativo" id="ativo" value='Ativo'>
-                                <label for="ativo">Ativo <span class="buttons-editar"></label>
-                            </div>
-
-                        </div>
-
-                        <p>1º Fatos e Dados</p>
-                        <div id="div-fatosedados">
-                            <label for="name">Nome <span class="buttons-editar"></span></label>
-                            <input type="text" name="nome" id="name">
-                            <div id="duo-input">
-                                <div class="div-years-old">
-                                    <label for="years-old">Idade<span class="buttons-editar"></label>
-                                    <input type="text" name="idade" id="years-old">
-                                </div>
-                                
-                                <div class="div-email">
-                                    <label for="email">E-mail<span class="buttons-editar"></label>
-                                    <input type="text" name="email" id="email">
-                                </div>
-                            
-                            </div>
-                            <label for="address">Endereço<span class="buttons-editar"></label>
-                            <input type="text" name="endereco" id="address">
-
-                            <label for="more-info">Outras Informações<span class="buttons-editar"></label>
-                            <textarea name="informacoes" id="more-info"></textarea>
-                        </div>
-                        
-                        
-
-
-                    </div>
-                    <div>
-                        <p>2º Interesses</p>
-                        <textarea name="interesses" id="interesses"></textarea>
-                    </div>
-                    <div>
-                        <p> 3º Sentimentos</p> 
-                        <textarea name="sentimentos" id="sentimentos"></textarea>
-                    </div>
-                    <div>
-                        <p> 4º Valores</p> 
-                        <textarea name="valores" id="valores"></textarea>
-                    </div>
-                    
-                    <button id="button-gravar" class="button">GRAVAR</button>
-                    <button id="button-editar" class="button">EDITAR</button>
-                </section>
-
-            </dialog>
-            
         </main>
     </div>
     <div class="nav-div">
@@ -191,6 +121,7 @@
     <script src="/js/menu.js"></script>
     <script src="/js/restricoes.js"></script>
     <script type="module" src="/modals/modals.js"></script>
+    <script type="module" src="/Dashboard/dashboard.js"></script>
     <strong></strong>
     
 </body>

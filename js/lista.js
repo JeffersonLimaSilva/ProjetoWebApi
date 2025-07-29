@@ -1,27 +1,25 @@
 import { perPage } from "./perPage.js";
-import { criaLogsUser } from "../logsusers/logsUser.js";
 import { modalEditar } from "./editaruser.js";
 import { modalConfirm } from "../modals/modals.js";
+import { countRegistration } from "../Dashboard//dashboard.js";
 
 
 export async function criaLista(search = '', date = 0){
     
     let userOn = JSON.parse(localStorage.getItem('userOn')) || []
-    var clients = await ClientsListApi(userOn.id);
-        
+    
+      
     let tbody = document.getElementById('tbody-users') || false
 
      if(!tbody){
         return false
     }
 
-    tbody.innerHTML=''
-
-    clients.reverse()
+    tbody.innerHTML=''    
     const state={
         page: 1,
         perPage: perPage,
-        totalPages: Math.ceil(clients.length / perPage) > 1 ? Math.ceil(clients.length / perPage) : 1 
+        totalPages: Math.ceil(await countRegistration() / perPage) 
     }
     const html ={
         get(element){
@@ -36,6 +34,7 @@ export async function criaLista(search = '', date = 0){
             if(lastPage){
                 state.page --
             }
+            
         },
         prev(){
             state.page --
@@ -55,30 +54,48 @@ export async function criaLista(search = '', date = 0){
         }, 
         creatListeners(){
             html.get('.fist').addEventListener('click', ()=>{
-                controsls.goTo(1)
-                update()
-                buttons()
+                controsls.goTo(1);
+                update();
+                controsls.buttons();
             })
             html.get('.last').addEventListener('click', ()=>{
-                controsls.goTo(state.totalPages)
-                update()
-                buttons()
+                controsls.goTo(state.totalPages);
+                update();
+                controsls.buttons();
             })
             html.get('.prev').addEventListener('click', ()=>{
-                controsls.prev()
-                update()
-                buttons()
+                controsls.prev();
+                update();
+                controsls.buttons();
             })
             html.get('.next').addEventListener('click', ()=>{
-                controsls.next()
-                update()
-                buttons()
+                controsls.next();
+                update();
+                controsls.buttons();                
             })
         },
         buttons(){
             if(state.page == 1){
                 var fist = html.get('.fist')
-                fist.style.color="blue";
+                fist.style.opacity = 0;
+                var prev = html.get('.prev')
+                prev.style.opacity = 0;
+            }else{
+               var fist = html.get('.fist')
+                fist.style.opacity = 1;
+                var prev = html.get('.prev')
+                prev.style.opacity = 1; 
+            }
+            if(state.page == state.totalPages){
+                var fist = html.get('.next')
+                fist.style.opacity = 0;
+                var prev = html.get('.last')
+                prev.style.opacity = 0;
+            }else{
+                var fist = html.get('.next')
+                fist.style.opacity = 1;
+                var prev = html.get('.last')
+                prev.style.opacity = 1;
             }
         }
     }
@@ -87,45 +104,25 @@ export async function criaLista(search = '', date = 0){
         create(client, index){
             listaItems(client, tbody, index)
         },
-        update(){
-            html.get('#tbody-users').innerHTML = ""
-            
-            
-            let page = state.page - 1
-            let start = page * state.perPage
-            let end = start + state.perPage
+        async update(){
+            var clients = await ClientsListApi(userOn.id, state.page - 1, state.perPage);   
+             
+            html.get('#tbody-users').innerHTML = "";       
 
-            let auxiliar=[]
-
-            clients.forEach(function(client){
-
-                let minName = client.name.toLowerCase()
-                let minEmail = client.email.toLowerCase()
-                let minStatus = client.status.toLowerCase()
-                date = client.date
-                if(minName.includes(search) || minEmail.includes(search) || minStatus.includes(search)){
-                    
-                    if(date === client.date){
-                        auxiliar.push(client)
-                    } 
-                }
-            })
-
-            state.totalPages= Math.ceil(auxiliar.length / perPage)
-            const paginatedItems = auxiliar.slice(start, end)
-    
-            paginatedItems.forEach(function(client, index){
-                list.create(client, index)
+            clients.forEach(function(client, index){
+                list.create(client, index);
             });
         }
-        
-
     }
 
     function init(){
-        list.update()
-        controsls.creatListeners()
-        number()
+        
+        list.update();
+
+        controsls.creatListeners();
+        controsls.buttons();
+        number();
+        filter();
     }
 
     function update(){
@@ -159,12 +156,12 @@ export async function criaLista(search = '', date = 0){
         }
     
     }
-    filter()
-    await showCad()
+    
 }
 
-async function ClientsListApi(id){
-    const apiEndpoint = `https://localhost:7114/api/Client/${id}/list`;
+async function ClientsListApi(id, page, perPage){
+    
+    const apiEndpoint = `https://localhost:7114/api/Client/${id}/list?pageNumber=${page}&pageSize=${perPage}`;
     try{
         const response = await fetch(apiEndpoint,{
             method: 'GET',
@@ -182,7 +179,6 @@ async function ClientsListApi(id){
         
         throw error;
     }
-    
 }
 async function GetClientsByIdApi(id){
     const apiEndpoint = `https://localhost:7114/api/Client/${id}/get-by-id`;
@@ -207,16 +203,18 @@ async function GetClientsByIdApi(id){
 }
 
 async function listaItems(client, tbody, index){
- 
+    let isCad = document.querySelector('#cad-box') || false
     let trbody = document.createElement('tr')
+    let tddate = document.createElement('td')
     let tdname = document.createElement('td')
     let tdemail = document.createElement('td')
     let tdativo = document.createElement('td')
-    let tdmenu = document.createElement('td')
     
-    tdname.textContent =   client.name
-    tdemail.textContent =  client.email
-    tdativo.textContent = client.status
+    
+    tddate.textContent =   client.date;
+    tdname.textContent =   client.name;
+    tdemail.textContent =  client.email;
+    tdativo.textContent = client.status;
 
     if(client.status === 'Ativo'){
     
@@ -225,76 +223,79 @@ async function listaItems(client, tbody, index){
     if(client.status === 'Inativo'){
         tdativo.style.color='red'
     }
-    tdmenu.className=('tdmenu')
-    tdmenu.style.maxwidth='max-content'
-    
-
-    let spanEditar =document.createElement('span')
-    spanEditar.className='spanEditar'
-    spanEditar.classList='span'
-    spanEditar.id='editar'
-
-    spanEditar.addEventListener('click', async ()=>{
-        modalEditar(await GetClientsByIdApi(client.id))
-    })
-
-    let imgEditar = document.createElement('img')
-    imgEditar.src='/img/svgEditar.svg'
-    imgEditar.alt='Editar'
-    imgEditar.className='icon-white'
-
-    let imgEditarBlack = document.createElement('img')
-    imgEditarBlack.src='/img/svgEditar-black.svg'
-    imgEditarBlack.alt='Editar'
-    imgEditarBlack.className='icon-black'
-
-    let spanRemover = document.createElement('span')
-    spanRemover.className='spanRemover'
-    spanRemover.classList='span'
-    spanRemover.id='remover'
-    spanRemover.addEventListener('click', ()=>{
-        modalConfirm(client.id, client.email)
-    })
-    
-    let imgRemover = document.createElement('img')
-    imgRemover.src= '/img/delete.svg'
-    imgRemover.alt='Remover'
-    imgRemover.className='icon-white'
-
-    let imgRemoverBlack = document.createElement('img')
-    imgRemoverBlack.src='/img/delete-black.svg'
-    imgRemoverBlack.alt='Editar'
-    imgRemoverBlack.className='icon-black'
-
-    let spanMenu = document.createElement('span')
-    spanMenu.className='menu2'    
-    spanMenu.style.padding='0.5vh'
-    spanMenu.style.border='0'
-    spanMenu.addEventListener('click', ()=>{
-        let deleteButton = document.querySelector('#button-delete')
-        deleteButton.style.display='block'
-        modalEditar(index, user)
-    }) 
-
-    let imgMenu = document.createElement('img')
-    imgMenu.src='/img/menu2.svg'
-    imgMenu.alt='Menu'
-    
-    spanEditar.appendChild(imgEditar)
-    spanEditar.appendChild(imgEditarBlack)
-    spanRemover.appendChild(imgRemover)
-    spanRemover.appendChild(imgRemoverBlack)
-    spanMenu.appendChild(imgMenu)
-
-    tdmenu.appendChild(spanEditar)
-    tdmenu.appendChild(spanRemover)
-    tdmenu.appendChild(spanMenu)
-
+    trbody.appendChild(tddate)
     trbody.appendChild(tdname)
     trbody.appendChild(tdemail)
     trbody.appendChild(tdativo)
-    
-    trbody.appendChild(tdmenu)
+
+    if(isCad){
+            let tdmenu = document.createElement('td')
+        tdmenu.className=('tdmenu')
+        tdmenu.style.maxwidth='max-content'
+        
+
+        let spanEditar =document.createElement('span')
+        spanEditar.className='spanEditar'
+        spanEditar.classList='span'
+        spanEditar.id='editar'
+
+        spanEditar.addEventListener('click', async ()=>{
+            modalEditar(await GetClientsByIdApi(client.id));
+        })
+
+        let imgEditar = document.createElement('img')
+        imgEditar.src='/img/svgEditar.svg'
+        imgEditar.alt='Editar'
+        imgEditar.className='icon-white'
+
+        let imgEditarBlack = document.createElement('img')
+        imgEditarBlack.src='/img/svgEditar-black.svg'
+        imgEditarBlack.alt='Editar'
+        imgEditarBlack.className='icon-black'
+
+        let spanRemover = document.createElement('span')
+        spanRemover.className='spanRemover'
+        spanRemover.classList='span'
+        spanRemover.id='remover'
+        spanRemover.addEventListener('click', ()=>{
+            modalConfirm(client.id, client.email)
+        })
+        
+        let imgRemover = document.createElement('img')
+        imgRemover.src= '/img/delete.svg'
+        imgRemover.alt='Remover'
+        imgRemover.className='icon-white'
+
+        let imgRemoverBlack = document.createElement('img')
+        imgRemoverBlack.src='/img/delete-black.svg'
+        imgRemoverBlack.alt='Editar'
+        imgRemoverBlack.className='icon-black'
+
+        let spanMenu = document.createElement('span')
+        spanMenu.className='menu2'    
+        spanMenu.style.padding='0.5vh'
+        spanMenu.style.border='0'
+        spanMenu.addEventListener('click',async ()=>{
+            let deleteButton = document.querySelector('#button-delete')
+            deleteButton.style.display='block'
+            modalEditar(await GetClientsByIdApi(client.id));
+        }) 
+
+        let imgMenu = document.createElement('img')
+        imgMenu.src='/img/menu2.svg'
+        imgMenu.alt='Menu'
+        
+        spanEditar.appendChild(imgEditar)
+        spanEditar.appendChild(imgEditarBlack)
+        spanRemover.appendChild(imgRemover)
+        spanRemover.appendChild(imgRemoverBlack)
+        spanMenu.appendChild(imgMenu)
+
+        tdmenu.appendChild(spanEditar)
+        tdmenu.appendChild(spanRemover)
+        tdmenu.appendChild(spanMenu)
+        trbody.appendChild(tdmenu)
+    }
     tbody.appendChild(trbody)
 }
 let search = document.getElementById('search') || false;
@@ -304,110 +305,6 @@ if (search) {
         criaLista(minSearch)
     })
 }
-
-
-export function removeUser(index){
-    let userOn =JSON.parse(localStorage.getItem('userOn')) || []
-    let usersadm= JSON.parse(localStorage.getItem('usersadm')) || []
-    
-    usersadm[userOn.index].users.reverse()
-
-    criaLogsUser(usersadm[userOn.index].name, usersadm[userOn.index].email, 'deletou ', usersadm[userOn.index].users[index].email, 2)
-    
-
-    usersadm[userOn.index].users.splice(index, 1)
-
-    usersadm[userOn.index].users.reverse()
-    localStorage.setItem('usersadm', JSON.stringify(usersadm))
-    
-    criaLista()
-    showCad()
-    showCadMes()
-    showCadPend()
-    
-}
-
-async function showCad(){
-    let c = document.getElementById('cad') || false
-    if (c) {
-        c.innerHTML= ''
-        c.appendChild(styleValue(await countRegistration(), 'blue'))
-    }
-}
-function showCadMes(){
-    let c = document.getElementById('cad-mes') || false
-    if (c) {
-        c.innerHTML=''
-        // c.appendChild(styleValue(count(), 'green'))
-    }
-}
-export function showCadPend(){
-    let c = document.getElementById('cad-pend') || false
-    if (c) {
-        c.innerHTML=''
-        c.appendChild(styleValue(contaInativo(), 'red'))
-    } 
-}
-
-function styleValue(x, colorC){
-    var valueCad = document.createElement('span')
-    valueCad.textContent = x;
-    valueCad.style.color = colorC;
-    
-    valueCad.style.marginTop= '10px'
-
-    return valueCad
-}
-
-async function countRegistration() {
-    let userOn = JSON.parse(localStorage.getItem('userOn')) || [];
-    const apiEndpoint = `https://localhost:7114/api/Dashboard/${userOn.id}/total-registration`;
-    try{
-        const response = await fetch(apiEndpoint,{
-            method: 'GET',
-            headers :{
-                'Content-Type' : 'application/json'
-            },
-            
-        });
-        var data = await response.json();
-        return data;
-    }
-    catch(error){
-        
-        throw error;
-    }
-}
-function count(){
-    // let userOn = JSON.parse(localStorage.getItem('userOn')) || []
-    // let usersadm = JSON.parse(localStorage.getItem('usersadm')) || []
-    let numcad = 0
-    // let date = new Date;
-    // let mes= (date.getMonth() + 1)
-    // usersadm[userOn.index].users.forEach(function(user, index){
-    //     if(user.date === mes){
-    //         numcad ++
-    //     }
-        
-    // })
-
-    return numcad
-
-}
-function contaInativo(){
-    // let userOn = JSON.parse(localStorage.getItem('userOn')) || []
-    // let usersadm = JSON.parse(localStorage.getItem('usersadm')) || []
-    let numcad = 0
-
-    // usersadm[userOn.index].users.forEach(function(user){
-    //     if(user.status == 'Inativo'){
-    //         numcad ++
-    //     }
-        
-    // })
-    return numcad
-}
-
 function validaNome(nome){
     let rnome = /^[A-Z][a-z]+[\s][A-Z][a-z]+$/
     return rnome.test(nome)
@@ -426,8 +323,6 @@ function verificaIgual(usersadm, email){
 }
 
 
-showCad()
-showCadMes()
-showCadPend()
-criaLista() 
+
+// criaLista() 
 

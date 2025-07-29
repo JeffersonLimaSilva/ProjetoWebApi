@@ -1,5 +1,5 @@
 import { showModal } from "./cadNewcad.js";
-import { criaLista, showCadPend} from "./lista.js";
+import { criaLista} from "./lista.js";
 import { criaLogsUser } from "../logsusers/logsUser.js";
 import { modalAlert, modalConfirm } from "../modals/modals.js";
 

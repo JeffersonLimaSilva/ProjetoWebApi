@@ -3,8 +3,8 @@ import { criaLista } from "../js/lista.js";
 import { modalAlert } from "../modals/modals.js";
 import { setPerPage } from "../js/perPage.js";
 
-setPerPage(12)
-criaLista()
+setPerPage(2);
+criaLista();
 
 
 document.getElementById('button-gravar').addEventListener('click', async function(e){

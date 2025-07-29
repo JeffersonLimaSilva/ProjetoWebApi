@@ -1,5 +1,4 @@
 import { perPage } from "./perPage.js";
-console.log(perPage);
 
 export function criaListaLogs( search =''){
 
@@ -13,9 +12,6 @@ export function criaListaLogs( search =''){
     }
     tbody.innerHTML=''
     logsuser[userOn.index].reverse()
-    
-    
-
     const state={
         page: 1,
         perPage: perPage,
@@ -105,9 +101,6 @@ export function criaListaLogs( search =''){
                 list.create(lista)
                
             });
-            
-            
-            
         }
 
     }

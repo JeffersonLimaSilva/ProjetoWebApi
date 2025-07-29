@@ -61,10 +61,11 @@
                     <table id='imprimir-users' class="table-list">
                         <thead>
                             <tr>
+                                <th>DATE</th>
                                 <th>NOME</th>
                                 <th>EMAIL</th>
                                 <th>STATUS</th>
-                                <th class="menu"></th>
+                                
                             </tr>
                         </thead>
                         <tbody id="tbody-users">
@@ -76,74 +77,6 @@
                 </div>
 
             </div>
-
-            <dialog id="modal-form" class="dialog-cad">
-                <div>
-                    <div>
-                        <button id="button-delete" class="button">EXCLUIR</button>
-                    </div>
-                    <div>
-                        <span id="close-modal"><img src="/img/svgRemover.svg" alt="Fechar"></span>
-                    </div>
-                </div>
-                
-                <section class="box-list-newcad" >
-                    <div class="cad-box">
-                        <div id="head-newCad">
-                            <p class="modaltitle"></p>
-                            <div>
-                                <input type="checkbox" name="Ativo" id="ativo" value='Ativo'>
-                                <label for="ativo">Ativo <span class="buttons-editar"></label>
-                            </div>
-
-                        </div>
-
-                        <p>1º Fatos e Dados</p>
-                        <div id="div-fatosedados">
-                            <label for="name">Nome <span class="buttons-editar"></span></label>
-                            <input type="text" name="nome" id="name">
-                            <div id="duo-input">
-                                <div class="div-years-old">
-                                    <label for="years-old">Idade<span class="buttons-editar"></label>
-                                    <input type="text" name="idade" id="years-old">
-                                </div>
-                                
-                                <div class="div-email">
-                                    <label for="email">E-mail<span class="buttons-editar"></label>
-                                    <input type="text" name="email" id="email">
-                                </div>
-                            
-                            </div>
-                            <label for="address">Endereço<span class="buttons-editar"></label>
-                            <input type="text" name="endereco" id="address">
-
-                            <label for="more-info">Outras Informações<span class="buttons-editar"></label>
-                            <textarea name="informacoes" id="more-info"></textarea>
-                        </div>
-                        
-                        
-
-
-                    </div>
-                    <div>
-                        <p>2º Interesses</p>
-                        <textarea name="interesses" id="interesses"></textarea>
-                    </div>
-                    <div>
-                        <p> 3º Sentimentos</p> 
-                        <textarea name="sentimentos" id="sentimentos"></textarea>
-                    </div>
-                    <div>
-                        <p> 4º Valores</p> 
-                        <textarea name="valores" id="valores"></textarea>
-                    </div>
-                    
-                    <button id="button-gravar" class="button">GRAVAR</button>
-                    <button id="button-editar" class="button">EDITAR</button>
-                </section>
-
-            </dialog>
-            
         </main>
     </div>
     <div class="nav-div">
@@ -166,7 +99,7 @@
     </div>
     <script src="/report/relatorio.js"></script>
     <script type="module" src="/js/lista.js"></script>
-    <script type="module" src="/js/imprimir.js"></script>
+    <script type="module" src="/Print/print.js"></script>
     <script type="module" src="/js/logout.js"></script>
     <script type="module" src="/js/showName.js"></script>
     <script type="module" src="/js/editaruser.js"></script>
