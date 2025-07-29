@@ -4,6 +4,7 @@ using Microsoft.OpenApi.Models;
 using ProjetoWebApi;
 using ProjetoWebApi.Common.Dispatcher;
 using ProjetoWebApi.Common.Extensions;
+using ProjetoWebApi.Features.Admin.Services;
 using ProjetoWebApi.Features.Client.Commands;
 using ProjetoWebApi.Features.Client.DTOs;
 using ProjetoWebApi.Features.Client.Model;

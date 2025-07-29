@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ProjetoWebApi.DTOs
+namespace ProjetoWebApi.Features.Admin.DTOs
 {
     public class AdminDto
     {

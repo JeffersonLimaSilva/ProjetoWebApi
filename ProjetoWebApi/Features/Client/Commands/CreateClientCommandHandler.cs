@@ -44,7 +44,7 @@ namespace ProjetoWebApi.Features.Client.Commands
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
+                Console.WriteLine(ex.Message);
                 return Task.CompletedTask;
             }
         }

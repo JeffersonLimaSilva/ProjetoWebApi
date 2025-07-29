@@ -1,22 +1,23 @@
-﻿using ProjetoWebApi.Features.Client.Model;
+﻿using ProjetoWebApi.Model;
 
-namespace ProjetoWebApi.Model
+namespace ProjetoWebApi.Features.Admin.Model
 {
     public class Admin : Person
     {
         
         public string Password { get; set; }
         public bool Theme { get; set; } = false;
-
-        public List<Client> Clients { get; set; } = new List<Client>();
-        public Admin() { }
+        public List<Client.Model.Client> Clients { get; set; } = new List<Client.Model.Client>();
+        
         public Admin( string name, string email, string password)
             :base(name, email)
         {
             Password = password;
         }
 
-        public void AddClient(Client client)
+        public Admin() { }
+
+        public void AddClient(Client.Model.Client client)
         {
             Clients.Add(client);
         }

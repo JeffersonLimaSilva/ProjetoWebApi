@@ -1,4 +1,6 @@
 ﻿using ProjetoWebApi.DTOs;
+using ProjetoWebApi.Features.Admin.DTOs;
+using ProjetoWebApi.Features.Admin.Model;
 
 namespace ProjetoWebApi.Model
 {

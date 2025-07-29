@@ -18,9 +18,11 @@ namespace ProjetoWebApi.Features.Client.Queries
         public async Task<List<Model.Client>> Handler(GetAllClientsQuery query, CancellationToken cancellationToken = default)
         {
             var admin = _connection.GetAll().FirstOrDefault(a => a.Id == query.Id);
-            List<Model.Client> list = admin.Clients;
             
-            
+            var clients = admin.Clients;
+            clients.Reverse();
+            List<Model.Client> list = clients.Where(c => !c.IsDelete).ToList();
+
             return list;
         }
     }

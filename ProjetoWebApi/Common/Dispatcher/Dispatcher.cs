@@ -15,10 +15,16 @@ namespace ProjetoWebApi.Common.Dispatcher
         public async  Task Send<TCommand> (TCommand command, CancellationToken cancellationToken = default)
             where TCommand : Interfaces.ICommand
         {
-            Console.WriteLine("Entrou Dispatcher");
-
-            var handler = _serviceProvider.GetRequiredService<ICommandHandler<TCommand>> ();
-             await handler.Handler(command, cancellationToken);
+            try
+            {
+                var handler = _serviceProvider.GetRequiredService<ICommandHandler<TCommand>>();
+                await handler.Handler(command, cancellationToken);
+            }
+            catch
+            {
+                throw new InvalidOperationException("Erro ao atribuir a handler");
+            }
+            
         }
 
         public async Task<TResult> Query<TQuery, TResult>(TQuery query, CancellationToken cancellationToken = default)

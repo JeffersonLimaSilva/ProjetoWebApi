@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ProjetoWebApi.DTOs;
+using ProjetoWebApi.Features.Admin.DTOs;
+using ProjetoWebApi.Features.Admin.Services;
 using ProjetoWebApi.Infrastructure;
 using ProjetoWebApi.Model;
 using ProjetoWebApi.Services;

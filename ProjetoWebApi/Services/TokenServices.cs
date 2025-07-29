@@ -1,5 +1,5 @@
 ﻿using Microsoft.IdentityModel.Tokens;
-using ProjetoWebApi.Model;
+using ProjetoWebApi.Features.Admin.Model;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -15,9 +15,9 @@ namespace ProjetoWebApi.Services
             {
                 Subject = new System.Security.Claims.ClaimsIdentity(new Claim[]
                 {
-                    new Claim("registerId", register.Id.ToString()),
-                    new Claim("registerName", register.Name.ToString()),
-                    new Claim("registerEmail", register.Email.ToString())
+                    new Claim("AdminId", register.Id.ToString()),
+                    new Claim("AdminName", register.Name.ToString()),
+                    new Claim("AdminEmail", register.Email.ToString())
                 }),
                 Expires = DateTime.UtcNow.AddHours(3),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)

@@ -1,4 +1,5 @@
 ﻿using ProjetoWebApi.DTOs;
+using ProjetoWebApi.Features.Admin.Model;
 using ProjetoWebApi.Model;
 
 namespace ProjetoWebApi.Services

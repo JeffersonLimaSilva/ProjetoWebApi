@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using Newtonsoft.Json;
+using ProjetoWebApi.Features.Admin.Model;
 using ProjetoWebApi.Model;
 
 namespace ProjetoWebApi.Infrastructure

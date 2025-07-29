@@ -1,8 +1,10 @@
-﻿namespace ProjetoWebApi.Model
+﻿using ProjetoWebApi.Features.Admin.Model;
+
+namespace ProjetoWebApi.Model
 {
     public interface IContextConnection
     {
-        List<Admin> GetAll();
+        public List<Admin> GetAll();
         void SaveAll<TList>(IEnumerable<TList> list);
     }
 }

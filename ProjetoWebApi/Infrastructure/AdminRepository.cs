@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using ProjetoWebApi.DTOs;
+using ProjetoWebApi.Features.Admin.DTOs;
+using ProjetoWebApi.Features.Admin.Model;
 using ProjetoWebApi.Model;
 
 namespace ProjetoWebApi.Infrastructure

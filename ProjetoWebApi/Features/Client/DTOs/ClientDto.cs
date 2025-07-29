@@ -1,9 +1,15 @@
-﻿namespace ProjetoWebApi.Features.Client.DTOs
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace ProjetoWebApi.Features.Client.DTOs
 {
     public class ClientDto
     {
+        [Required(ErrorMessage = "Campo Nome Obrigatório")]
         public string Name { get; set; }
+        [Required(ErrorMessage = "Campo Email Obrigatório")]
+        [RegularExpression(@"^[^@\s]+@[^@\s]+\.[^@\s]+$", ErrorMessage = "Formato de Email inválido.")]
         public string Email { get; set; }
+
         public int Age { get; set; }
         public string Address { get; set; }
         public string MoreInfor { get; set; }

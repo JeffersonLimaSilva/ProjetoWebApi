@@ -1,2 +1,0 @@
-{  "Age": 3,  "Address": "string",  "MoreInfor": "string",  "Interests": "string",  "Emotions": "string",  "Value": "string",  "Status": "string",  "Id": "b4c6e133-099f-4311-8d41-20e2ca865020",  "Name": "string",  "Email": "string"}
-{  "Age": 21,  "Address": "Rua Santos Dumont",  "MoreInfor": "nenhuma",  "Interests": "teste",  "Emotions": "teste",  "Value": "teste",  "Status": "Ativo",  "Id": "fc2d6ab1-0cdf-4eee-afea-02b81cda84e2",  "Name": "Jefferson Lima",  "Email": "jeff@gmail.com"}

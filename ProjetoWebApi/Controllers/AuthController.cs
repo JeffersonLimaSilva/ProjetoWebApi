@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using ProjetoWebApi.Features.Admin.Model;
 using ProjetoWebApi.Services;
 using System.Security.Claims;
 
@@ -14,7 +15,7 @@ namespace ProjetoWebApi.Controllers
         {
             if(email =="adm@gmail.com" && password == "adm123")
             {
-                var token = TokenServices.GenerateToken(new Model.Admin());
+                var token = TokenServices.GenerateToken(new Admin());
                 return Ok(token);
             }
             return NotFound("Email ou Senha incorreta.");
@@ -24,9 +25,9 @@ namespace ProjetoWebApi.Controllers
         [Route("verify")]
         public IActionResult VerifyToken()
         {
-            var Id = User.FindFirst("registerId")?.Value;
-            var Name = User.FindFirst("registerName")?.Value;
-            var Email = User.FindFirst("registerEmail")?.Value;
+            var Id = User.FindFirst("AdminId")?.Value;
+            var Name = User.FindFirst("AdminName")?.Value;
+            var Email = User.FindFirst("AdminEmail")?.Value;
             return Ok(new
                 {
                 UserId = Id,

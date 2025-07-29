@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using ProjetoWebApi.DTOs;
+using ProjetoWebApi.Features.Admin.Model;
 using ProjetoWebApi.Model;
 using ProjetoWebApi.Services;
 
@@ -9,6 +10,7 @@ namespace ProjetoWebApi.Infrastructure
     {
         public object Auth(Admin admin)
         {
+
             var token = TokenServices.GenerateToken(admin);
             Console.WriteLine(token);
             return token;
