@@ -1,10 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using ProjetoWebApi.DTOs;
 using ProjetoWebApi.Features.Admin.DTOs;
+using ProjetoWebApi.Features.Admin.Model;
 using ProjetoWebApi.Features.Admin.Services;
 using ProjetoWebApi.Infrastructure;
 using ProjetoWebApi.Model;
 using ProjetoWebApi.Services;
+using System.Threading.Tasks;
 
 namespace ProjetoWebApi.Controllers
 {
@@ -14,6 +17,7 @@ namespace ProjetoWebApi.Controllers
     {
         private readonly IAdminServices _adminServices;
         private readonly IContextConnection _connection;
+        public string fileAdmin = "BaseRegister.txt";
 
 
         public AdminController( IAdminServices adminServices, IContextConnection connection)
@@ -38,9 +42,29 @@ namespace ProjetoWebApi.Controllers
         }
         [HttpGet]
         [Route("list/")]
-        public IActionResult List()
+        public async Task<IActionResult> List()
         {
-            return Ok(_connection.GetAll().ToList());
+            var Admins = await _connection.GetAll<Admin>(fileAdmin);
+            return Ok(Admins.ToList());
+        }
+        
+        [HttpGet("{IdAdmin}/list-logs")]
+        public IActionResult List([FromRoute] Guid IdAdmin, [FromQuery] PaginationDto paginationDto)
+        {
+            return Ok(_adminServices.GetAllLogsAdmin(IdAdmin, paginationDto).Result);
+        }
+
+        [HttpGet("{IdAdmin}/total-logs")]
+        public IActionResult TotalRegistration([FromRoute] Guid IdAdmin)
+        {
+            try
+            {
+                return Ok(_adminServices.CountTotalLogs(IdAdmin).Result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpDelete]
         [Route("delete/{id}")]

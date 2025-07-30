@@ -5,6 +5,9 @@ using ProjetoWebApi.Features.Admin.Queries;
 using ProjetoWebApi.Model;
 using System.Collections.Generic;
 using System.Data.Common;
+using System.Threading.Tasks;
+using ProjetoWebApi.Common.AuditLog;
+using ProjetoWebApi.DTOs;
 
 namespace ProjetoWebApi.Features.Admin.Services
 {
@@ -12,15 +15,16 @@ namespace ProjetoWebApi.Features.Admin.Services
     {
         private readonly Dispatcher _dispatcher;
         private readonly IContextConnection _connection;
+        public string fileAdmin = "BaseRegister.txt";
 
         public AdminServices(Dispatcher dispatcher, IContextConnection connection)
         {
             _dispatcher = dispatcher;
             _connection = connection ?? throw new ArgumentNullException();
         }
-        public bool CheckEmail(string email)
+        public async Task<bool> CheckEmail(string email)
         {
-            List<Model.Admin> AdminsL = _connection.GetAll();
+            List<Model.Admin> AdminsL = await _connection.GetAll<Model.Admin>(fileAdmin);
             var admin = AdminsL.FirstOrDefault(a => a.Email == email);
             if (admin != null)
             {
@@ -29,9 +33,9 @@ namespace ProjetoWebApi.Features.Admin.Services
             return false;
         }
 
-        public void CheckAdmin(Guid id)
+        public async Task CheckAdmin(Guid id)
         {
-            List<Model.Admin> AdminsL = _connection.GetAll();
+            List<Model.Admin> AdminsL = await _connection.GetAll<Model.Admin>(fileAdmin);
             Model.Admin admin = AdminsL.FirstOrDefault(r => r.Id == id);
             if (AdminsL == null)
             {
@@ -44,7 +48,7 @@ namespace ProjetoWebApi.Features.Admin.Services
         {
             try
             {
-                if (CheckEmail(adminDto.Email))
+                if (await CheckEmail(adminDto.Email))
                 {
                     throw new InvalidOperationException("Email já está cadastrado.");
                 }
@@ -96,6 +100,33 @@ namespace ProjetoWebApi.Features.Admin.Services
             catch (Exception ex)
             {
                 throw new InvalidOperationException($"Erro na contagem de cadastros Inativo. {ex.Message}");
+            }
+        }
+
+        public async Task<List<AuditLogEntry>> GetAllLogsAdmin(Guid idAdmin, PaginationDto paginationDto)
+        {
+            try
+            {
+                var logsAdmin = new GetAllLogsAdminQuery(idAdmin);
+                var logsList = await _dispatcher.Query<GetAllLogsAdminQuery, List<AuditLogEntry>>(logsAdmin);
+                return logsList.Skip(paginationDto.pageNumber * paginationDto.pageSize).Take(paginationDto.pageSize).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException($"Erro ao buscar os Logs. {ex.Message}");
+            }
+        }
+
+        public async Task<int> CountTotalLogs(Guid idAdmin)
+        {
+            try
+            {
+                var countTotal = new CountTotalLogsQuery(idAdmin);
+                return await _dispatcher.Query<CountTotalLogsQuery, int>(countTotal);
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException($"Erro na contagem do total de logs. {ex.Message}");
             }
         }
     }

@@ -1,6 +1,7 @@
 ﻿using ProjetoWebApi.DTOs;
 using ProjetoWebApi.Features.Admin.Model;
 using ProjetoWebApi.Model;
+using System.Threading.Tasks;
 
 namespace ProjetoWebApi.Services
 {
@@ -9,6 +10,7 @@ namespace ProjetoWebApi.Services
         private readonly ILoginRepository _loginRepository;
         private readonly IContextConnection _connection;
         private readonly IAdminRepository _registerRepository;
+        public string fileAdmin = "BaseRegister.txt";
 
 
         public LoginServices(ILoginRepository loginRepository, IContextConnection connection, IAdminRepository registerRepository)
@@ -18,9 +20,9 @@ namespace ProjetoWebApi.Services
             _registerRepository = registerRepository ?? throw new ArgumentNullException();
         }
         
-        public object CheckLogin(LoginDto loginDto)
+        public async Task<object> CheckLogin(LoginDto loginDto)
         {
-            List<Admin> AdminsL = _connection.GetAll();
+            List<Admin> AdminsL = await _connection.GetAll<Admin>(fileAdmin);
             var admin = AdminsL.FirstOrDefault(l => l.Email == loginDto.Email);
             
             if (admin == null)
@@ -33,21 +35,21 @@ namespace ProjetoWebApi.Services
             }
             return _loginRepository.Auth(admin);
         }
-        public Admin CheckId(Guid id)
+        public async Task<Admin> CheckId(Guid id)
         {
-            
-            var admin = _connection.GetAll().FirstOrDefault(r => r.Id == id);
+            var Admins = await _connection.GetAll<Admin>(fileAdmin);
+            var admin = Admins.FirstOrDefault(r => r.Id == id);
 
             if (admin == null)
             {
-                throw new InvalidOperationException($"Registro inválido.[{_connection.GetAll().ToList()}]");
+                throw new InvalidOperationException($"Registro inválido.");
             }
 
             return(admin);
         }
-        public void CheckEmail(LoginDto loginUpdate)
+        public async Task CheckEmail(LoginDto loginUpdate)
         {   
-            List<Admin> AdminsL = _connection.GetAll();
+            List<Admin> AdminsL = await _connection.GetAll<Admin>(fileAdmin);
             var register = AdminsL.FirstOrDefault(r => r.Email == loginUpdate.Email);
 
             if (register == null)

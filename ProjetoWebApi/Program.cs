@@ -3,6 +3,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using ProjetoWebApi;
 using ProjetoWebApi.Common.Dispatcher;
+using ProjetoWebApi.Common.Publisher;
 using ProjetoWebApi.Common.Extensions;
 using ProjetoWebApi.Features.Admin.Services;
 using ProjetoWebApi.Features.Client.Commands;
@@ -16,6 +17,7 @@ using ProjetoWebApi.Services;
 using System.Reflection;
 using System.Security.Cryptography.Xml;
 using System.Text;
+using ProjetoWebApi.Common.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -61,6 +63,9 @@ builder.Services.AddTransient<IContextConnection, ContextConnection>();
 builder.Services.AddTransient<IClientServices, ClientServices>();
 builder.Services.AddScanCqrsHandlers(Assembly.GetExecutingAssembly());
 builder.Services.AddTransient<Dispatcher>();
+
+builder.Services.AddLogging(configure => configure.AddConsole());
+builder.Services.AddTransient<IPublisher, InMemoryPublisher>();
 
 var key = Encoding.ASCII.GetBytes(Key.Secret);
 

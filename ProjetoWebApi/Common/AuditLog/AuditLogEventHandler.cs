@@ -1,0 +1,52 @@
+﻿using ProjetoWebApi.Common.Interfaces;
+using ProjetoWebApi.Features.Admin.Events;
+using ProjetoWebApi.Model;
+
+namespace ProjetoWebApi.Common.AuditLog
+{
+    public class AuditLogEventHandler : IDomainEventHandler<CreateClientEvent>,
+                                        IDomainEventHandler<CreateAdminEvent>
+    {
+        private readonly ILogger<AuditLogEventHandler> _logger;
+        private readonly IContextConnection _connection;
+        public string file = "BaseLogs.txt";
+
+        public AuditLogEventHandler(ILogger<AuditLogEventHandler> logger, IContextConnection connection)
+        {
+            _logger = logger;
+            _connection = connection;
+        }
+
+        public async Task Handler(CreateClientEvent @event, CancellationToken cancellationToken = default)
+        {
+            var logEntry = new AuditLogEntry
+            {
+                AdminName = @event.AdminName,
+                AdminEmail = @event.AdminEmail,
+                Timestamp = @event.Timestamp,
+                Action = $"Adicionou {@event.ClientEmail}."
+            };
+            
+            var allAdminLogs = await _connection.GetAll<AuditLogList>(file);
+            var adminLogs = allAdminLogs.FirstOrDefault(a => a.Id == @event.IdAdmin);
+            adminLogs.AuditLogEntries.Add(logEntry);
+            await _connection.SaveAll(allAdminLogs, file);
+        }
+
+        public async Task Handler(CreateAdminEvent @event, CancellationToken cancellationToken = default)
+        {
+            var logEntry = new AuditLogEntry
+            {
+                AdminName = @event.AdminName,
+                AdminEmail = @event.AdminName,
+                Timestamp = @event.Timestamp,
+                Action = $"Cadastrou-se."
+            };
+
+            var allAdminLogs = await _connection.GetAll<AuditLogList>(file);
+            var adminLogs = allAdminLogs.FirstOrDefault(a => a.Id == @event.IdAdmin);
+            adminLogs.AuditLogEntries.Add(logEntry);
+            await _connection.SaveAll(allAdminLogs, file);
+        }
+    }
+}

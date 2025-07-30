@@ -4,7 +4,7 @@ namespace ProjetoWebApi.Model
 {
     public interface IContextConnection
     {
-        public List<Admin> GetAll();
-        void SaveAll<TList>(IEnumerable<TList> list);
+        public Task<List<TList>> GetAll<TList>(string file);
+        Task SaveAll<TList>(IEnumerable<TList> list, string file);
     }
 }

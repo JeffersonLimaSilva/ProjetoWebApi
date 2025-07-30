@@ -4,38 +4,37 @@ using ProjetoWebApi.DTOs;
 using ProjetoWebApi.Features.Admin.DTOs;
 using ProjetoWebApi.Features.Admin.Model;
 using ProjetoWebApi.Model;
+using System.Threading.Tasks;
 
 namespace ProjetoWebApi.Infrastructure
 {
     public class AdminRepository : IAdminRepository
     {
         private readonly IContextConnection _connection;
+        public string fileAdmin = "BaseRegister.txt";
 
         public AdminRepository(IContextConnection connection)
         {
-            _connection = connection ?? throw new ArgumentNullException(); 
+            _connection = connection ?? throw new ArgumentNullException();
         }
-        public void Add(AdminDto adminDto)
+        public async Task Add(AdminDto adminDto)
         {
-            var AdminsL = _connection.GetAll();
+            var AdminsL = await _connection.GetAll<Admin>(fileAdmin);
             AdminsL.Add(new Admin(adminDto.Name, adminDto.Email, adminDto.Password));
-            _connection.SaveAll(AdminsL);
+            await _connection.SaveAll(AdminsL, fileAdmin);
         }
         public void Update(List<Admin> AdminsL, LoginDto updateLogin)
         {
             Admin existRegister = AdminsL.FirstOrDefault(a => a.Email == updateLogin.Email);
-             existRegister.Password = updateLogin.Password;
-            _connection.SaveAll(AdminsL);
+            existRegister.Password = updateLogin.Password;
+            _connection.SaveAll(AdminsL, fileAdmin);
         }
         public void Delete(List<Admin> AdminsL, Admin admin)
         {
             AdminsL.Remove(admin);
-            _connection.SaveAll(AdminsL);
+            _connection.SaveAll(AdminsL, fileAdmin);
         }
-        public Admin GetById(Guid id)
-        {
-            return _connection.GetAll().FirstOrDefault(a => a.Id == id);
-        }
+        
 
     }
 }

@@ -26,7 +26,7 @@ namespace ProjetoWebApi.Controllers
         {
             try
             {
-                return Ok(_loginServices.CheckLogin(loginDto));
+                return Ok(_loginServices.CheckLogin(loginDto).Result);
             }
             catch (InvalidOperationException ex)
             {

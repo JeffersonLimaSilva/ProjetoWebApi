@@ -21,6 +21,12 @@ namespace ProjetoWebApi.Common.Extensions
                 .AsImplementedInterfaces()
                 .WithTransientLifetime());
 
+            services.Scan(scan => scan
+                .FromAssemblies(assembly)
+                .AddClasses(classes => classes.AssignableTo(typeof(IDomainEventHandler<>)))
+                .AsImplementedInterfaces()
+                .WithTransientLifetime());
+
             return services;
         }
     }

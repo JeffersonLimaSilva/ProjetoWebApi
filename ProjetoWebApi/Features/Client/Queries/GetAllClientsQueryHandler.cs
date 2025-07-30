@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 using ProjetoWebApi.Common.Interfaces;
-using ProjetoWebApi.Features.Client.DTOs;
+using ProjetoWebApi.Features.Admin;
 using ProjetoWebApi.Model;
 using System.IO;
 
@@ -9,7 +9,7 @@ namespace ProjetoWebApi.Features.Client.Queries
     public class GetAllClientsQueryHandler : IQueryHandler<GetAllClientsQuery, List<Model.Client>>
     {
         private readonly IContextConnection _connection;
-
+        public string fileAdmin = "BaseRegister.txt";
         public GetAllClientsQueryHandler(IContextConnection connection)
         {
             _connection = connection ?? throw new ArgumentNullException(nameof(connection));
@@ -17,7 +17,8 @@ namespace ProjetoWebApi.Features.Client.Queries
 
         public async Task<List<Model.Client>> Handler(GetAllClientsQuery query, CancellationToken cancellationToken = default)
         {
-            var admin = _connection.GetAll().FirstOrDefault(a => a.Id == query.Id);
+            var Admins = await _connection.GetAll<Admin.Model.Admin>(fileAdmin);
+            var admin = Admins.FirstOrDefault(a => a.Id == query.Id);
             
             var clients = admin.Clients;
             clients.Reverse();

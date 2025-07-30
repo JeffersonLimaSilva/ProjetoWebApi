@@ -5,23 +5,22 @@ namespace ProjetoWebApi.Features.Client.Commands
 {
     public class DeleteClientCommandHandler : ICommandHandler<DeleteClientCommand>
     {
-        private readonly IContextConnection _contextConnection;
-
+        private readonly IContextConnection _connection;
+        public string file = "BaseRegister.txt";
         public DeleteClientCommandHandler(IContextConnection contextConnection)
         {
-            _contextConnection = contextConnection ?? throw new ArgumentNullException(nameof(contextConnection));
+            _connection = contextConnection ?? throw new ArgumentNullException(nameof(contextConnection));
         }
 
-        public Task Handler(DeleteClientCommand command, CancellationToken cancellationToken = default)
+        public async Task Handler(DeleteClientCommand command, CancellationToken cancellationToken = default)
         {
             try
             {
-                var Admins = _contextConnection.GetAll();
+                var Admins = await _connection.GetAll<Admin.Model.Admin>(file);
                 var admin = Admins.FirstOrDefault(a => a.Id == command.IdAdmin);
                 var client = admin.Clients.FirstOrDefault(c => c.Id == command.IdClient);
                 client.SoftDelete();
-                _contextConnection.SaveAll(Admins);
-                return Task.CompletedTask;
+                await _connection.SaveAll<Admin.Model.Admin>(Admins, file);
             }
             catch
             {

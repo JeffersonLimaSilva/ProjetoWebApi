@@ -1,4 +1,5 @@
-﻿using ProjetoWebApi.Model;
+﻿using ProjetoWebApi.Common.AuditLog;
+using ProjetoWebApi.Model;
 
 namespace ProjetoWebApi.Features.Admin.Model
 {
@@ -20,6 +21,15 @@ namespace ProjetoWebApi.Features.Admin.Model
         public void AddClient(Client.Model.Client client)
         {
             Clients.Add(client);
+        }
+        public AuditLogList CreateLogs() 
+        {
+            var logsAdmin = new AuditLogList
+            {
+                Id = base.Id,
+                AuditLogEntries = new List<AuditLogEntry>()
+            }; 
+            return logsAdmin;
         }
 
     }

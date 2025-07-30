@@ -5,8 +5,8 @@ namespace ProjetoWebApi.Model
 {
     public interface ILoginServices
     {
-        public object CheckLogin(LoginDto loginV);
-        public Admin CheckId(Guid id);
-        public void CheckEmail(LoginDto loginUpdate);
+        public Task<object> CheckLogin(LoginDto loginV);
+        public Task<Admin> CheckId(Guid id);
+        public Task CheckEmail(LoginDto loginUpdate);
     }
 }
