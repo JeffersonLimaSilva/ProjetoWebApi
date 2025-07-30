@@ -168,9 +168,7 @@ async function ClientsListApi(id, page, perPage){
             headers :{
                 'Content-Type' : 'application/json'
 
-            },
-            
-
+            }
         });
         var data = response.json();
         return data;

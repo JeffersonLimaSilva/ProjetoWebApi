@@ -3,7 +3,7 @@ import { criaLista } from "../js/lista.js";
 import { modalAlert } from "../modals/modals.js";
 import { setPerPage } from "../js/perPage.js";
 
-setPerPage(2);
+setPerPage(11);
 criaLista();
 
 

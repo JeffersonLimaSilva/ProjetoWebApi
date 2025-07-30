@@ -1,9 +1,8 @@
 import { perPage } from "./perPage.js";
 
-export function criaListaLogs( search =''){
+export async function criaListaLogs( search =''){
 
     let userOn = JSON.parse(localStorage.getItem('userOn')) || []
-    let logsuser = JSON.parse(localStorage.getItem('logsuser')) || []
 
     let tbody = document.getElementById('tbody-logs') || false
 
@@ -11,15 +10,11 @@ export function criaListaLogs( search =''){
         return false
     }
     tbody.innerHTML=''
-    logsuser[userOn.index].reverse()
     const state={
         page: 1,
         perPage: perPage,
-        totalPages: Math.ceil(logsuser[userOn.index].length / perPage)
+        totalPages: Math.ceil(await countLogs() / perPage)
     }
-
-    
-    
     const html ={
         get(element){
             return document.querySelector(element)
@@ -53,21 +48,50 @@ export function criaListaLogs( search =''){
         }, 
         creatListeners(){
             html.get('.fist').addEventListener('click', ()=>{
-                controsls.goTo(1)
-                update()
+                controsls.goTo(1);
+                update();
+                this.buttons();
             })
             html.get('.last').addEventListener('click', ()=>{
-                controsls.goTo(state.totalPages)
-                update()
+                controsls.goTo(state.totalPages);
+                update();
+                this.buttons();
             })
             html.get('.prev').addEventListener('click', ()=>{
-                controsls.prev()
-                update()
+                controsls.prev();
+                update();
+                this.buttons();
+
             })
             html.get('.next').addEventListener('click', ()=>{
-                controsls.next()
-                update()
+                controsls.next();
+                update();
+                this.buttons();
             })
+        },
+        buttons(){
+            if(state.page == 1){
+                var fist = html.get('.fist')
+                fist.style.opacity = 0;
+                var prev = html.get('.prev')
+                prev.style.opacity = 0;
+            }else{
+               var fist = html.get('.fist')
+                fist.style.opacity = 1;
+                var prev = html.get('.prev')
+                prev.style.opacity = 1; 
+            }
+            if(state.page == state.totalPages){
+                var fist = html.get('.next')
+                fist.style.opacity = 0;
+                var prev = html.get('.last')
+                prev.style.opacity = 0;
+            }else{
+                var fist = html.get('.next')
+                fist.style.opacity = 1;
+                var prev = html.get('.last')
+                prev.style.opacity = 1;
+            }
         }
     }
 
@@ -75,30 +99,13 @@ export function criaListaLogs( search =''){
         create(lista){
             listaItems(lista, tbody, search)
         },
-        update(){
-            html.get('#tbody-logs').innerHTML = ""
+        async update(){
 
-            let page = state.page - 1
-            let start = page * state.perPage
-            let end = start + state.perPage
-
-            let auxiliar = []
-
-            logsuser[userOn.index].forEach(function(lista){
-                let minName = lista.name.toLowerCase()
-                let minEmail = lista.email.toLowerCase()
-                let minInfor = lista.infor.toLowerCase()
-
-                if(lista.data.includes(search) || minName.includes(search) || minEmail.includes(search) || minInfor.includes(search)){
-                
-                    auxiliar.push(lista)
-                }
-            })
-            state.totalPages= Math.ceil(auxiliar.length / perPage)
-            const paginatedItems = auxiliar.slice(start, end)
+            var Logs = await LogsListApi(userOn.id, state.page - 1, state.perPage);  
+            html.get('#tbody-logs').innerHTML = "";
             
-            paginatedItems.forEach(function(lista){
-                list.create(lista)
+            Logs.forEach(function(log){
+                list.create(log)
                
             });
         }
@@ -106,35 +113,71 @@ export function criaListaLogs( search =''){
     }
 
     function init(){
-        list.update()
-        controsls.creatListeners()
-        number()
+        list.update();
+        controsls.creatListeners();
+        controsls.buttons();
+        number();
     }
 
     function update(){
-        list.update()
-        number()
+        list.update();
+        number();
     }
 
     function number(){
-        html.get('.number div').textContent = state.page
+        html.get('.number div').innerHTML = `${state.page} / ${state.totalPages}`;
     }
     init()
 
 }
+async function LogsListApi(id, page, perPage){
+    
+    const apiEndpoint = `https://localhost:7114/api/Admin/${id}/list-logs?pageNumber=${page}&pageSize=${perPage}`;
+    try{
+        const response = await fetch(apiEndpoint,{
+            method: 'GET',
+            headers :{
+                'Content-Type' : 'application/json'
 
-function listaItems(lista, tbody){
-       
+            }
+        });
+        var data = response.json();
+        return data;
+    }
+    catch(error){
+        
+        throw error;
+    }
+}
+async function countLogs() {
+    let userOn = JSON.parse(localStorage.getItem('userOn')) || [];
+    const apiEndpoint = `https://localhost:7114/api/Admin/${userOn.id}/total-logs`;
+    try{
+        const response = await fetch(apiEndpoint,{
+            method: 'GET',
+            headers :{
+                'Content-Type' : 'application/json'
+            },
+        });
+        var data = await response.json();
+        return data;
+    }
+    catch(error){
+        throw error;
+    }
+}
+function listaItems(log, tbody){
+    
     let trbody = document.createElement('tr')
     let tddate = document.createElement('td')
     let tdname = document.createElement('td')
     let tdemail = document.createElement('td')
     let tdaction = document.createElement('td')
 
-    tddate.textContent =   lista.data
-    tdname.textContent =   lista.name
-    tdemail.textContent =  lista.email
-    tdaction.textContent = lista.infor
+    tddate.textContent =   log.timestamp;
+    tdname.textContent =   log.adminName; 
+    tdemail.textContent =  log.adminEmail;
+    tdaction.textContent = log.action;
 
     
 
@@ -151,4 +194,4 @@ document.getElementById('search').addEventListener('input', function(e){
     criaListaLogs(minSearch)
     
 })
-criaListaLogs()
+await criaListaLogs();

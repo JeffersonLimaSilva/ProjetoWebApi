@@ -45,6 +45,8 @@ async function tryLogin(login){
             body: JSON.stringify(login)
         });
         const token = await response.json();
+        console.log(token);
+        
         const loginData= {
             token: token.token
         }
