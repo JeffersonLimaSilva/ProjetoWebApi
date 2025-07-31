@@ -1,4 +1,3 @@
-import { criaLogsUser } from "../logsusers/logsUser.js";
 import { criaLista } from "../js/lista.js";
 import { modalAlert } from "../modals/modals.js";
 import { setPerPage } from "../js/perPage.js";
@@ -75,7 +74,7 @@ document.getElementById('button-gravar').addEventListener('click', async functio
     document.getElementById('name').value = ''
     document.getElementById('years-old').value = ''
     document.getElementById('email').value = ''
-    document.getElementById('ativo').checked= false
+    document.getElementById('ativo').checked= true
     document.getElementById('address').value =''
     document.getElementById('more-info').value =''
     document.getElementById('interesses').value =''

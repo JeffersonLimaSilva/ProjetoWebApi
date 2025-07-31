@@ -149,7 +149,7 @@ async function LogsListApi(id, page, perPage){
         throw error;
     }
 }
-async function countLogs() {
+export async function countLogs() {
     let userOn = JSON.parse(localStorage.getItem('userOn')) || [];
     const apiEndpoint = `https://localhost:7114/api/Admin/${userOn.id}/total-logs`;
     try{

@@ -84,7 +84,7 @@ export function closeModal(){
     document.getElementById('name').value = '';
     document.getElementById('years-old').value = '';
     document.getElementById('email').value = '';
-    document.getElementById('ativo').checked= false;
+    document.getElementById('ativo').checked= true;
     document.getElementById('address').value ='';
     document.getElementById('more-info').value ='';
     document.getElementById('interesses').value ='';
