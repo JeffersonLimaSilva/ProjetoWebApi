@@ -3,21 +3,22 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using ProjetoWebApi;
 using ProjetoWebApi.Common.Dispatcher;
-using ProjetoWebApi.Common.Publisher;
 using ProjetoWebApi.Common.Extensions;
+using ProjetoWebApi.Common.Interfaces;
+using ProjetoWebApi.Common.Publisher;
 using ProjetoWebApi.Features.Admin.Services;
 using ProjetoWebApi.Features.Client.Commands;
 using ProjetoWebApi.Features.Client.DTOs;
 using ProjetoWebApi.Features.Client.Model;
 using ProjetoWebApi.Features.Client.Queries;
 using ProjetoWebApi.Features.Client.Services;
+using ProjetoWebApi.Features.Login.Commands;
+using ProjetoWebApi.Features.Login.Services;
 using ProjetoWebApi.Infrastructure;
 using ProjetoWebApi.Model;
-using ProjetoWebApi.Services;
 using System.Reflection;
 using System.Security.Cryptography.Xml;
 using System.Text;
-using ProjetoWebApi.Common.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -55,8 +56,6 @@ builder.Services.AddSwaggerGen(x =>
     });
 });
 
-builder.Services.AddTransient<ILoginRepository, LoginRepository>();
-builder.Services.AddTransient<IAdminRepository, AdminRepository>();
 builder.Services.AddTransient<ILoginServices, LoginServices>();
 builder.Services.AddTransient<IAdminServices, AdminServices>();
 builder.Services.AddTransient<IContextConnection, ContextConnection>();

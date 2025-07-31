@@ -4,8 +4,13 @@ using ProjetoWebApi.Model;
 
 namespace ProjetoWebApi.Common.AuditLog
 {
-    public class AuditLogEventHandler : IDomainEventHandler<CreateClientEvent>,
-                                        IDomainEventHandler<CreateAdminEvent>
+    public class AuditLogEventHandler : IDomainEventHandler<CreateAdminEvent>, 
+                                        IDomainEventHandler<CreateClientEvent>,
+                                        IDomainEventHandler<DeleteClientEvent>,
+                                        IDomainEventHandler<UpdateClientEvent>,
+                                        IDomainEventHandler<LoginEvent>
+
+
     {
         private readonly ILogger<AuditLogEventHandler> _logger;
         private readonly IContextConnection _connection;
@@ -17,6 +22,21 @@ namespace ProjetoWebApi.Common.AuditLog
             _connection = connection;
         }
 
+        public async Task Handler(CreateAdminEvent @event, CancellationToken cancellationToken = default)
+        {
+            var logEntry = new AuditLogEntry
+            {
+                AdminName = @event.AdminName,
+                AdminEmail = @event.AdminName,
+                Timestamp = @event.Timestamp,
+                Action = $"Cadastrou-se."
+            };
+
+            var allAdminLogs = await _connection.GetAll<AuditLogList>(file);
+            var adminLogs = allAdminLogs.FirstOrDefault(a => a.Id == @event.IdAdmin);
+            adminLogs.AuditLogEntries.Add(logEntry);
+            await _connection.SaveAll(allAdminLogs, file);
+        }
         public async Task Handler(CreateClientEvent @event, CancellationToken cancellationToken = default)
         {
             var logEntry = new AuditLogEntry
@@ -33,14 +53,47 @@ namespace ProjetoWebApi.Common.AuditLog
             await _connection.SaveAll(allAdminLogs, file);
         }
 
-        public async Task Handler(CreateAdminEvent @event, CancellationToken cancellationToken = default)
+
+        public async Task Handler(DeleteClientEvent @event, CancellationToken cancellationToken = default)
+        {
+            var logEntry = new AuditLogEntry
+            {
+                AdminName = @event.AdminName,
+                AdminEmail = @event.AdminEmail,
+                Timestamp = @event.Timestamp,
+                Action = $"Deletou {@event.ClientEmail}."
+            };
+
+            var allAdminLogs = await _connection.GetAll<AuditLogList>(file);
+            var adminLogs = allAdminLogs.FirstOrDefault(a => a.Id == @event.IdAdmin);
+            adminLogs.AuditLogEntries.Add(logEntry);
+            await _connection.SaveAll(allAdminLogs, file);
+        }
+
+        public async Task Handler(UpdateClientEvent @event, CancellationToken cancellationToken = default)
+        {
+            var logEntry = new AuditLogEntry
+            {
+                AdminName = @event.AdminName,
+                AdminEmail = @event.AdminEmail,
+                Timestamp = @event.Timestamp,
+                Action = $"Editou {@event.Update} de {@event.ClientEmail}."
+            };
+
+            var allAdminLogs = await _connection.GetAll<AuditLogList>(file);
+            var adminLogs = allAdminLogs.FirstOrDefault(a => a.Id == @event.IdAdmin);
+            adminLogs.AuditLogEntries.Add(logEntry);
+            await _connection.SaveAll(allAdminLogs, file);
+        }
+
+        public async Task Handler(LoginEvent @event, CancellationToken cancellationToken = default)
         {
             var logEntry = new AuditLogEntry
             {
                 AdminName = @event.AdminName,
                 AdminEmail = @event.AdminName,
                 Timestamp = @event.Timestamp,
-                Action = $"Cadastrou-se."
+                Action = $"Logou-se."
             };
 
             var allAdminLogs = await _connection.GetAll<AuditLogList>(file);

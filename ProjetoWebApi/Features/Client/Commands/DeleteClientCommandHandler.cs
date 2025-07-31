@@ -1,4 +1,5 @@
 ﻿using ProjetoWebApi.Common.Interfaces;
+using ProjetoWebApi.Features.Admin.Events;
 using ProjetoWebApi.Model;
 
 namespace ProjetoWebApi.Features.Client.Commands
@@ -6,21 +7,35 @@ namespace ProjetoWebApi.Features.Client.Commands
     public class DeleteClientCommandHandler : ICommandHandler<DeleteClientCommand>
     {
         private readonly IContextConnection _connection;
-        public string file = "BaseRegister.txt";
-        public DeleteClientCommandHandler(IContextConnection contextConnection)
+        private readonly IPublisher _publisher;
+        public string fileAdmin = "BaseRegister.txt";
+        public string fileLogs = "BaseLogs.txt";
+
+
+        public DeleteClientCommandHandler(IContextConnection connection, IPublisher publisher)
         {
-            _connection = contextConnection ?? throw new ArgumentNullException(nameof(contextConnection));
+            _connection = connection;
+            _publisher = publisher;
         }
 
         public async Task Handler(DeleteClientCommand command, CancellationToken cancellationToken = default)
         {
             try
             {
-                var Admins = await _connection.GetAll<Admin.Model.Admin>(file);
+                var Admins = await _connection.GetAll<Admin.Model.Admin>(fileAdmin);
                 var admin = Admins.FirstOrDefault(a => a.Id == command.IdAdmin);
                 var client = admin.Clients.FirstOrDefault(c => c.Id == command.IdClient);
                 client.SoftDelete();
-                await _connection.SaveAll<Admin.Model.Admin>(Admins, file);
+                await _connection.SaveAll(Admins, fileAdmin);
+
+                var deleteClient = new DeleteClientEvent
+                (
+                    command.IdAdmin,
+                    admin.Name,
+                    admin.Email,
+                    client.Email
+                );
+                await _publisher.Publish(deleteClient, cancellationToken);
             }
             catch
             {

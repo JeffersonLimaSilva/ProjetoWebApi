@@ -20,9 +20,9 @@ namespace ProjetoWebApi.Common.Dispatcher
                 var handler = _serviceProvider.GetRequiredService<ICommandHandler<TCommand>>();
                 await handler.Handler(command, cancellationToken);
             }
-            catch
+            catch (Exception ex) 
             {
-                throw new InvalidOperationException("Erro ao atribuir a handler");
+                throw new InvalidOperationException($"Erro ao atribuir a handler {ex.Message}");
             }
             
         }

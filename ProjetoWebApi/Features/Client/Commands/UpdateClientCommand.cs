@@ -17,7 +17,9 @@ namespace ProjetoWebApi.Features.Client.Commands
         public string Value { get; set; }
         public string Status { get; set; }
 
-        public UpdateClientCommand(Guid idAdmin, Guid id, string name, string email, int age, string address, string moreInfor, string interests, string emotions, string value, string status)
+        public string Update { get; set; }
+
+        public UpdateClientCommand(Guid idAdmin, Guid id, string name, string email, int age, string address, string moreInfor, string interests, string emotions, string value, string status, string update)
         {
             IdAdmin = idAdmin;
             Id = id;
@@ -30,6 +32,7 @@ namespace ProjetoWebApi.Features.Client.Commands
             Emotions = emotions ?? throw new ArgumentNullException(nameof(emotions));
             Value = value ?? throw new ArgumentNullException(nameof(value));
             Status = status ?? throw new ArgumentNullException(nameof(status));
+            Update = update ?? throw new ArgumentNullException(nameof(update));
         }
     }
 }

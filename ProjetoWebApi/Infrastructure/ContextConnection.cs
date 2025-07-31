@@ -16,7 +16,7 @@ namespace ProjetoWebApi.Infrastructure
             try
             {
                 var path = $"C:/Users/JeffersonLimaSilva/OneDrive/Documentos/ProjetoWebApi/ProjetoWebApi/FileBase/{file}";
-                //File.AppendAllText(path, "");
+                
                 List<TList> list = new List<TList>();
 
                 using (StreamReader sr = new StreamReader(path))

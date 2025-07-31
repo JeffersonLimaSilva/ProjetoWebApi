@@ -5,7 +5,7 @@ using System.Xml.Linq;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ProjetoWebApi.Model
+namespace ProjetoWebApi.Features.Login.Model
 {
     public class Login
     {

@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Features\Login\Queries\" />
     <Folder Include="FileBase\" />
   </ItemGroup>
 

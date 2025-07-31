@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ProjetoWebApi.DTOs;
+using ProjetoWebApi.Features.Login.DTOs;
+using ProjetoWebApi.Features.Login.Services;
 using ProjetoWebApi.Infrastructure;
 using ProjetoWebApi.Model;
 using ProjetoWebApi.Services;
@@ -12,21 +13,20 @@ namespace ProjetoWebApi.Controllers
     [Route("api/[controller]")]
     public class LoginController : ControllerBase
     {
-        private readonly IAdminRepository _registerRepository;
         private readonly ILoginServices _loginServices;
-        public LoginController( IAdminRepository registerRepository, ILoginServices loginServices)
+        public LoginController(ILoginServices loginServices)
         {
-            _registerRepository = registerRepository ?? throw new ArgumentNullException(nameof(registerRepository));
             _loginServices = loginServices ?? throw new ArgumentNullException(nameof(loginServices));
         }
         
         [HttpPost]
         [Route("/login/check")]
-        public IActionResult Login([FromBody] LoginDto loginDto)
+        public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
         {
             try
             {
-                return Ok(_loginServices.CheckLogin(loginDto).Result);
+                var token = await _loginServices.ValidateAcess(loginDto);
+                return Ok(token);
             }
             catch (InvalidOperationException ex)
             {
@@ -40,7 +40,7 @@ namespace ProjetoWebApi.Controllers
         {
             try
             {
-                return Ok(_loginServices.CheckId(id));
+                return Ok();
             }
             catch(Exception ex)
             {
@@ -52,7 +52,6 @@ namespace ProjetoWebApi.Controllers
         [Route("/login/update")]
         public IActionResult Update([FromForm] LoginDto loginDto)
         {
-            _loginServices.CheckEmail(loginDto);
             return Ok();
         }
 
