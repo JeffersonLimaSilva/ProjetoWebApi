@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ProjetoWebApi.DTOs;
+using ProjetoWebApi.Common.DTOs;
 using ProjetoWebApi.Features.Client.DTOs;
 using ProjetoWebApi.Features.Client.Services;
 using System.Security.Claims;

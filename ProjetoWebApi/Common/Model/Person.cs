@@ -1,4 +1,4 @@
-﻿namespace ProjetoWebApi.Model
+﻿namespace ProjetoWebApi.Common.Model
 {
     public abstract class Person
     {

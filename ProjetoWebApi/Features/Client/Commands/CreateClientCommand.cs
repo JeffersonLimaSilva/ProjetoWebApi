@@ -1,6 +1,5 @@
 ﻿
 using ProjetoWebApi.Common.Interfaces;
-using ProjetoWebApi.Model;
 
 namespace ProjetoWebApi.Features.Client.Commands
 {

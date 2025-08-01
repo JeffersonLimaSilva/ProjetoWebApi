@@ -1,5 +1,5 @@
 ﻿using ProjetoWebApi.Common.Interfaces;
-using ProjetoWebApi.Model;
+using ProjetoWebApi.Common.Model;
 
 namespace ProjetoWebApi.Features.Admin.Queries
 {

@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ProjetoWebApi.DTOs;
+using ProjetoWebApi.Common.DTOs;
+using ProjetoWebApi.Common.Model;
 using ProjetoWebApi.Features.Admin.DTOs;
 using ProjetoWebApi.Features.Admin.Model;
 using ProjetoWebApi.Features.Admin.Services;
 using ProjetoWebApi.Infrastructure;
-using ProjetoWebApi.Model;
 using ProjetoWebApi.Services;
 using System.Threading.Tasks;
 
@@ -76,6 +76,33 @@ namespace ProjetoWebApi.Controllers
                 return Ok();
             }
             catch (InvalidOperationException ex)
+            {
+                return NotFound($"{ex.Message}");
+            }
+        }
+
+        [HttpGet("{IdAdmin}/get-admin")]
+        public IActionResult GetAdmin([FromRoute] Guid IdAdmin)
+        {
+            try
+            {
+                return Ok(_adminServices.GetById(IdAdmin).Result);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return NotFound($"{ex.Message}");
+            }
+        }
+
+        [HttpPut("{IdAdmin}/update")]
+        public IActionResult Update([FromRoute] Guid IdAdmin, [FromBody] AdminUpdateDto adminDto)
+        {
+            try
+            {
+                _adminServices.Update(IdAdmin, adminDto);
+                return Ok();
+            }
+            catch (Exception ex)
             {
                 return NotFound($"{ex.Message}");
             }

@@ -1,4 +1,4 @@
-﻿namespace ProjetoWebApi.DTOs
+﻿namespace ProjetoWebApi.Common.DTOs
 {
     public class PaginationDto
     {

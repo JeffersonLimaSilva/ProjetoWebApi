@@ -1,6 +1,6 @@
 ﻿using ProjetoWebApi.Common.Interfaces;
+using ProjetoWebApi.Common.Model;
 using ProjetoWebApi.Features.Admin.Events;
-using ProjetoWebApi.Model;
 using System.Data.Common;
 
 namespace ProjetoWebApi.Features.Client.Commands
@@ -37,14 +37,7 @@ namespace ProjetoWebApi.Features.Client.Commands
 
                 await _connection.SaveAll(Admins, fileAdmin);
 
-                var updateClient = new UpdateClientEvent
-                (
-                    command.IdAdmin,
-                    admin.Name,
-                    admin.Email,
-                    client.Email,
-                    command.Update
-                );
+                var updateClient = new UpdateClientEvent(command, admin);
                 await _publisher.Publish(updateClient, cancellationToken);
             }
             catch (Exception ex)

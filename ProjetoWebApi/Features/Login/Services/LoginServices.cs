@@ -1,9 +1,9 @@
 ﻿using ProjetoWebApi.Common.Dispatcher;
 using ProjetoWebApi.Services;
 using ProjetoWebApi.Features.Login.Commands;
-using ProjetoWebApi.Model;
 using System.Threading.Tasks;
 using ProjetoWebApi.Features.Login.DTOs;
+using ProjetoWebApi.Common.Model;
 
 namespace ProjetoWebApi.Features.Login.Services
 {
@@ -43,6 +43,16 @@ namespace ProjetoWebApi.Features.Login.Services
 
         }
         
-        
+        public async Task LogoutSystem(Guid IdAdimn)
+        {
+            try
+            {
+                var Logout = new LogoutCommand(IdAdimn);
+                await _dispatcher.Send(Logout);
+            }
+            catch (Exception ex) {
+                throw new InvalidOperationException("Erro ao deslogar do sistema");
+            }
+        }
     }
 }

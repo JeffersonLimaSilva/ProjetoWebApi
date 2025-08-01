@@ -1,4 +1,6 @@
 ﻿using ProjetoWebApi.Common.Interfaces;
+using ProjetoWebApi.Features.Admin.Model;
+using ProjetoWebApi.Features.Client.Commands;
 
 namespace ProjetoWebApi.Features.Admin.Events
 {
@@ -9,12 +11,12 @@ namespace ProjetoWebApi.Features.Admin.Events
         public string AdminEmail { get; set; }
         public string ClientEmail { get; set; }
         public DateOnly Timestamp { get; set; }
-        public CreateClientEvent(Guid idAdmin, string adminName, string adminEmail, string clientEmail)
+        public CreateClientEvent(CreateClientCommand command, Model.Admin admin)
         {
-            IdAdmin = idAdmin;
-            AdminName = adminName;
-            AdminEmail = adminEmail;
-            ClientEmail = clientEmail;
+            IdAdmin = command.IdAdmin;
+            AdminName = admin.Name;
+            AdminEmail = admin.Email;
+            ClientEmail = command.Email;
             Timestamp = DateOnly.FromDateTime(DateTime.Today); ;
         }
     }

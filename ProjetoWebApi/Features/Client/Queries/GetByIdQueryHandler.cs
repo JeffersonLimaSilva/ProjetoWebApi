@@ -1,6 +1,6 @@
 ﻿using ProjetoWebApi.Common.Interfaces;
+using ProjetoWebApi.Common.Model;
 using ProjetoWebApi.Features.Client.DTOs;
-using ProjetoWebApi.Model;
 using System.Data.Common;
 
 namespace ProjetoWebApi.Features.Client.Queries

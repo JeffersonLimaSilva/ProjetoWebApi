@@ -1,5 +1,5 @@
 ﻿using ProjetoWebApi.Common.AuditLog;
-using ProjetoWebApi.Model;
+using ProjetoWebApi.Common.Model;
 
 namespace ProjetoWebApi.Features.Admin.Model
 {
@@ -9,14 +9,13 @@ namespace ProjetoWebApi.Features.Admin.Model
         public string Password { get; set; }
         public bool Theme { get; set; } = false;
         public List<Client.Model.Client> Clients { get; set; } = new List<Client.Model.Client>();
-        
+
+        public Admin() { }
         public Admin( string name, string email, string password)
             :base(name, email)
         {
             Password = password;
         }
-
-        public Admin() { }
 
         public void AddClient(Client.Model.Client client)
         {

@@ -1,8 +1,8 @@
 ﻿using ProjetoWebApi.Common.AuditLog;
 using ProjetoWebApi.Common.Interfaces;
+using ProjetoWebApi.Common.Model;
 using ProjetoWebApi.Features.Admin.Events;
 using ProjetoWebApi.Features.Admin.Model;
-using ProjetoWebApi.Model;
 
 namespace ProjetoWebApi.Features.Admin.Commands
 {
@@ -37,12 +37,7 @@ namespace ProjetoWebApi.Features.Admin.Commands
                 allAdminLogs.Add(admin.CreateLogs());
                 await _connection.SaveAll<AuditLogList>(allAdminLogs, fileLogs);
 
-                var createAdmin = new CreateAdminEvent
-                (
-                    admin.Id,
-                    admin.Name, 
-                    admin.Email
-                );
+                var createAdmin = new CreateAdminEvent(admin);
                 await _publisher.Publish(createAdmin, cancellationToken);
             }
             catch (Exception ex)

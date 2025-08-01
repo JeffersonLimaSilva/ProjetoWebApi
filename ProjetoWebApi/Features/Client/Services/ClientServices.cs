@@ -1,9 +1,9 @@
 ﻿using ProjetoWebApi.Common.Dispatcher;
-using ProjetoWebApi.DTOs;
+using ProjetoWebApi.Common.DTOs;
+using ProjetoWebApi.Common.Model;
 using ProjetoWebApi.Features.Client.Commands;
 using ProjetoWebApi.Features.Client.DTOs;
 using ProjetoWebApi.Features.Client.Queries;
-using ProjetoWebApi.Model;
 using System.Data.Common;
 
 namespace ProjetoWebApi.Features.Client.Services

@@ -1,12 +1,7 @@
-﻿using ProjetoWebApi.Common.AuditLog;
-using ProjetoWebApi.Common.Interfaces;
-using ProjetoWebApi.DTOs;
+﻿using ProjetoWebApi.Common.Interfaces;
+using ProjetoWebApi.Common.Model;
 using ProjetoWebApi.Features.Admin.Events;
-using ProjetoWebApi.Features.Client.Commands;
-using ProjetoWebApi.Features.Client.Model;
-using ProjetoWebApi.Model;
 
-using System.Data.Common;
 
 namespace ProjetoWebApi.Features.Client.Commands
 {
@@ -47,15 +42,9 @@ namespace ProjetoWebApi.Features.Client.Commands
                     command.Value,
                     command.Status);
                 admin.AddClient(client);
-                _connection.SaveAll<Admin.Model.Admin>(Admins, fileAdmin);
+                _connection.SaveAll(Admins, fileAdmin);
 
-                var clientEvent = new CreateClientEvent
-                (
-                    command.IdAdmin,
-                    admin.Name,
-                    admin.Email,
-                    command.Email
-                );
+                var clientEvent = new CreateClientEvent(command, admin);
                 await _publisher.Publish( clientEvent , cancellationToken);
 
             }

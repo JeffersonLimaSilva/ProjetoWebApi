@@ -1,4 +1,4 @@
-﻿using ProjetoWebApi.DTOs;
+﻿using ProjetoWebApi.Common.DTOs;
 using ProjetoWebApi.Features.Client.DTOs;
 
 namespace ProjetoWebApi.Features.Client.Services

@@ -8,11 +8,11 @@ namespace ProjetoWebApi.Features.Admin.Events
         public string AdminName { get; set; }
         public string AdminEmail { get; set; }
         public DateOnly Timestamp { get; set; }
-        public CreateAdminEvent(Guid idAdmin, string adminName, string adminEmail)
+        public CreateAdminEvent(Model.Admin admin)
         {
-            IdAdmin = idAdmin;
-            AdminName = adminName;
-            AdminEmail = adminEmail;
+            IdAdmin = admin.Id;
+            AdminName = admin.Name;
+            AdminEmail = admin.Email;
             Timestamp = DateOnly.FromDateTime(DateTime.Today); ;
         }
 

@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProjetoWebApi.Features.Admin.Model;
+using ProjetoWebApi.Features.Login.DTOs;
+using ProjetoWebApi.Features.Login.Services;
 using ProjetoWebApi.Services;
 using System.Security.Claims;
 
@@ -10,6 +12,12 @@ namespace ProjetoWebApi.Controllers
     [Route("api/[controller]")]
     public class AuthController : Controller
     {
+        private readonly ILoginServices _loginServices;
+        public AuthController(ILoginServices loginServices)
+        {
+            _loginServices = loginServices ?? throw new ArgumentNullException(nameof(loginServices));
+        }
+
         [HttpPost]
         public IActionResult Auth(string email, string password)
         {
@@ -34,6 +42,34 @@ namespace ProjetoWebApi.Controllers
                 UserName = Name,
                 UserEmail = Email,
             });
+        }
+        [HttpPost]
+        [Route("login/check")]
+        public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
+        {
+            try
+            {
+                var token = await _loginServices.ValidateAcess(loginDto);
+                return Ok(token);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return NotFound($"{ex.Message}");
+            }
+        }
+
+        [HttpPost("{IdAdmin}/logout")]
+        public async Task<IActionResult> Logout([FromRoute] Guid IdAdmin)
+        {
+            try
+            {
+                await _loginServices.LogoutSystem(IdAdmin);
+                return Ok();
+            }
+            catch (InvalidOperationException ex)
+            {
+                return NotFound($"{ex.Message}");
+            }
         }
     }
 }

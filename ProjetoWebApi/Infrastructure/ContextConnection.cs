@@ -1,7 +1,7 @@
 ﻿using Microsoft.Win32;
 using Newtonsoft.Json;
+using ProjetoWebApi.Common.Model;
 using ProjetoWebApi.Features.Admin.Model;
-using ProjetoWebApi.Model;
 using System.Threading;
 using System.Threading.Tasks;
 

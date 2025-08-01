@@ -1,6 +1,6 @@
 ﻿using ProjetoWebApi.Common.Interfaces;
+using ProjetoWebApi.Common.Model;
 using ProjetoWebApi.Features.Admin.Events;
-using ProjetoWebApi.Model;
 
 namespace ProjetoWebApi.Features.Client.Commands
 {
@@ -28,13 +28,7 @@ namespace ProjetoWebApi.Features.Client.Commands
                 client.SoftDelete();
                 await _connection.SaveAll(Admins, fileAdmin);
 
-                var deleteClient = new DeleteClientEvent
-                (
-                    command.IdAdmin,
-                    admin.Name,
-                    admin.Email,
-                    client.Email
-                );
+                var deleteClient = new DeleteClientEvent( command, admin, client);
                 await _publisher.Publish(deleteClient, cancellationToken);
             }
             catch

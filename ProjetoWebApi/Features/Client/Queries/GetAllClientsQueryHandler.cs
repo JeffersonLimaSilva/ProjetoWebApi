@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using ProjetoWebApi.Common.Interfaces;
+using ProjetoWebApi.Common.Model;
 using ProjetoWebApi.Features.Admin;
-using ProjetoWebApi.Model;
 using System.IO;
 
 namespace ProjetoWebApi.Features.Client.Queries

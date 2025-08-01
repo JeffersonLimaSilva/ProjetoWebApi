@@ -2,12 +2,12 @@
 using ProjetoWebApi.Common.Dispatcher;
 using ProjetoWebApi.Features.Admin.Commands;
 using ProjetoWebApi.Features.Admin.Queries;
-using ProjetoWebApi.Model;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Threading.Tasks;
 using ProjetoWebApi.Common.AuditLog;
-using ProjetoWebApi.DTOs;
+using ProjetoWebApi.Common.DTOs;
+using ProjetoWebApi.Common.Model;
 
 namespace ProjetoWebApi.Features.Admin.Services
 {
@@ -127,6 +127,40 @@ namespace ProjetoWebApi.Features.Admin.Services
             catch (Exception ex)
             {
                 throw new InvalidOperationException($"Erro na contagem do total de logs. {ex.Message}");
+            }
+        }
+
+        public async Task<Model.Admin> GetById(Guid id) 
+        {
+            try
+            {
+                var getById = new GetByIdQuery(id);
+                var admin =await _dispatcher.Query<GetByIdQuery, Model.Admin>(getById);
+                return admin;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        
+        }
+
+        public async Task Update(Guid id, AdminUpdateDto adminDto)
+        {
+            try { 
+                if (adminDto == null) { throw new ArgumentNullException("Informações Inválidas."); }
+                var updateAdmin = new UpdateAdminCommand(
+                    id,
+                    adminDto.Name,
+                    adminDto.Email,
+                    adminDto.Password,
+                    adminDto.Theme
+                    );
+                await _dispatcher.Send(updateAdmin);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
     }

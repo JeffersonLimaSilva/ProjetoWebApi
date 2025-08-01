@@ -1,7 +1,7 @@
 ﻿using ProjetoWebApi.Common.Interfaces;
+using ProjetoWebApi.Common.Model;
 using ProjetoWebApi.Features.Admin.Events;
 using ProjetoWebApi.Features.Admin.Model;
-using ProjetoWebApi.Model;
 using ProjetoWebApi.Services;
 
 namespace ProjetoWebApi.Features.Login.Commands
@@ -28,12 +28,7 @@ namespace ProjetoWebApi.Features.Login.Commands
                 throw new UnauthorizedAccessException("Credenciais Inválidas.");
             }
 
-            var loginEvent = new LoginEvent
-                (
-                    admin.Id,
-                    admin.Name,
-                    admin.Email
-                );
+            var loginEvent = new LoginEvent(admin);
             await _publisher.Publish(loginEvent, cancellationToken);
         }
     }

@@ -1,4 +1,4 @@
-﻿using ProjetoWebApi.Model;
+﻿using ProjetoWebApi.Common.Model;
 
 namespace ProjetoWebApi.Features.Client.Model
 {

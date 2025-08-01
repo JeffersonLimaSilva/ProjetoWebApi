@@ -1,5 +1,5 @@
 ﻿using ProjetoWebApi.Common.AuditLog;
-using ProjetoWebApi.DTOs;
+using ProjetoWebApi.Common.DTOs;
 using ProjetoWebApi.Features.Admin.DTOs;
 
 namespace ProjetoWebApi.Features.Admin.Services
@@ -14,5 +14,7 @@ namespace ProjetoWebApi.Features.Admin.Services
         public Task<int> CountRegistrationInactive(Guid idAdmin);
         public Task<List<AuditLogEntry>> GetAllLogsAdmin(Guid idAdmin, PaginationDto paginationDto);
         public Task<int> CountTotalLogs(Guid idAdmin);
+        public Task<Model.Admin> GetById(Guid id);
+        public Task Update(Guid id, AdminUpdateDto adminDto);
     }
 }

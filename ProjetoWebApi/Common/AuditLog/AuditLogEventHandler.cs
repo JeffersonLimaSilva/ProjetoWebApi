@@ -1,6 +1,6 @@
 ﻿using ProjetoWebApi.Common.Interfaces;
+using ProjetoWebApi.Common.Model;
 using ProjetoWebApi.Features.Admin.Events;
-using ProjetoWebApi.Model;
 
 namespace ProjetoWebApi.Common.AuditLog
 {
@@ -8,7 +8,8 @@ namespace ProjetoWebApi.Common.AuditLog
                                         IDomainEventHandler<CreateClientEvent>,
                                         IDomainEventHandler<DeleteClientEvent>,
                                         IDomainEventHandler<UpdateClientEvent>,
-                                        IDomainEventHandler<LoginEvent>
+                                        IDomainEventHandler<LoginEvent>,
+                                        IDomainEventHandler<LogoutEvent>
 
 
     {
@@ -94,6 +95,22 @@ namespace ProjetoWebApi.Common.AuditLog
                 AdminEmail = @event.AdminName,
                 Timestamp = @event.Timestamp,
                 Action = $"Logou-se."
+            };
+
+            var allAdminLogs = await _connection.GetAll<AuditLogList>(file);
+            var adminLogs = allAdminLogs.FirstOrDefault(a => a.Id == @event.IdAdmin);
+            adminLogs.AuditLogEntries.Add(logEntry);
+            await _connection.SaveAll(allAdminLogs, file);
+        }
+
+        public async Task Handler(LogoutEvent @event, CancellationToken cancellationToken = default)
+        {
+            var logEntry = new AuditLogEntry
+            {
+                AdminName = @event.AdminName,
+                AdminEmail = @event.AdminName,
+                Timestamp = @event.Timestamp,
+                Action = $"Saiu."
             };
 
             var allAdminLogs = await _connection.GetAll<AuditLogList>(file);

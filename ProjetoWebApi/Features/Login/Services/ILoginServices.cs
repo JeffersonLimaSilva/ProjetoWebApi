@@ -6,6 +6,6 @@ namespace ProjetoWebApi.Features.Login.Services
     public interface ILoginServices
     {
         public Task<object> ValidateAcess(LoginDto loginDto);
-        
+        public Task LogoutSystem(Guid IdAdimn);
     }
 }
