@@ -45,10 +45,7 @@ export function modalConfirm(id, email) {
         await ClientsDeleteApi(id);
         modalAlert(`<p>O usuário <strong>${email}</strong> foi deletado.</p>`);
         body.removeChild(overlayer);
-        console.log("oi");
         await criaLista();
-        
-        
     })
     let spanCancel = document.createElement('span')
     spanCancel.className='span-cancel'

@@ -1,16 +1,9 @@
-import { showModal } from "./cadNewcad.js";
+import { showModal, closeModal } from "./cadNewcad.js";
 import { criaLista} from "./lista.js";
-import { criaLogsUser } from "../logsusers/logsUser.js";
 import { modalAlert, modalConfirm } from "../modals/modals.js";
-
-
-
 let auxC = null;
 
-
 export function modalEditar(client){
-    console.log(client);
-    
 
     let modalClass = document.querySelector('.box-list-newcad');
     modalClass.className=('box-list-editar');
@@ -25,7 +18,6 @@ export function modalEditar(client){
     if(client.status === 'Ativo'){
         document.getElementById('ativo').checked= true;
     }
-    
     
     document.getElementById('address').value =client.address;
     document.getElementById('more-info').value =client.moreInfor;
@@ -49,8 +41,6 @@ if (buttonEditar) {
     buttonEditar.addEventListener('click', async function(e){
         let client = auxC;
         
-        let modalcad = document.getElementById('modal-form');
-
         let name = document.getElementById('name').value;
         if(name != client.name){
             client.name = name;
@@ -95,18 +85,12 @@ if (buttonEditar) {
         if(value != client.value){
             client.value = value;
         }
-        let modalClass = document.querySelector('.box-list-editar') || false;
-        if(modalClass){
-            modalClass.className=('box-list-newcad');
-        }
-        let dialogClass = document.querySelector('.dialog-edit') || false;
-        if (dialogClass) {
-            dialogClass.className=('dialog-cad');
-        }
+        
+        
         let Client= {
             Name: client.name, 
             Email: client.email, 
-            Age: client.age, 
+            Age: String(client.age), 
             Address: client.address, 
             MoreInfor: client.moreInfor, 
             Interests: client.interests, 
@@ -114,19 +98,21 @@ if (buttonEditar) {
             Value: client.value,
             Status: client.status,
         }
-        console.log(client);
-        await UpdateClient(client.id, Client);
-        modalAlert(`<p>As informações de <strong>${email}</strong> foram salvas.</p>`);
-
-        await criaLista();
-        modalcad.close();
-
-        let deleteButton = document.querySelector('#button-delete');
-        deleteButton.style.display='none';
-
-        let body = document.querySelector('.body');
-        let overlayer = document.querySelector('.overlayer');
-        body.removeChild(overlayer);
+        try{
+            await UpdateClient(client.id, Client);
+            modalAlert(`<p>As informações de <strong>${email}</strong> foram salvas.</p>`);
+            let dialogClass = document.querySelector('.dialog-edit') || false;
+            if (dialogClass) {
+                dialogClass.className=('dialog-cad');
+            }
+            await criaLista();
+            let deleteButton = document.querySelector('#button-delete');
+            deleteButton.style.display='none';
+            closeModal();
+        }
+        catch (error) {
+            console.error(`Erro ao atualizar o Cliente:${error.message}`);
+        }
         
     }) 
 }
@@ -151,30 +137,74 @@ async function UpdateClient(id, Client){
             body: JSON.stringify(Client)
         });
         if(!response.ok){
-            var errodata= response.json().catch(()=>{});
-            console.log(response.statusText);
+            const errorResponseData= await response.json().catch(()=>({}));
+            var message = "Erro desconhecido.";
             
-            throw Error(errodata.error);
+            if(errorResponseData.Message){
+                message = errorResponseData.Message;
+            }
+            if(errorResponseData.errors){
+                message = errorResponseData.errors[0];
+                ValidationError(errorResponseData.errors[0]);  
+            }
+            modalAlert(`<p><strong>${message}</strong></p>`);
+            throw new Error(message);
         }
     }
     catch (error) {
-        console.error(`Erro ao atualizar o Cliente:${error}`);
+        throw new Error(error);
     }
 }
 
-function editarUser(index, campo, conteudo){
-    
-    let userOn =JSON.parse(localStorage.getItem('userOn')) || []
-    let usersadm = JSON.parse(localStorage.getItem('usersadm')) || []
-    usersadm[userOn.index].users.reverse()
-    usersadm[userOn.index].users[index][campo] = conteudo
-    
-    criaLogsUser(usersadm[userOn.index].name, usersadm[userOn.index].email, `editou o(a) ${campo} de`, usersadm[userOn.index].users[index].email, 2)
+function ValidationError(error){
 
-    usersadm[userOn.index].users.reverse()
-    localStorage.setItem('usersadm', JSON.stringify(usersadm))
-    showCadPend()
-    criaLista()
+    if(error.includes("nome")){
+        let name = document.getElementById('name')
+        StyleErro(name, error)
+    }
+    if(error.includes("email")){
+        let email = document.getElementById('email')
+        StyleErro(email, error)
+    }
+    if(error.includes("idade")){
+        let age = document.getElementById('years-old')
+        StyleErro(age, error)
+    }
+    if(error.includes("endereço")){
+        let address = document.getElementById('address')
+        StyleErro(address, error)
+    }
+    if(error.includes("Mais Informações")){
+        let moreInfor = document.getElementById('more-info')
+        StyleErro(moreInfor, error)
+    }
+    if(error.includes("Interesses")){
+        let interests = document.getElementById('interesses')
+        StyleErro(interests, error)
+    }
+    if(error.includes("Sentimentos")){
+        let emotions = document.getElementById('sentimentos')
+        StyleErro(emotions, error)
+    }if(error.includes("Valores")){
+        
+        
+        let values = document.getElementById('valores')
+        StyleErro(values, error)
+    }
+    
 }
-
-
+function StyleErro(field, error){
+    let errors = document.querySelectorAll('.style-error')
+    errors.forEach(error => {
+        error.remove();
+    });
+    let fields = document.querySelectorAll('.field-cad')
+    fields.forEach(field => {
+        field.style.marginBottom='';
+    });
+    field.style.marginBottom='0'
+    let errorp = document.createElement('p')
+    errorp.className=('style-error');
+    errorp.innerHTML=error;
+    field.insertAdjacentElement('afterend', errorp);
+}

@@ -1,21 +1,16 @@
-// import { changeTheme } from "./changeTheme.js";
+import { changeTheme } from "./changeTheme.js";
 import { showName } from "./showName.js";
 import { criaLogsUser } from "../logsusers/logsUser.js";
 
 let countclick = 0
 
-// let userOn=JSON.parse(localStorage.getItem('userOn')) || []
-// let usersadm =JSON.parse(localStorage.getItem('usersadm')) || []
-
+let userOn=JSON.parse(localStorage.getItem('userOn')) || [];
 document.querySelector('#profile').addEventListener('click', ()=>{
     
     if(countclick < 2){
         countclick ++
     }
-    console.log("entrou aq");
-    
-    // changeTheme(usersadm[userOn.index].theme)
-    // profile()
+    profile()
     // showName()
 }) 
 
@@ -93,7 +88,7 @@ function profile(){
                 usersadm[userOn.index].countclick ++
                 localStorage.setItem('usersadm', JSON.stringify(usersadm))
             }
-            changeTheme(usersadm[userOn.index].theme)
+            changeTheme();
         })
         let divLogout = document.createElement('div')
         divLogout.className='div-logout'

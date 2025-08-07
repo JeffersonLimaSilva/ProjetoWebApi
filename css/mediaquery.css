@@ -199,6 +199,7 @@
            
             background-color: red;
         }
+        
     }
     
     nav .nav-logo{
@@ -369,7 +370,9 @@
             }
             .number{
                 div{
-                    width: 7vh;
+                    width: 8vh;
+                    display: flex;
+                    justify-content: center;
                 }
             }
         }

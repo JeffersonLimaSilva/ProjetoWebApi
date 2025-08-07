@@ -1,19 +1,11 @@
-import { criaLogsUser } from "../logsusers/logsUser.js";
+import { VerifyAcess } from "../js/restricoes.js";
 import { modalAlert } from "../modals/modals.js";
 
-document.querySelector('form').addEventListener('submit', function(e){
+document.querySelector('form').addEventListener('submit', async function(e){
     e.preventDefault()
 
     let email = document.getElementById('f-email').value 
     let senha = document.getElementById('f-password').value
-
-    
-
-    let usersadm = JSON.parse(localStorage.getItem('usersadm')) || []
-
-    let userOn = JSON.parse(localStorage.getItem('userON')) || []
-
-    let nome
 
     if(email== '' || senha==''){
         modalAlert(`<p><strong>É necessário preencher todos os campos.</strong></p>`)
@@ -24,18 +16,17 @@ document.querySelector('form').addEventListener('submit', function(e){
         Email: email,
         Password: senha
     }
-    console.log(login);
-    tryLogin(login)
 
-    //         criaLogsUser(nome, email, 'logou-se', '', 2)
-
-        
-    //     modalAlert(`<p><strong>Senha Incorreta.</strong></p>`)
-    
-    // modalAlert(`<p><strong>Email não cadastrado.</strong></p>`)
+    try{
+        await tryLogin(login);
+    }
+    catch (error){
+        modalAlert(`<p><strong>${error.message}.</strong></p>`)
+        console.error('Erro ao Logar:', error.message);
+    }
 })
 async function tryLogin(login){
-    const apiEndpoint = 'https://localhost:7114/login/check';
+    const apiEndpoint = 'https://localhost:7114/api/Auth/login/check';
     try {
         const response = await fetch(apiEndpoint, {
             method: 'POST',
@@ -44,37 +35,18 @@ async function tryLogin(login){
             },
             body: JSON.stringify(login)
         });
-        const token = await response.json();
-        console.log(token);
         
-        const loginData= {
-            token: token.token
+        if(!response.ok){
+            const errorResponseData = await response.json().catch(()=>({}));
+            throw new Error(errorResponseData.message);
         }
+        const token = await response.json();
+       
+        localStorage.setItem('userOn', JSON.stringify(token));
 
-        localStorage.setItem('userOn', JSON.stringify(loginData));
-        changeHome();
-    }
-    catch (error) {
-        console.error('Erro ao Logar:', error);
-        throw error; 
-    }
-}
-async function changeHome() {
-    let userOn = JSON.parse(localStorage.getItem('userOn'))
-    if(!userOn){
-        return;
-    }
-    const verifyEndpoint = "https://localhost:7114/api/Auth/verify"
-    try{
-        const response = await fetch(verifyEndpoint,{
-            method: 'GET',
-            headers:{
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${userOn.token}`
-            }
-        });
-        if (response.ok) {
-            const userData = await response.json();
+        if(await VerifyAcess()){
+            let userOn = JSON.parse(localStorage.getItem('userOn'))
+            const userData = await VerifyAcess();
             var user={
                 token: userOn.token,
                 id: userData.userId,
@@ -85,20 +57,11 @@ async function changeHome() {
             window.location.href = '/index.html';
         }
     }
-    catch{
-
-    }
-}
-function userOnIndex(usersadm, email){
-    
-    let index
-    usersadm.forEach(function(useradm){
-        if(useradm.email == email){
-            index = useradm.index
+    catch (error) {
+        if(error.message != "Failed to fetch"){
+            throw error;
         }
-        
-        
-    })
-    return index
+        throw new Error("Erro de rede.Tente novamente mais tarde."); 
+    }
 }
 

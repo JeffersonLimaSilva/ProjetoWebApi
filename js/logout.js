@@ -2,11 +2,22 @@ import { criaLogsUser } from "../logsusers/logsUser.js";
 let logout = document.querySelectorAll('.logout')
 logout.forEach(logout => {
     
-    logout.addEventListener('click', function(e){
+    logout.addEventListener('click', async function(e){
         let userOn = JSON.parse(localStorage.getItem('userOn')) || []
-        
-        // criaLogsUser(usersadm[userOn.index].name, usersadm[userOn.index].email, 'deslogou', '', 2)
+        await Logout(userOn.id);
+    })
+});
 
+export async function Logout(id){
+    let userOn = JSON.parse(localStorage.getItem('userOn')) || []
+    const apiEndpoint = `https://localhost:7114/api/Auth/${id}/logout`;
+    try {
+        const response = await fetch(apiEndpoint, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json' 
+            },
+        });
         userOn ={
             token: '',
             id: '',
@@ -14,11 +25,13 @@ logout.forEach(logout => {
             email: ''
         }
         localStorage.setItem('userOn', JSON.stringify(userOn))
-        window.location.href='/login/login.html' 
-    })
-});
-
-
+        window.location.href='/login/login.html'
+    }
+    catch (error) {
+        console.error('Erro ao Sair:', error);
+        throw error; 
+    }
+}
 document.addEventListener('DOMContentLoaded', function(e){
     let button = document.querySelector('.logout')
 

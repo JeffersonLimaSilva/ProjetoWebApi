@@ -77,25 +77,25 @@ export async function criaLista(search = '', date = 0){
         buttons(){
             if(state.page == 1){
                 var fist = html.get('.fist')
-                fist.style.opacity = 0;
+                fist.style.color = "rgb(163, 163, 163)";
                 var prev = html.get('.prev')
-                prev.style.opacity = 0;
+                prev.style.color = "rgb(163, 163, 163)";
             }else{
                var fist = html.get('.fist')
-                fist.style.opacity = 1;
+                fist.style.color = "var(--cor-font)";
                 var prev = html.get('.prev')
-                prev.style.opacity = 1; 
+                prev.style.color = "var(--cor-font)"; 
             }
             if(state.page == state.totalPages){
                 var fist = html.get('.next')
-                fist.style.opacity = 0;
+                fist.style.color = "rgb(163, 163, 163)";
                 var prev = html.get('.last')
-                prev.style.opacity = 0;
+                prev.style.color = "rgb(163, 163, 163)";
             }else{
                 var fist = html.get('.next')
-                fist.style.opacity = 1;
+                fist.style.color = "var(--cor-font)";
                 var prev = html.get('.last')
-                prev.style.opacity = 1;
+                prev.style.color = "var(--cor-font)";
             }
         }
     }

@@ -144,3 +144,12 @@ body{
     z-index: 900;
     backdrop-filter: blur(4px);
 }
+
+.style-error{
+    font-size: 2vh;
+    white-space: nowrap;
+    color: red;
+    height: 2vh;
+    margin: 0.5vh 0;
+    border: 0 !important;
+} 

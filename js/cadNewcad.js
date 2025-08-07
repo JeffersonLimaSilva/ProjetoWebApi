@@ -18,25 +18,12 @@ if (buttonFechaModal){
         }
         let listEdit = document.querySelectorAll('.box-list-editar') || false
         if (listEdit) {
-            let inputNewCad = document.querySelectorAll('.box-list-editar input')
-            let areaNewCad = document.querySelectorAll('.box-list-editar textarea')
             let deleteButton = document.querySelector('#button-delete')
-            deleteButton.style.display='none'
-
-            inputNewCad.forEach(function(input){
-                input.className=''
-            })
-            areaNewCad.forEach(function(textarea){
-                textarea.className=''
-            })
+            deleteButton.style.display='none';
         }
-
         closeModal()
     })
 }
-
-
-
 export function showModal(){
     let modalad = document.getElementById('modal-form')
 
@@ -48,19 +35,6 @@ export function showModal(){
         if (dialogClass) {
             dialogClass.className=('dialog-cad');
         }
-        let listEdit = document.querySelectorAll('.box-list-editar') || false;
-        if (listEdit) {
-            let inputNewCad = document.querySelectorAll('.box-list-editar input');
-            let areaNewCad = document.querySelectorAll('.box-list-editar textarea');
-            
-
-            inputNewCad.forEach(function(input){
-                input.className='';
-            })
-            areaNewCad.forEach(function(textarea){
-                textarea.className='';
-            })
-        }
         closeModal();
     })
     body.appendChild(overlayer);
@@ -71,7 +45,7 @@ export function showModal(){
 }
 
 export function closeModal(){
-    let modalad = document.getElementById('modal-form');
+    let modalcad = document.getElementById('modal-form');
 
     let body = document.querySelector('.body');
     let overlayer = document.querySelector('.overlayer');
@@ -92,5 +66,13 @@ export function closeModal(){
     document.getElementById('valores').value ='';
 
     
-    modalad.close();
+    modalcad.close();
+    let errors = document.querySelectorAll('.style-error')
+    errors.forEach(error => {
+        error.remove();
+    });
+    let fields = document.querySelectorAll('.field-cad')
+    fields.forEach(field => {
+        field.style.marginBottom='';
+    });
 }

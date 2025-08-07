@@ -29,6 +29,7 @@ export async function criaListaLogs( search =''){
             if(lastPage){
                 state.page --
             }
+            
         },
         prev(){
             state.page --
@@ -72,25 +73,25 @@ export async function criaListaLogs( search =''){
         buttons(){
             if(state.page == 1){
                 var fist = html.get('.fist')
-                fist.style.opacity = 0;
+                fist.style.color = "rgb(163, 163, 163)";
                 var prev = html.get('.prev')
-                prev.style.opacity = 0;
+                prev.style.color = "rgb(163, 163, 163)";
             }else{
                var fist = html.get('.fist')
-                fist.style.opacity = 1;
+                fist.style.color = "var(--cor-font)";
                 var prev = html.get('.prev')
-                prev.style.opacity = 1; 
+                prev.style.color = "var(--cor-font)"; 
             }
             if(state.page == state.totalPages){
                 var fist = html.get('.next')
-                fist.style.opacity = 0;
+                fist.style.color = "rgb(163, 163, 163)";
                 var prev = html.get('.last')
-                prev.style.opacity = 0;
+                prev.style.color = "rgb(163, 163, 163)";
             }else{
                 var fist = html.get('.next')
-                fist.style.opacity = 1;
+                fist.style.color = "var(--cor-font)";
                 var prev = html.get('.last')
-                prev.style.opacity = 1;
+                prev.style.color = "var(--cor-font)";
             }
         }
     }
@@ -100,13 +101,12 @@ export async function criaListaLogs( search =''){
             listaItems(lista, tbody, search)
         },
         async update(){
-
+            
             var Logs = await LogsListApi(userOn.id, state.page - 1, state.perPage);  
             html.get('#tbody-logs').innerHTML = "";
             
             Logs.forEach(function(log){
-                list.create(log)
-               
+                list.create(log);
             });
         }
 
@@ -141,11 +141,10 @@ async function LogsListApi(id, page, perPage){
 
             }
         });
-        var data = response.json();
+        var data = await response.json();
         return data;
     }
     catch(error){
-        
         throw error;
     }
 }
@@ -159,7 +158,7 @@ export async function countLogs() {
                 'Content-Type' : 'application/json'
             },
         });
-        var data = await response.json();
+        var data = await response.json();        
         return data;
     }
     catch(error){
@@ -194,4 +193,4 @@ document.getElementById('search').addEventListener('input', function(e){
     criaListaLogs(minSearch)
     
 })
-await criaListaLogs();
+

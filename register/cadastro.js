@@ -1,7 +1,7 @@
 import { criaLista } from "../js/lista.js";
 import { modalAlert } from "../modals/modals.js";
 import { setPerPage } from "../js/perPage.js";
-
+import { closeModal } from "../js/cadNewcad.js";
 setPerPage(11);
 criaLista();
 
@@ -20,36 +20,13 @@ document.getElementById('button-gravar').addEventListener('click', async functio
     let valores = document.getElementById('valores').value
     
     let userOn = JSON.parse(localStorage.getItem('userOn')) || []
-
-    if(nome == '' || email == ''){
-        modalAlert(`<p><strong>Campo Nome e Email obrigatório.</strong></p>`);
-        return false
-    }
-    if(!idade){
-        modalAlert(`<p><strong>Campo Idade obrigatório.</strong></p>`);
-        return false
-    }
-    if(idade < 18 || idade > 90){
-        modalAlert(`<p><strong>Campo Idade irregular.</strong></p>`);
-        return false
-    }
     
     if(ativo){
         ativoInativo = "Ativo"
     }
 
-    if(!validaNome(nome)){
-        modalAlert(`<p><strong>Nome Invalido.</strong></p>`);
-        return false
-    }
-
-    if(!validaEmail(email)){
-        modalAlert(`<p><strong>Email Inválido.</strong></p>`);
-        return false
-    }
-
-    // if(verificaIgual(usersadm[userOn.index], email)){
-    //     modalAlert(`<p><strong>Email já cadastrado.</strong></p>`);
+    // if(!validaNome(nome)){
+    //     modalAlert(`<p><strong>Nome Invalido.</strong></p>`);
     //     return false
     // }
 
@@ -60,7 +37,7 @@ document.getElementById('button-gravar').addEventListener('click', async functio
     let Client= {
         Name: nome, 
         Email: email, 
-        Age: idade, 
+        Age: String(idade), 
         Address: endereco, 
         MoreInfor: maisinformacoes, 
         Interests: interesses, 
@@ -68,28 +45,14 @@ document.getElementById('button-gravar').addEventListener('click', async functio
         Value: valores,
         status: ativoInativo,
     }
-    await CreateClient(userOn.id, Client)
-    // criaLogsUser(usersadm[userOn.index].name, usersadm[userOn.index].email, 'cadastrou', email, 2)
-
-    document.getElementById('name').value = ''
-    document.getElementById('years-old').value = ''
-    document.getElementById('email').value = ''
-    document.getElementById('ativo').checked= true
-    document.getElementById('address').value =''
-    document.getElementById('more-info').value =''
-    document.getElementById('interesses').value =''
-    document.getElementById('sentimentos').value =''
-    document.getElementById('valores').value =''
-    
-    
-    
-    
-    await criaLista();
-    modalcad.close()
-
-    let body = document.querySelector('.body')
-    let overlayer = document.querySelector('.overlayer')
-    body.removeChild(overlayer)
+    try{
+        await CreateClient(userOn.id, Client);
+        await criaLista();
+        closeModal();
+    }
+    catch (error) {
+        console.error(`Erro ao cadastrar um Cliente:${error}`);
+    }
 })
 
 async function CreateClient(id, Client){
@@ -105,24 +68,29 @@ async function CreateClient(id, Client){
             body: JSON.stringify(Client)
         });
         if(!response.ok){
-            var errodata= response.json().catch(()=>{});
-            console.log(response.statusText);
+            const errorResponseData= await response.json().catch(()=>({}));
             
-            throw Error(errodata.error);
+            var message = "Erro desconhecido.";
+            
+            if(errorResponseData.message){
+                message = errorResponseData.message;                
+            }
+            if(errorResponseData.errors){
+                message = errorResponseData.errors[0];
+            }
+            ValidationError(message);
+            modalAlert(`<p><strong>${message}</strong></p>`);
+            throw new Error(message);
         }
         modalAlert(`<p>O usuário <strong>${Client.Email}</strong> foi adicionado.</p>`);
 
     }
     catch (error) {
-        console.error(`Erro ao cadastrar um Cliente:${error}`);
+        throw new Error(error);
+
     }
 }
 
-function verificaIgual(usersadm, email){
-    return usersadm.users.some(function(user){
-        return user.email === email  
-    })
-}
 
 function validaEmail(email){
 
@@ -139,6 +107,55 @@ function cadColor(){
     let cadcor = document.querySelector('#cadastro-span')
 
     cadcor.classList='span-on'
+}
+function ValidationError(error){
+
+    if(error.includes("nome")){
+        let name = document.getElementById('name')
+        StyleErro(name, error)
+    }
+    if(error.toLowerCase().includes("email")){
+        let email = document.getElementById('email')
+        StyleErro(email, error)
+    }
+    if(error.includes("idade")){
+        let age = document.getElementById('years-old')
+        StyleErro(age, error)
+    }
+    if(error.includes("endereço")){
+        let address = document.getElementById('address')
+        StyleErro(address, error)
+    }
+    if(error.includes("Mais Informações")){
+        let moreInfor = document.getElementById('more-info')
+        StyleErro(moreInfor, error)
+    }
+    if(error.includes("Interesses")){
+        let interests = document.getElementById('interesses')
+        StyleErro(interests, error)
+    }
+    if(error.includes("Sentimentos")){        
+        let emotions = document.getElementById('sentimentos')
+        StyleErro(emotions, error)
+    }if(error.includes("Valores")){
+        let values = document.getElementById('valores')
+        StyleErro(values, error)
+    }
+}
+function StyleErro(field, error){
+    let errors = document.querySelectorAll('.style-error')
+    errors.forEach(error => {
+        error.remove();
+    });
+    let fields = document.querySelectorAll('.field-cad')
+    fields.forEach(field => {
+        field.style.marginBottom='';
+    });
+    field.style.marginBottom='0.1vh'
+    let errorp = document.createElement('p')
+    errorp.className=('style-error');
+    errorp.innerHTML=error;
+    field.insertAdjacentElement('afterend', errorp);
 }
 
 cadColor()

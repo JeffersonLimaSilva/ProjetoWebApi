@@ -15,13 +15,9 @@ document.querySelector('.button').addEventListener('click', async function(e){
     let title;
     let win = window.open('', '', 'heigth=700,width=700');
 
-
     let estilos = '<style>'
-
     
-    if(users){        
-        console.log(await countRegistration());
-        
+    if(users){
         setPerPage(await countRegistration());
         await criaLista();
          

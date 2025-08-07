@@ -84,6 +84,9 @@ header{
         border: 0.1vh;
         color: var(--cor-font);
     }
+    ::placeholder{
+        color: var(--cor-font);
+    }
     .div-menu{
         display: none;
     }
