@@ -11,7 +11,6 @@ namespace ProjetoWebApi.Features.Admin.Queries
         {
             _connection = connection;
         }
-
         public async Task<int> Handler(CountTotalRegistrationQuery query, CancellationToken cancellationToken = default)
         {
             var Admins = await _connection.GetAll<Model.Admin>(fileAdmin);

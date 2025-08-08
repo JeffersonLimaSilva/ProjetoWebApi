@@ -1,5 +1,4 @@
 ﻿using ProjetoWebApi.Common.Interfaces;
-using ProjetoWebApi.Features.Admin.Model;
 
 namespace ProjetoWebApi.Features.Admin.Queries
 {
@@ -9,7 +8,6 @@ namespace ProjetoWebApi.Features.Admin.Queries
         {
             IdAdmin = idAdmin;
         }
-
         public Guid IdAdmin { get; set; }
 
     }

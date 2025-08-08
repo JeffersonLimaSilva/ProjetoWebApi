@@ -8,24 +8,15 @@ using ProjetoWebApi.Common.Interfaces;
 using ProjetoWebApi.Common.Model;
 using ProjetoWebApi.Common.Publisher;
 using ProjetoWebApi.Features.Admin.Services;
-using ProjetoWebApi.Features.Client.Commands;
-using ProjetoWebApi.Features.Client.DTOs;
-using ProjetoWebApi.Features.Client.Model;
-using ProjetoWebApi.Features.Client.Queries;
 using ProjetoWebApi.Features.Client.Services;
-using ProjetoWebApi.Features.Login.Commands;
 using ProjetoWebApi.Features.Login.Services;
 using ProjetoWebApi.Infrastructure;
 using System.Reflection;
-using System.Security.Cryptography.Xml;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(x =>
 {
@@ -60,11 +51,11 @@ builder.Services.AddTransient<ILoginServices, LoginServices>();
 builder.Services.AddTransient<IAdminServices, AdminServices>();
 builder.Services.AddTransient<IContextConnection, ContextConnection>();
 builder.Services.AddTransient<IClientServices, ClientServices>();
-builder.Services.AddScanCqrsHandlers(Assembly.GetExecutingAssembly());
 builder.Services.AddTransient<Dispatcher>();
-
-builder.Services.AddLogging(configure => configure.AddConsole());
 builder.Services.AddTransient<IPublisher, InMemoryPublisher>();
+
+builder.Services.AddScanCqrsHandlers(Assembly.GetExecutingAssembly());
+builder.Services.AddLogging(configure => configure.AddConsole());
 
 var key = Encoding.ASCII.GetBytes(Key.Secret);
 
@@ -99,13 +90,11 @@ var app = builder.Build();
 
 app.UseCors("AllowSpecificOrigin");
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
 
 app.UseHttpsRedirection();
 app.UseRouting();

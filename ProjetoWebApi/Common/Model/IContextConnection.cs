@@ -1,6 +1,4 @@
-﻿using ProjetoWebApi.Features.Admin.Model;
-
-namespace ProjetoWebApi.Common.Model
+﻿namespace ProjetoWebApi.Common.Model
 {
     public interface IContextConnection
     {

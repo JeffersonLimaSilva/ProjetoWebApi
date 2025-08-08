@@ -6,7 +6,6 @@ namespace ProjetoWebApi.Features.Client.Commands
     {
         public Guid IdAdmin { get; set; }
         public Guid IdClient { get; set; }
-
         public DeleteClientCommand(Guid idAdmin, Guid idClient)
         {
             IdAdmin = idAdmin;

@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using ProjetoWebApi.Common.Exceptions;
 using ProjetoWebApi.Features.Admin.Model;
 using ProjetoWebApi.Features.Login.DTOs;
 using ProjetoWebApi.Features.Login.Services;
 using ProjetoWebApi.Services;
-using System.Security.Claims;
 
 namespace ProjetoWebApi.Controllers
 {
@@ -52,7 +52,15 @@ namespace ProjetoWebApi.Controllers
                 var token = await _loginServices.ValidateAcess(loginDto);
                 return Ok(token);
             }
-            catch (InvalidOperationException ex)
+            catch (UnauthorizedAccessException ex)
+            {
+                return BadRequest(new {Message = ex.Message, Status = 400});
+            }
+            catch (ValidationException ex)
+            {
+                return BadRequest(new { Errors = ex.Errors, Status = 400 });
+            }
+            catch (Exception ex)
             {
                 return NotFound($"{ex.Message}");
             }
@@ -67,6 +75,10 @@ namespace ProjetoWebApi.Controllers
                 return Ok();
             }
             catch (InvalidOperationException ex)
+            {
+                return BadRequest(new { Message = ex.Message, Status = 400 });
+            }
+            catch (Exception ex)
             {
                 return NotFound($"{ex.Message}");
             }

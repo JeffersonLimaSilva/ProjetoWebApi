@@ -1,8 +1,5 @@
-﻿using Newtonsoft.Json;
-using ProjetoWebApi.Common.Interfaces;
+﻿using ProjetoWebApi.Common.Interfaces;
 using ProjetoWebApi.Common.Model;
-using ProjetoWebApi.Features.Admin;
-using System.IO;
 
 namespace ProjetoWebApi.Features.Client.Queries
 {
@@ -14,12 +11,10 @@ namespace ProjetoWebApi.Features.Client.Queries
         {
             _connection = connection ?? throw new ArgumentNullException(nameof(connection));
         }
-
         public async Task<List<Model.Client>> Handler(GetAllClientsQuery query, CancellationToken cancellationToken = default)
         {
             var Admins = await _connection.GetAll<Admin.Model.Admin>(fileAdmin);
             var admin = Admins.FirstOrDefault(a => a.Id == query.Id);
-            
             var clients = admin.Clients;
             clients.Reverse();
             List<Model.Client> list = clients.Where(c => !c.IsDelete).ToList();

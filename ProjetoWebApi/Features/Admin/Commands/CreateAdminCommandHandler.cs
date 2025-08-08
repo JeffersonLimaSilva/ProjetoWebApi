@@ -2,7 +2,6 @@
 using ProjetoWebApi.Common.Interfaces;
 using ProjetoWebApi.Common.Model;
 using ProjetoWebApi.Features.Admin.Events;
-using ProjetoWebApi.Features.Admin.Model;
 
 namespace ProjetoWebApi.Features.Admin.Commands
 {
@@ -18,12 +17,11 @@ namespace ProjetoWebApi.Features.Admin.Commands
             _connection = connection;
             _publisher = publisher;
         }
-
         public async Task Handler(CreateAdminCommand command, CancellationToken cancellationToken = default)
         {
             try
             {
-                List<Model.Admin> Admins = await _connection.GetAll<Admin.Model.Admin>(fileAdmin);
+                List<Model.Admin> Admins = await _connection.GetAll<Model.Admin>(fileAdmin);
                 var admin = new Model.Admin
                 (
                     command.Name,
@@ -31,7 +29,7 @@ namespace ProjetoWebApi.Features.Admin.Commands
                     command.Password
                 );
                 Admins.Add(admin);
-                _connection.SaveAll<Admin.Model.Admin> (Admins, fileAdmin);
+                await _connection.SaveAll (Admins, fileAdmin);
 
                 var allAdminLogs = await _connection.GetAll<AuditLogList>(fileLogs);
                 allAdminLogs.Add(admin.CreateLogs());
@@ -42,7 +40,7 @@ namespace ProjetoWebApi.Features.Admin.Commands
             }
             catch (Exception ex)
             {
-                throw;
+                throw new Exception($"{ex.Message}");
             }
         } 
     }

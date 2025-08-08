@@ -7,9 +7,9 @@ namespace ProjetoWebApi.Features.Client.Services
     {
         public Task AddClient(Guid IdAdmin, ClientDto clientDto);
         public Task<List<Model.Client>> ClientsList(Guid IdAdmin, PaginationDto paginationDto);
-
         public Task DeleteClient(Guid Id, Guid id);
         public Task UpdateClient(Guid IdAdmin, Guid IdClient, ClientDto clientDto);
         public Task<Model.Client> GetById(Guid IdAdmin, Guid IdClient);
+        public Task<ClientsSearchDto> SearchClients(Guid IdAdmin, string Search, PaginationDto paginationDto);
     }
 }

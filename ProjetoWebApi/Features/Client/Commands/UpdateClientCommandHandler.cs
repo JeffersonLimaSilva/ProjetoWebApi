@@ -1,7 +1,6 @@
 ﻿using ProjetoWebApi.Common.Interfaces;
 using ProjetoWebApi.Common.Model;
 using ProjetoWebApi.Features.Admin.Events;
-using System.Data.Common;
 
 namespace ProjetoWebApi.Features.Client.Commands
 {
@@ -11,20 +10,18 @@ namespace ProjetoWebApi.Features.Client.Commands
         private readonly IPublisher _publisher;
         public string fileAdmin = "BaseRegister.txt";
         public string fileLogs = "BaseLogs.txt";
-
         public UpdateClientCommandHandler(IContextConnection connection, IPublisher publisher)
         {
             _connection = connection;
             _publisher = publisher;
         }
-
         public async Task Handler(UpdateClientCommand command, CancellationToken cancellationToken = default)
         {
             try
             {
                 var Admins = await _connection.GetAll<Admin.Model.Admin>(fileAdmin);
-                var admin = Admins.FirstOrDefault(a => a.Id == command.IdAdmin);
-                var client = admin.Clients.FirstOrDefault(c => c.Id == command.Id);
+                var admin = Admins.FirstOrDefault(a => a.Id == command.IdAdmin) ?? throw new ArgumentNullException($"Admin com Id [{command.IdAdmin}] não existe.");
+                var client = admin.Clients.FirstOrDefault(c => c.Id == command.Id) ?? throw new ArgumentNullException($"Cliente com Id [{command.Id}] não existe.");
                 client.Name = command.Name;
                 client.Email = command.Email;
                 client.Age = command.Age;
@@ -40,9 +37,13 @@ namespace ProjetoWebApi.Features.Client.Commands
                 var updateClient = new UpdateClientEvent(command, admin);
                 await _publisher.Publish(updateClient, cancellationToken);
             }
-            catch (Exception ex)
+            catch (ArgumentNullException)
             {
-                throw new InvalidOperationException("Erro ao editar Client");
+                throw;
+            }
+            catch
+            {
+                throw new InvalidOperationException("Erro ao editar Cliente");
             }
         }
     }

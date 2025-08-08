@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProjetoWebApi.Common.DTOs;
+using ProjetoWebApi.Common.Exceptions;
 using ProjetoWebApi.Features.Client.DTOs;
 using ProjetoWebApi.Features.Client.Services;
-using System.Security.Claims;
 
 namespace ProjetoWebApi.Controllers
 {
@@ -19,20 +19,28 @@ namespace ProjetoWebApi.Controllers
         }
 
         [HttpPost("{IdAdmin}/add")]
-        public IActionResult Add([FromRoute] Guid IdAdmin, [FromBody] ClientDto clientDto)
+        public async Task<IActionResult> Add([FromRoute] Guid IdAdmin, [FromBody] ClientDto clientDto)
         {
-            Console.WriteLine("Entrou aq");
+            
             try
             {
-                _clientServices.AddClient(IdAdmin, clientDto);
+                await _clientServices.AddClient(IdAdmin, clientDto);
                 return Ok();
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new { Message = ex.Message, Status = 400 });
+            }
+            catch (ValidationException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return BadRequest(new { Errors = ex.Errors, Status = 400 });
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Ola");
-                return NotFound(ex);
+                return NotFound($"{ex.Message}");
             }
-            
+
         }
 
         [HttpGet("{IdAdmin}/list")]
@@ -50,25 +58,37 @@ namespace ProjetoWebApi.Controllers
                 _clientServices.DeleteClient(Id, id);
                 return Ok();
             }
-            catch(Exception ex)
+            catch (InvalidOperationException ex)
             {
-                return NotFound($"Erro: {ex.Message}");
+                return BadRequest(new { Message = ex.Message, Status = 400 });
+            }
+            catch (Exception ex)
+            {
+                return NotFound($"{ex.Message}");
             }
         }
 
         [Authorize]
         [HttpPut("{id}/update")]
-        public IActionResult Update([FromRoute] Guid id, [FromBody] ClientDto clientDto)
+        public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] ClientDto clientDto)
         {
             try
             {
                 var Id = Guid.Parse(User.FindFirst("AdminId")?.Value);
-                _clientServices.UpdateClient(Id, id, clientDto);
+                await _clientServices.UpdateClient(Id, id, clientDto);
                 return Ok();
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new { Message = ex.Message, Status = 400 });
+            }
+            catch (ValidationException ex)
+            {
+                return BadRequest(new { Errors = ex.Errors, Status = 400 });
             }
             catch (Exception ex)
             {
-                return NotFound($"Erro: {ex.Message}");
+                return NotFound($"{ex.Message}");
             }
         }
 
@@ -81,9 +101,25 @@ namespace ProjetoWebApi.Controllers
                 var Id = Guid.Parse(User.FindFirst("AdminId")?.Value);
                 return Ok(_clientServices.GetById(Id, id).Result);
             }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new { Message = ex.Message, Status = 400 });
+            }
             catch (Exception ex)
             {
-                return NotFound($"Erro: {ex.Message}");
+                return NotFound($"{ex.Message}");
+            }
+        }
+        [HttpGet("{IdAdmin}/search-list")]
+        public IActionResult SearchClientsList([FromRoute] Guid IdAdmin, [FromQuery] string query, [FromQuery] PaginationDto paginationDto)
+        {
+            try 
+            { 
+                return Ok(_clientServices.SearchClients(IdAdmin, query, paginationDto).Result);
+            }
+            catch (Exception ex)
+            {
+                return NotFound($"{ex.Message}");
             }
         }
     }

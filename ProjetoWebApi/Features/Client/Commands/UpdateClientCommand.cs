@@ -1,5 +1,4 @@
-﻿
-using ProjetoWebApi.Common.Interfaces;
+﻿using ProjetoWebApi.Common.Interfaces;
 
 namespace ProjetoWebApi.Features.Client.Commands
 {
@@ -16,23 +15,21 @@ namespace ProjetoWebApi.Features.Client.Commands
         public string Emotions { get; set; }
         public string Value { get; set; }
         public string Status { get; set; }
-
         public string Update { get; set; }
-
         public UpdateClientCommand(Guid idAdmin, Guid id, string name, string email, int age, string address, string moreInfor, string interests, string emotions, string value, string status, string update)
         {
             IdAdmin = idAdmin;
             Id = id;
-            Name = name ?? throw new ArgumentNullException(nameof(name));
-            Email = email ?? throw new ArgumentNullException(nameof(email));
+            Name = name;
+            Email = email;
             Age = age;
-            Address = address ?? throw new ArgumentNullException(nameof(address));
-            MoreInfor = moreInfor ?? throw new ArgumentNullException(nameof(moreInfor));
-            Interests = interests ?? throw new ArgumentNullException(nameof(interests));
-            Emotions = emotions ?? throw new ArgumentNullException(nameof(emotions));
-            Value = value ?? throw new ArgumentNullException(nameof(value));
-            Status = status ?? throw new ArgumentNullException(nameof(status));
-            Update = update ?? throw new ArgumentNullException(nameof(update));
+            Address = address;
+            MoreInfor = moreInfor;
+            Interests = interests;
+            Emotions = emotions;
+            Value = value;
+            Status = status;
+            Update = update;
         }
     }
 }

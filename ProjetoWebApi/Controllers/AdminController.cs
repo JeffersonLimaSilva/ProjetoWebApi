@@ -1,13 +1,10 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using ProjetoWebApi.Common.DTOs;
+using ProjetoWebApi.Common.Exceptions;
 using ProjetoWebApi.Common.Model;
 using ProjetoWebApi.Features.Admin.DTOs;
 using ProjetoWebApi.Features.Admin.Model;
 using ProjetoWebApi.Features.Admin.Services;
-using ProjetoWebApi.Infrastructure;
-using ProjetoWebApi.Services;
-using System.Threading.Tasks;
 
 namespace ProjetoWebApi.Controllers
 {
@@ -28,17 +25,25 @@ namespace ProjetoWebApi.Controllers
 
         [HttpPost]
         [Route("add/")]
-        public IActionResult Add([FromBody] AdminDto adminDto)
+        public async Task<IActionResult> Add([FromBody] AdminDto adminDto)
         {
             try
             {
-                _adminServices.NewAdmin(adminDto);
-                return RedirectToAction(nameof(List));
+                await _adminServices.NewAdmin(adminDto);
+                return Ok();
             }
             catch (InvalidOperationException ex) {
+                return BadRequest(new {Message = ex.Message, Status = 400});
+            }
+            catch (ValidationException ex)
+            {
+                return BadRequest(new { Errors = ex.Errors, Status = 400 });
+            }
+            catch (Exception ex)
+            {
                 return NotFound($"{ex.Message}");
             }
-            
+
         }
         [HttpGet]
         [Route("list/")]
@@ -61,9 +66,13 @@ namespace ProjetoWebApi.Controllers
             {
                 return Ok(_adminServices.CountTotalLogs(IdAdmin).Result);
             }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new { Message = ex.Message, Status = 400 });
+            }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return NotFound($"{ex.Message}");
             }
         }
         [HttpDelete]
@@ -76,6 +85,10 @@ namespace ProjetoWebApi.Controllers
                 return Ok();
             }
             catch (InvalidOperationException ex)
+            {
+                return BadRequest(new { Message = ex.Message, Status = 400 });
+            }
+            catch (Exception ex)
             {
                 return NotFound($"{ex.Message}");
             }
@@ -90,6 +103,10 @@ namespace ProjetoWebApi.Controllers
             }
             catch (InvalidOperationException ex)
             {
+                return BadRequest(new { Message = ex.Message, Status = 400 });
+            }
+            catch (Exception ex)
+            {
                 return NotFound($"{ex.Message}");
             }
         }
@@ -101,6 +118,23 @@ namespace ProjetoWebApi.Controllers
             {
                 _adminServices.Update(IdAdmin, adminDto);
                 return Ok();
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new { Message = ex.Message, Status = 400 });
+            }
+            catch (Exception ex)
+            {
+                return NotFound($"{ex.Message}");
+            }
+        }
+
+        [HttpGet("{IdAdmin}/search-list")]
+        public IActionResult SearchLogsList([FromRoute] Guid IdAdmin, [FromQuery] string query, [FromQuery] PaginationDto paginationDto)
+        {
+            try
+            {
+                return Ok(_adminServices.SearchLogs(IdAdmin, query, paginationDto).Result);
             }
             catch (Exception ex)
             {

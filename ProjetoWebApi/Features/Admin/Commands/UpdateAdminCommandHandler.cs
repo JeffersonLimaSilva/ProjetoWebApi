@@ -21,7 +21,7 @@ namespace ProjetoWebApi.Features.Admin.Commands
                 var admin = Admins.FirstOrDefault(a => a.Id == command.Id);
                 if (admin == null)
                 {
-                    throw new ArgumentNullException("Registro inválido.");
+                    throw new ArgumentNullException($"Admin com Id [{command.Id}] não existe.");
                 }
                 admin.Name = command.Name;
                 admin.Email = command.Email;
@@ -31,7 +31,7 @@ namespace ProjetoWebApi.Features.Admin.Commands
             }
             catch (Exception ex)
             {
-                throw new InvalidOperationException($"Erro ao editar registro. {ex.Message}");
+                throw new Exception($"Erro ao editar registro. {ex.Message}");
             }
         }
     }

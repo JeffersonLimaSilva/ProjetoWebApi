@@ -1,9 +1,10 @@
 ﻿using ProjetoWebApi.Common.Dispatcher;
-using ProjetoWebApi.Services;
-using ProjetoWebApi.Features.Login.Commands;
-using System.Threading.Tasks;
-using ProjetoWebApi.Features.Login.DTOs;
+using ProjetoWebApi.Common.Exceptions;
 using ProjetoWebApi.Common.Model;
+using ProjetoWebApi.Features.Login.Commands;
+using ProjetoWebApi.Features.Login.DTOs;
+using ProjetoWebApi.Features.Login.Validation;
+using ProjetoWebApi.Services;
 
 namespace ProjetoWebApi.Features.Login.Services
 {
@@ -18,11 +19,18 @@ namespace ProjetoWebApi.Features.Login.Services
             _connection = connection;
             _dispatcher = dispatcher;
         }
-
         public async Task<object> ValidateAcess(LoginDto loginDto)
         {
             try
             {
+                List<string> errors = [];
+                LoginValidation.EmailValidation(errors, loginDto.Email);
+                LoginValidation.PasswordValidation(errors, loginDto.Password);
+                if (errors.Any())
+                {
+                    Console.WriteLine("oi");
+                    throw new ValidationException(errors);
+                }
                 var credentials = new ValidateAcessCommand
                    (
                        loginDto.Email,
@@ -36,13 +44,11 @@ namespace ProjetoWebApi.Features.Login.Services
 
                 return token;
             }
-            catch (Exception ex) {
+            catch {
 
-                throw new InvalidOperationException($"Erro ao validar Credenciais. {ex.Message}");
+                throw;
             }
-
         }
-        
         public async Task LogoutSystem(Guid IdAdimn)
         {
             try

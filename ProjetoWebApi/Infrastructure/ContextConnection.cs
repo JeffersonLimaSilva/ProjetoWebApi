@@ -1,64 +1,49 @@
-﻿using Microsoft.Win32;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using ProjetoWebApi.Common.Model;
-using ProjetoWebApi.Features.Admin.Model;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace ProjetoWebApi.Infrastructure
 {
     public class ContextConnection : IContextConnection
     {
-        private readonly SemaphoreSlim _filelock = new SemaphoreSlim(1, 1); 
         public async Task<List<TList>> GetAll<TList>(string file)
         {
-            await _filelock.WaitAsync();
-            try
-            {
-                var path = $"C:/Users/JeffersonLimaSilva/OneDrive/Documentos/ProjetoWebApi/ProjetoWebApi/FileBase/{file}";
-                
-                List<TList> list = new List<TList>();
+            var path = $"C:/Users/JeffersonLimaSilva/OneDrive/Documentos/ProjetoWebApi/ProjetoWebApi/FileBase/{file}";
 
-                using (StreamReader sr = new StreamReader(path))
+            List<TList> list = new List<TList>();
+
+            using (StreamReader sr = new StreamReader(path))
+            {
+                string line;
+                while ((line = sr.ReadLine()) != null)
                 {
-                    string line;
-                    while ((line = sr.ReadLine()) != null)
+                    try
                     {
-                        try
-                        {
-                            TList item = JsonConvert.DeserializeObject<TList>(line);
-                            list.Add(item);
-                        }
-                        catch (Exception ex)
-                        {
-                            Console.WriteLine($"Erro:{ex.Message}");
-                        }
+                        TList item = JsonConvert.DeserializeObject<TList>(line);
+                        list.Add(item);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Erro:{ex.Message}");
                     }
                 }
-                return list;
             }
-            finally { _filelock.Release(); } 
+            return list;
         }
 
         public async Task SaveAll<TList>(IEnumerable<TList> list, string file)
         {
-            await _filelock.WaitAsync();
-            try
+            var path = $"C:/Users/JeffersonLimaSilva/OneDrive/Documentos/ProjetoWebApi/ProjetoWebApi/FileBase/{file}";
+
+            File.WriteAllText(path, "");
+            foreach (var item in list)
             {
-                var path = $"C:/Users/JeffersonLimaSilva/OneDrive/Documentos/ProjetoWebApi/ProjetoWebApi/FileBase/{file}";
+                string json = JsonConvert.SerializeObject(item, Formatting.Indented);
 
-                File.WriteAllText(path, "");
-                foreach (var item in list)
+                using (StreamWriter sw = new StreamWriter(path, true))
                 {
-                    string json = JsonConvert.SerializeObject(item, Formatting.Indented);
-
-                    using (StreamWriter sw = new StreamWriter(path, true))
-                    {
-                        sw.WriteLine(json.Replace(Environment.NewLine, ""));
-                    }
+                    sw.WriteLine(json.Replace(Environment.NewLine, ""));
                 }
             }
-            finally { _filelock.Release(); }
         }
     }
 }

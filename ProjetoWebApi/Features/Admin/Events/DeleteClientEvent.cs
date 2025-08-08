@@ -1,7 +1,5 @@
 ﻿using ProjetoWebApi.Common.Interfaces;
-using ProjetoWebApi.Features.Admin.Model;
 using ProjetoWebApi.Features.Client.Commands;
-using ProjetoWebApi.Features.Client.Model;
 
 namespace ProjetoWebApi.Features.Admin.Events
 {
@@ -18,7 +16,7 @@ namespace ProjetoWebApi.Features.Admin.Events
             AdminName = admin.Name;
             AdminEmail = admin.Email;
             ClientEmail = client.Email;
-            Timestamp = DateOnly.FromDateTime(DateTime.Today); ;
+            Timestamp = DateOnly.FromDateTime(DateTime.Today);
         }
     }
 }

@@ -9,7 +9,6 @@ namespace ProjetoWebApi.Features.Client.Queries
             IdAdmin = idAdmin;
             IdClient = idClient;
         }
-
         public Guid IdAdmin { get; set; }
         public Guid IdClient { get; set; }
         

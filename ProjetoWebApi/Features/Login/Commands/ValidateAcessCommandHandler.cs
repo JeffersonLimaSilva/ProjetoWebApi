@@ -1,8 +1,6 @@
 ﻿using ProjetoWebApi.Common.Interfaces;
 using ProjetoWebApi.Common.Model;
 using ProjetoWebApi.Features.Admin.Events;
-using ProjetoWebApi.Features.Admin.Model;
-using ProjetoWebApi.Services;
 
 namespace ProjetoWebApi.Features.Login.Commands
 {
@@ -17,7 +15,6 @@ namespace ProjetoWebApi.Features.Login.Commands
             _connection = connection;
             _publisher = publisher;
         }
-
         public async Task Handler(ValidateAcessCommand command, CancellationToken cancellationToken = default)
         {
             var Admins = await _connection.GetAll<Admin.Model.Admin>(fileAdmin);
@@ -25,9 +22,8 @@ namespace ProjetoWebApi.Features.Login.Commands
 
             if (admin == null || admin.Password != command.Password)
             {
-                throw new UnauthorizedAccessException("Credenciais Inválidas.");
+                throw new UnauthorizedAccessException("Email ou Senha inválida.");
             }
-
             var loginEvent = new LoginEvent(admin);
             await _publisher.Publish(loginEvent, cancellationToken);
         }

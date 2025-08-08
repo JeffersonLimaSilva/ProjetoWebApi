@@ -14,7 +14,6 @@
             Email = email;
             Date = DateOnly.FromDateTime(DateTime.Today);
         }
-
         public Person() { }
     }
 }

@@ -11,26 +11,17 @@ namespace ProjetoWebApi.Features.Client.Commands
         private readonly IPublisher _publisher;
         public string fileAdmin = "BaseRegister.txt";
         public string fileLogs = "BaseLogs.txt";
-
-
         public CreateClientCommandHandler(IContextConnection connection, IPublisher publisher)
         {
             _connection = connection;
             _publisher = publisher;
         }
-
         public async Task Handler(CreateClientCommand command, CancellationToken cancellationToken = default)
         {
-            
             try
             {
                 var Admins = await _connection.GetAll<Admin.Model.Admin>(fileAdmin);
-                var admin = Admins.FirstOrDefault(a => a.Id == command.IdAdmin);
-                if(admin == null)
-                {
-                    throw new ArgumentNullException($"Admin com Id [{command.IdAdmin}] não existe.");
-                }
-
+                var admin = Admins.FirstOrDefault(a => a.Id == command.IdAdmin) ?? throw new ArgumentNullException($"Admin com Id [{command.IdAdmin}] não existe.");
                 var client = new Model.Client(
                     command.Name,
                     command.Email,
@@ -42,7 +33,7 @@ namespace ProjetoWebApi.Features.Client.Commands
                     command.Value,
                     command.Status);
                 admin.AddClient(client);
-                _connection.SaveAll(Admins, fileAdmin);
+                await _connection.SaveAll(Admins, fileAdmin);
 
                 var clientEvent = new CreateClientEvent(command, admin);
                 await _publisher.Publish( clientEvent , cancellationToken);
@@ -50,8 +41,7 @@ namespace ProjetoWebApi.Features.Client.Commands
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
-                
+                throw new Exception("Erro ao criar Cliente");
             }
         }
     }

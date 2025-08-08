@@ -13,7 +13,6 @@ namespace ProjetoWebApi.Features.Admin.Queries
         {
             _contextConnection = contextConnection;
         }
-
         public async Task<int> Handler(CountTotalLogsQuery query, CancellationToken cancellationToken = default)
         {
             var allLogs = await _contextConnection.GetAll<AuditLogList>(fileLogs);

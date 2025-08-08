@@ -8,8 +8,6 @@ namespace ProjetoWebApi.Features.Admin.Queries
         {
             IdAdmin = idAdmin;
         }
-
         public Guid IdAdmin { get; set; }
-
     }
 }

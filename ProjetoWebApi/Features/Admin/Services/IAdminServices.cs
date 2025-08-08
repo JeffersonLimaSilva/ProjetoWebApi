@@ -16,5 +16,6 @@ namespace ProjetoWebApi.Features.Admin.Services
         public Task<int> CountTotalLogs(Guid idAdmin);
         public Task<Model.Admin> GetById(Guid id);
         public Task Update(Guid id, AdminUpdateDto adminDto);
+        public Task<AuditLogEntryDto> SearchLogs(Guid idAdmin, string Search, PaginationDto paginationDto);
     }
 }

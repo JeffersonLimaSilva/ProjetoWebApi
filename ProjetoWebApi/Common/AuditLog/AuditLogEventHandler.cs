@@ -28,7 +28,7 @@ namespace ProjetoWebApi.Common.AuditLog
             var logEntry = new AuditLogEntry
             {
                 AdminName = @event.AdminName,
-                AdminEmail = @event.AdminName,
+                AdminEmail = @event.AdminEmail,
                 Timestamp = @event.Timestamp,
                 Action = $"Cadastrou-se."
             };
@@ -92,7 +92,7 @@ namespace ProjetoWebApi.Common.AuditLog
             var logEntry = new AuditLogEntry
             {
                 AdminName = @event.AdminName,
-                AdminEmail = @event.AdminName,
+                AdminEmail = @event.AdminEmail,
                 Timestamp = @event.Timestamp,
                 Action = $"Logou-se."
             };
@@ -108,7 +108,7 @@ namespace ProjetoWebApi.Common.AuditLog
             var logEntry = new AuditLogEntry
             {
                 AdminName = @event.AdminName,
-                AdminEmail = @event.AdminName,
+                AdminEmail = @event.AdminEmail,
                 Timestamp = @event.Timestamp,
                 Action = $"Saiu."
             };

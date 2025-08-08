@@ -13,7 +13,7 @@ namespace ProjetoWebApi.Features.Admin.Events
             IdAdmin = admin.Id;
             AdminName = admin.Name;
             AdminEmail = admin.Email;
-            Timestamp = DateOnly.FromDateTime(DateTime.Today); ;
+            Timestamp = DateOnly.FromDateTime(DateTime.Today);
         }
 
     }

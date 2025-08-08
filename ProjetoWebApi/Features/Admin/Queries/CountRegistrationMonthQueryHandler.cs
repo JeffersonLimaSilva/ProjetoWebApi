@@ -11,7 +11,6 @@ namespace ProjetoWebApi.Features.Admin.Queries
         {
             _connection = connection;
         }
-
         public async Task<int> Handler(CountRegistrationMonthQuery query, CancellationToken cancellationToken = default)
         {
             var date = DateTime.Now;

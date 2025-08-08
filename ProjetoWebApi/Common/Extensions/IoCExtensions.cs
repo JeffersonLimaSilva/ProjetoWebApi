@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using ProjetoWebApi.Common.Interfaces;
-using Scrutor;
+﻿using ProjetoWebApi.Common.Interfaces;
 using System.Reflection;
 
 namespace ProjetoWebApi.Common.Extensions
@@ -10,10 +8,10 @@ namespace ProjetoWebApi.Common.Extensions
         public static  IServiceCollection AddScanCqrsHandlers(this IServiceCollection services, Assembly assembly)
         {
             services.Scan(scan => scan
-                .FromAssemblies(assembly) //Procura nesse Projeto
-                .AddClasses(classes => classes.AssignableTo(typeof(ICommandHandler<>))) //Classes que implementão a interface
-                .AsImplementedInterfaces() //Registra a classe pela inteface implementada
-                .WithTransientLifetime()); //Ciclo de vida
+                .FromAssemblies(assembly)
+                .AddClasses(classes => classes.AssignableTo(typeof(ICommandHandler<>)))
+                .AsImplementedInterfaces()
+                .WithTransientLifetime()); 
 
             services.Scan(scan => scan
                 .FromAssemblies(assembly)

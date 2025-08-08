@@ -1,6 +1,5 @@
 ﻿using ProjetoWebApi.Common.Interfaces;
 
-
 namespace ProjetoWebApi.Features.Login.Commands
 {
     public class ValidateAcessCommand : ICommand
