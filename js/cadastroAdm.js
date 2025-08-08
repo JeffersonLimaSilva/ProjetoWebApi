@@ -3,34 +3,26 @@ import { modalAlert } from "../modals/modals.js";
 
 
 document.querySelector('form').addEventListener('submit', function(e){
-    e.preventDefault()
+    e.preventDefault();
 
-    let nome = document.getElementById('cad-name')
-    let email =document.getElementById('cad-email')
-    let senha = document.getElementById('cad-password')
+    let name = document.getElementById('cad-name');
+    let email =document.getElementById('cad-email');
+    let password = document.getElementById('cad-password');
 
-    let usersadm = JSON.parse(localStorage.getItem('usersadm')) || []
-    // let index = usersadm.length
-    // if( nome.value == '' || email.value == '' || senha.value == ''){
-    //     modalAlert(`<p><strong>É necessário preencher todos os campos.</strong></p>`);
-    //     return false
-    // }
-    // if(!validaNome(nome.value)){
-    //     modalAlert(`<p><strong>Nome Invalido.</strong></p>`);
-    //     return false
-    // } 
-    
-    // if(!validaEmail(email.value)){
-    //     modalAlert(`<p><strong>Email Inválido.</strong></p>`);
-    //     return false
-    // }
-
-    let useradm = {
-        Name: nome.value,
-        Email: email.value,
-        Password: senha.value,
-        
+    if (!CadastroValidation.NameValidation(name.value)) {
+        return false
     }
+    if (!CadastroValidation.EmailValidation(email.value)) {
+        return false
+    }
+    if (!CadastroValidation.PasswordValidation(password.value)) {
+        return false
+    }
+    let useradm = {
+        Name: name.value,
+        Email: email.value,
+        Password: password.value,
+    };
     
     criaRegistro(useradm);
 })
@@ -109,4 +101,43 @@ function StyleErro(field, error){
     errorp.className=('style-error');
     errorp.innerHTML=error;
     field.insertAdjacentElement('afterend', errorp);
+}
+
+const CadastroValidation =
+{
+    NameValidation(name)
+    {
+        if(name== ''){
+            modalAlert(`<p><strong>É necessário preencher todos os campos.</strong></p>`)
+            ValidationError("É necessário preencher o campo de nome.");
+            return false;
+        } 
+        if(!validaNome(name)){
+            ValidationError("Nome Invalido. Ex. Nome Sobrenome");
+            return false;
+        }
+        return true;
+    },
+    EmailValidation(email)
+    {
+        if(email== ''){
+            modalAlert(`<p><strong>É necessário preencher todos os campos.</strong></p>`)
+            ValidationError("É necessário preencher o campo de email.");
+            return false
+        } 
+        if(!validaEmail(email)){
+            ValidationError("Email Inválido. Ex. novaconta@exemplo.com");
+            return false
+        }
+        return true;
+    },
+    PasswordValidation(password)
+    {
+        if(password ==''){
+            modalAlert(`<p><strong>É necessário preencher todos os campos.</strong></p>`)
+            ValidationError("É necessário preencher o campo de senha.");
+            return false
+        }
+        return true;
+    }
 }

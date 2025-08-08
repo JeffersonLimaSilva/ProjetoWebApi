@@ -54,6 +54,9 @@ html{
     --cor-laranja: rgba(255, 143, 30, 1);
     --cor-azul:rgb(28, 23, 61);
     --borda-input: solid 1px rgb(156, 156, 156);
+
+    --rel-list-box: rgb(200, 200, 200);
+    --rel-list-box-houver: rgba(255, 143, 30, 1);
 }
 
 .theme-black{
@@ -104,6 +107,9 @@ html{
     --dashboard-box-shadow-color: rgba(0, 0, 0, 0.48);
     --list-background-color: rgb(13, 25, 39);
     
+    --rel-list-box: rgba(255, 143, 30, 1);
+    --rel-list-box-houver: white;
+
     --cor-font: rgb(255, 255, 255);
     --azul-profundo: rgb(13, 25, 39);
 }

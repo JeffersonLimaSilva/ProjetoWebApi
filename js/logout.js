@@ -33,14 +33,16 @@ export async function Logout(id){
     }
 }
 document.addEventListener('DOMContentLoaded', function(e){
-    let button = document.querySelector('.logout')
-
-    button.addEventListener('mouseover', function(e){
-        button.style.backgroundColor = 'rgb(245, 35, 35)'
-        button.style.z = 'white'
-    })
-    button.addEventListener('mouseout', function(e){
-        button.style.backgroundColor =''
-        button.style.color = ''
-    })
+    let button = document.querySelector('.logout') || false;
+    if(button){
+        button.addEventListener('mouseover', function(e){
+            button.style.backgroundColor = 'rgb(245, 35, 35)';
+            button.style.z = 'white';
+        })
+        button.addEventListener('mouseout', function(e){
+            button.style.backgroundColor ='';
+            button.style.color = '';
+        })
+    }
+    
 })

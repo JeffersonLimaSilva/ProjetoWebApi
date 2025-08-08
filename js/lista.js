@@ -4,49 +4,46 @@ import { modalConfirm } from "../modals/modals.js";
 import { countRegistration } from "../Dashboard//dashboard.js";
 
 
-export async function criaLista(search = '', date = 0){
+export async function criaLista(){
     
-    let userOn = JSON.parse(localStorage.getItem('userOn')) || []
-    
+    let userOn = JSON.parse(localStorage.getItem('userOn')) || []; 
       
-    let tbody = document.getElementById('tbody-users') || false
+    let tbody = document.getElementById('tbody-users') || false;
 
-     if(!tbody){
-        return false
+    if(!tbody){
+        return false;
     }
-
-    tbody.innerHTML=''    
+    tbody.innerHTML='';
     const state={
         page: 1,
         perPage: perPage,
-        totalPages: Math.ceil(await countRegistration() / perPage) 
-    }
+        totalPages: 1,
+        search: null
+    };
     const html ={
         get(element){
             return document.querySelector(element)
         }
-    }
+    };
     const controsls={
         next(){
-            state.page++
-
-            const lastPage = state.page > state.totalPages
+            state.page++;
+            const lastPage = state.page > state.totalPages;
             if(lastPage){
-                state.page --
+                state.page --;
             }
-            
         },
         prev(){
-            state.page --
+            state.page -- ;
             if (state.page < 1){
-                state.page ++
+                state.page ++ ;
             }   
         },
         goTo(page){
             if(page < 1){
-                page = 1
+                page = 1 ;
             }
-            state.page = page
+            state.page = page;
 
             if(page > state.totalPages){
                 state.page = state.totalPages
@@ -105,33 +102,59 @@ export async function criaLista(search = '', date = 0){
             listaItems(client, tbody, index)
         },
         async update(){
-            var clients = await ClientsListApi(userOn.id, state.page - 1, state.perPage);   
+            var clients;
+            var totalItens;
+            if(state.search){
+                var resultSearch = await ClientsListApiSearch(state.search, state.page -1, state.perPage);
+                clients = resultSearch.listClients;
+                totalItens = resultSearch.totalQueryClients;
+            }
+            else{
+                clients = await ClientsListApi(userOn.id, state.page - 1, state.perPage);
+                totalItens = await countRegistration();
+            }
+            
+            state.totalPages = Math.ceil(totalItens / state.perPage) == 0 ? 1 : Math.ceil(totalItens / state.perPage);              
              
             html.get('#tbody-users').innerHTML = "";       
 
-            clients.forEach(function(client, index){
-                list.create(client, index);
-            });
+            if(clients && clients.length > 0){
+                clients.forEach(function(client, index){
+                    list.create(client, index);
+                });
+            }
+            else{
+                var cadbox = html.get('#cad-box') || false;
+                if(cadbox){
+                    html.get('#tbody-users').innerHTML = '<tr><td></td><td>Nenhum cliente encontrado.</td><td></td><td></td><td></td></tr>';
+                }
+                else{
+                    html.get('#tbody-users').innerHTML = '<tr><td></td><td>Nenhum cliente encontrado.</td><td></td><td></td></tr>';
+                }
+            }
         }
     }
 
-    function init(){
+    async function init(){
         
         list.update();
-
         controsls.creatListeners();
+        await new Promise(resolve => setTimeout(resolve, 200));
+
         controsls.buttons();
         number();
         filter();
     }
 
-    function update(){
-        list.update()
-        number()
+    async function update(){
+        list.update();
+        await new Promise(resolve => setTimeout(resolve, 100));
+        controsls.buttons();
+        number();
     }
 
     function number(){
-        html.get('.number div').innerHTML = `${state.page} / ${state.totalPages}`
+        html.get('.number div').innerHTML = `${state.page} / ${state.totalPages}`;
     }
     init()
 
@@ -154,51 +177,24 @@ export async function criaLista(search = '', date = 0){
                 criaLista('inativo')
             })
         }
-    
     }
-    
+
+    let search = document.getElementById('search') || false;
+    if (search) {
+        var timeoutId;
+        search.addEventListener('input',  function(e){
+            let minSearch = this.value.toLowerCase();
+            clearTimeout(timeoutId);
+            timeoutId = setTimeout(async () => {
+                state.page = 1;
+                state.search = minSearch == ''? null: minSearch;
+                update();
+            }, 500);
+        })
+    }
 }
 
-async function ClientsListApi(id, page, perPage){
-    
-    const apiEndpoint = `https://localhost:7114/api/Client/${id}/list?pageNumber=${page}&pageSize=${perPage}`;
-    try{
-        const response = await fetch(apiEndpoint,{
-            method: 'GET',
-            headers :{
-                'Content-Type' : 'application/json'
 
-            }
-        });
-        var data = response.json();
-        return data;
-    }
-    catch(error){
-        
-        throw error;
-    }
-}
-async function GetClientsByIdApi(id){
-    const apiEndpoint = `https://localhost:7114/api/Client/${id}/get-by-id`;
-    let userOn = JSON.parse(localStorage.getItem('userOn')) || [];
-    try{
-        const response = await fetch(apiEndpoint,{
-            method: 'GET',
-            headers :{
-                'Content-Type' : 'application/json',
-                'Authorization' : `Bearer ${userOn.token}`
-            },
-            
-        });
-        var data = response.json();
-        return data;
-    }
-    catch(error){
-        
-        throw error;
-    }
-    
-}
 
 async function listaItems(client, tbody, index){
     let isCad = document.querySelector('#cad-box') || false
@@ -296,31 +292,67 @@ async function listaItems(client, tbody, index){
     }
     tbody.appendChild(trbody)
 }
-let search = document.getElementById('search') || false;
-if (search) {
-    search.addEventListener('input', function(e){
-        let minSearch = this.value.toLowerCase()
-        criaLista(minSearch)
-    })
+
+async function ClientsListApi(id, page, perPage){
+    
+    const apiEndpoint = `https://localhost:7114/api/Client/${id}/list?pageNumber=${page}&pageSize=${perPage}`;
+    try{
+        const response = await fetch(apiEndpoint,{
+            method: 'GET',
+            headers :{
+                'Content-Type' : 'application/json'
+
+            }
+        });
+        var data = response.json();
+        return data;
+    }
+    catch(error){
+        
+        throw error;
+    }
 }
-function validaNome(nome){
-    let rnome = /^[A-Z][a-z]+[\s][A-Z][a-z]+$/
-    return rnome.test(nome)
+async function GetClientsByIdApi(id){
+    const apiEndpoint = `https://localhost:7114/api/Client/${id}/get-by-id`;
+    let userOn = JSON.parse(localStorage.getItem('userOn')) || [];
+    try{
+        const response = await fetch(apiEndpoint,{
+            method: 'GET',
+            headers :{
+                'Content-Type' : 'application/json',
+                'Authorization' : `Bearer ${userOn.token}`
+            }
+            
+        });
+        var data = response.json();
+        return data;
+    }
+    catch(error){
+        
+        throw error;
+    }
+    
 }
+async function ClientsListApiSearch(query, page, perPage){
+    try{
+        let userOn = JSON.parse(localStorage.getItem('userOn')) || [];
+        const apiEndpoint = `https://localhost:7114/api/Client/${userOn.id}/search-list?query=${query}&pageNumber=${page}&pageSize=${perPage}`;
 
-function validaEmail(email){
-
-    let remail = /^[^\s]+@[^\s]+\.[^\s]+$/
-    return remail.test(email)
+        const response = await fetch(apiEndpoint, {
+            method : 'GET',
+            headers : {
+                'Content-Type' : 'application/json'
+            }
+        })
+        if(!response.ok){
+            var errorResponseData = await response.json().catch(()=>({}));
+            throw new Error(errorResponseData.message);
+        }
+        var data = await response.json();
+        return data;
+    }
+    catch(error){
+        console.error(error)
+    }
 }
-
-function verificaIgual(usersadm, email){
-    return usersadm.users.some(function(user){
-        return user.email === email  
-    })
-}
-
-
-
-// criaLista() 
 

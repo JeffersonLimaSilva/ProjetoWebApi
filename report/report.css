@@ -1,13 +1,28 @@
 .list-box{
-    width: auto;
+    width: 40vh;
     max-width: 95%;
     height: 10vh;
-    border: solid 1vh black;
+    border: transparent;
+    box-shadow: 0 0.1vh 1vh 0.1vh rgba(65, 65, 65, 0.66) ;
+    border-radius: 1vh;
+    margin-right: 1vh;
+    background-color: var(--rel-list-box);
+    display: flex;
+    align-items: center;
+    font-size: 3vh;
+    > img{
+        height: 6vh;
+        margin-right: 2vh;
+    }
+}
+.list-box:hover{
+    background-color: var(--rel-list-box-houver);
+    cursor: pointer;
 }
 
 #div-rel{
     display: flex;
-    width: 95%;
+    width: auto;
     margin-left: 20px;
     margin-top: 12px;
     p{
@@ -16,10 +31,6 @@
         padding: 0;
         font-size: 2.5vh;
         
-    }
-    hr{
-        margin: 0px;
-        width: 96%;
     }
     a{
         text-decoration: none;
