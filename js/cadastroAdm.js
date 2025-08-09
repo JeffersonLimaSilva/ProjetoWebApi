@@ -23,11 +23,8 @@ document.querySelector('form').addEventListener('submit', function(e){
         Email: email.value,
         Password: password.value,
     };
-    
     criaRegistro(useradm);
 })
-
-
 async function criaRegistro(register){
     const apiEndpoint = 'https://localhost:7114/api/Admin/add';
     try {
@@ -55,49 +52,48 @@ async function criaRegistro(register){
             modalAlert(`<p><strong>${message}</strong></p>`);
             throw new Error(message);
         }
-        window.location.href="/login/login.html"
-
+        window.location.href="/login/login.html";
     }
     catch (error) {
         console.error(error);
     }
 }
 function validaEmail(email){
-    let regex = /^[^\s]+@[^\s]+\.[^\s]+$/
-    return regex.test(email)
+    let regex = /^[^\s]+@[^\s]+\.[^\s]+$/;
+    return regex.test(email);
 }
 
 function validaNome(nome){
-    let rnome = /^[A-Z][a-z]+[\s][A-Z][a-z]+$/
-    return rnome.test(nome)
+    let rnome = /^[A-Z][a-z]+[\s][A-Z][a-z]+$/;
+    return rnome.test(nome);
 }
 
 function ValidationError(error){
     if(error.includes("nome")){
-        let name = document.getElementById('cad-name')
-        StyleErro(name, error)
+        let name = document.getElementById('cad-name');
+        StyleErro(name, error);
     }
     if(error.toLowerCase().includes("email")){
-        let email = document.getElementById('cad-email')
-        StyleErro(email, error)
+        let email = document.getElementById('cad-email');
+        StyleErro(email, error);
     }
     if(error.toLowerCase().includes("senha")){
-        let password = document.getElementById('cad-password')
-        StyleErro(password, error)
+        let password = document.getElementById('cad-password');
+        StyleErro(password, error);
     }
 }
 function StyleErro(field, error){
     
-    let errors = document.querySelectorAll('.style-error')
+    let errors = document.querySelectorAll('.style-error');
     errors.forEach(error => {
         error.remove();
     });
-    let fields = document.querySelectorAll('.input-campo')
+    let fields = document.querySelectorAll('.input-campo');
     fields.forEach(field => {
         field.style.marginBottom='';
     });
-    field.style.marginBottom='0'
-    let errorp = document.createElement('p')
+    field.style.marginBottom='0';
+    let errorp = document.createElement('p');
     errorp.className=('style-error');
     errorp.innerHTML=error;
     field.insertAdjacentElement('afterend', errorp);
