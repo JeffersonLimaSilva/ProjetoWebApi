@@ -180,5 +180,13 @@ namespace ProjetoWebApi.Features.Client.Services
                 throw;
             }
         }
+
+        public async Task<ClientsDeletedDto> ClientsDeletedList(Guid IdAdmin, PaginationDto paginationDto)
+        {
+            var getDeletedQuery = new GetClientsDeletedQuery(IdAdmin);
+            var clienstDeletedList = await _dispatcher.Query<GetClientsDeletedQuery, ClientsDeletedDto>(getDeletedQuery);
+            clienstDeletedList.ListClients = clienstDeletedList.ListClients.Skip(paginationDto.pageSize * paginationDto.pageNumber).Take(paginationDto.pageSize).ToList();
+            return clienstDeletedList;
+        }
     }
 }

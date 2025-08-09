@@ -18,7 +18,8 @@ export async function criaLista(){
         page: 1,
         perPage: perPage,
         totalPages: 1,
-        search: null
+        search: null,
+        delete: false
     };
     const html ={
         get(element){
@@ -109,6 +110,11 @@ export async function criaLista(){
                 clients = resultSearch.listClients;
                 totalItens = resultSearch.totalQueryClients;
             }
+            else if(state.delete){
+                var resultsDeleted = await ClientsDeletedListApi(userOn.id, state.page - 1, state.perPage);
+                clients = resultsDeleted.listClients;
+                totalItens = resultsDeleted.totalQueryClients;
+            }
             else{
                 clients = await ClientsListApi(userOn.id, state.page - 1, state.perPage);
                 totalItens = await countRegistration();
@@ -155,6 +161,13 @@ export async function criaLista(){
 
     function number(){
         html.get('.number div').innerHTML = `${state.page} / ${state.totalPages}`;
+    }
+
+    var listDelete = html.get('#box-delete') || false;
+    if (listDelete) {
+        state.delete = true;
+        state.page = 1;
+        update();
     }
     init()
 
@@ -353,6 +366,26 @@ async function ClientsListApiSearch(query, page, perPage){
     }
     catch(error){
         console.error(error)
+    }
+}
+
+async function ClientsDeletedListApi(id, page, perPage){
+    
+    const apiEndpoint = `https://localhost:7114/api/Client/${id}/deleted-list?pageNumber=${page}&pageSize=${perPage}`;
+    try{
+        const response = await fetch(apiEndpoint,{
+            method: 'GET',
+            headers :{
+                'Content-Type' : 'application/json'
+
+            }
+        });
+        var data = response.json();
+        return data;
+    }
+    catch(error){
+        
+        throw error;
     }
 }
 

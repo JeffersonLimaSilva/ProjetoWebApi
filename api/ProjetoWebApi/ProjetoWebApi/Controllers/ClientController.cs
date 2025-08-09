@@ -122,5 +122,11 @@ namespace ProjetoWebApi.Controllers
                 return NotFound($"{ex.Message}");
             }
         }
+
+        [HttpGet("{IdAdmin}/deleted-list")]
+        public IActionResult DeletedList([FromRoute] Guid IdAdmin, [FromQuery] PaginationDto paginationDto)
+        {
+            return Ok(_clientServices.ClientsDeletedList(IdAdmin, paginationDto).Result);
+        }
     }
 }

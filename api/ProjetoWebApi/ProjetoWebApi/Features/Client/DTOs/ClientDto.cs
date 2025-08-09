@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace ProjetoWebApi.Features.Client.DTOs
+﻿namespace ProjetoWebApi.Features.Client.DTOs
 {
     public class ClientDto
     {

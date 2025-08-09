@@ -1,6 +1,5 @@
 ﻿using ProjetoWebApi.Common.Interfaces;
 using ProjetoWebApi.Common.Model;
-using ProjetoWebApi.Features.Client.Mapping;
 
 namespace ProjetoWebApi.Features.Client.Queries
 {

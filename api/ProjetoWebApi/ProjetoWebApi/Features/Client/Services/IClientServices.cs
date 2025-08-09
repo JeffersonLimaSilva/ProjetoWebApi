@@ -11,5 +11,6 @@ namespace ProjetoWebApi.Features.Client.Services
         public Task UpdateClient(Guid IdAdmin, Guid IdClient, ClientDto clientDto);
         public Task<Model.Client> GetById(Guid IdAdmin, Guid IdClient);
         public Task<ClientsSearchDto> SearchClients(Guid IdAdmin, string Search, PaginationDto paginationDto);
+        public Task<ClientsDeletedDto> ClientsDeletedList(Guid IdAdmin, PaginationDto paginationDto);
     }
 }

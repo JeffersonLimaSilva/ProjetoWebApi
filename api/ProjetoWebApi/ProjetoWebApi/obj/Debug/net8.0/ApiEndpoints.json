@@ -290,6 +290,32 @@
   },
   {
     "ContainingType": "ProjetoWebApi.Controllers.ClientController",
+    "Method": "DeletedList",
+    "RelativePath": "api/Client/{IdAdmin}/deleted-list",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "IdAdmin",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "pageNumber",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ProjetoWebApi.Controllers.ClientController",
     "Method": "List",
     "RelativePath": "api/Client/{IdAdmin}/list",
     "HttpMethod": "GET",
