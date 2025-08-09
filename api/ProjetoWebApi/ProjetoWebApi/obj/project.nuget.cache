@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "gjUSupHOS9M=",
+  "dgSpecHash": "w4LqKQwOkKM=",
   "success": true,
-  "projectFilePath": "C:\\Users\\JeffersonLimaSilva\\Documents\\Jefferson_Lima_Silva\\api\\ProjetoWebApi\\ProjetoWebApi\\ProjetoWebApi.csproj",
+  "projectFilePath": "C:\\Users\\JeffersonLimaSilva\\OneDrive\\Documentos\\Jefferson_Lima_Silva\\api\\ProjetoWebApi\\ProjetoWebApi\\ProjetoWebApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\JeffersonLimaSilva\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\8.0.18\\microsoft.aspnetcore.authentication.jwtbearer.8.0.18.nupkg.sha512",
     "C:\\Users\\JeffersonLimaSilva\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
