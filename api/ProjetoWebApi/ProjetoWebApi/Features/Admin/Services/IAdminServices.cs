@@ -1,0 +1,21 @@
+﻿using ProjetoWebApi.Common.AuditLog;
+using ProjetoWebApi.Common.DTOs;
+using ProjetoWebApi.Features.Admin.DTOs;
+
+namespace ProjetoWebApi.Features.Admin.Services
+{
+    public interface IAdminServices
+    {
+        public Task<bool> CheckEmail(string email);
+        public Task CheckAdmin(Guid id);
+        public Task NewAdmin(AdminDto adminDto);
+        public Task<int> CountTotalRegistration(Guid idAdmin);
+        public Task<int> CountRegistrationMonth(Guid idAdmin);
+        public Task<int> CountRegistrationInactive(Guid idAdmin);
+        public Task<List<AuditLogEntry>> GetAllLogsAdmin(Guid idAdmin, PaginationDto paginationDto);
+        public Task<int> CountTotalLogs(Guid idAdmin);
+        public Task<Model.Admin> GetById(Guid id);
+        public Task Update(Guid id, AdminUpdateDto adminDto);
+        public Task<AuditLogEntryDto> SearchLogs(Guid idAdmin, string Search, PaginationDto paginationDto);
+    }
+}

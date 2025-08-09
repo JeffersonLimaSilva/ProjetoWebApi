@@ -1,0 +1,106 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using ProjetoWebApi;
+using ProjetoWebApi.Common.Dispatcher;
+using ProjetoWebApi.Common.Extensions;
+using ProjetoWebApi.Common.Interfaces;
+using ProjetoWebApi.Common.Model;
+using ProjetoWebApi.Common.Publisher;
+using ProjetoWebApi.Features.Admin.Services;
+using ProjetoWebApi.Features.Client.Services;
+using ProjetoWebApi.Features.Login.Services;
+using ProjetoWebApi.Infrastructure;
+using System.Reflection;
+using System.Text;
+
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(x =>
+{
+    x.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Name = "Authorization",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer"
+    });
+
+    x.AddSecurityRequirement(new OpenApiSecurityRequirement()
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                },
+                Scheme = "oauth2",
+                Name = "Bearer",
+                In = ParameterLocation.Header
+            },
+            new List<string> ()
+        }
+    });
+});
+
+builder.Services.AddTransient<ILoginServices, LoginServices>();
+builder.Services.AddTransient<IAdminServices, AdminServices>();
+builder.Services.AddTransient<IContextConnection, ContextConnection>();
+builder.Services.AddTransient<IClientServices, ClientServices>();
+builder.Services.AddTransient<Dispatcher>();
+builder.Services.AddTransient<IPublisher, InMemoryPublisher>();
+
+builder.Services.AddScanCqrsHandlers(Assembly.GetExecutingAssembly());
+builder.Services.AddLogging(configure => configure.AddConsole());
+
+var key = Encoding.ASCII.GetBytes(Key.Secret);
+
+builder.Services.AddAuthentication(x =>
+{
+    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(x =>
+{
+    x.RequireHttpsMetadata = false;
+    x.SaveToken = true;
+    x.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(key),
+        ValidateIssuer = false,
+        ValidateAudience = false
+    };
+
+});
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigin",
+    builder => builder.WithOrigins("http://localhost:5502", "http://127.0.0.1:5502")
+                          .AllowAnyHeader()
+                          .AllowAnyMethod());
+
+});
+
+var app = builder.Build();
+
+app.UseCors("AllowSpecificOrigin");
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
+app.UseHttpsRedirection();
+app.UseRouting();
+
+app.UseAuthorization();
+
+app.MapControllers();
+
+app.Run();
