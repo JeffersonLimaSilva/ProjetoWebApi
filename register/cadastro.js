@@ -1,10 +1,13 @@
-import { criaLogsUser } from "../logsusers/logsUser.js";
 import { criaLista } from "../js/lista.js";
+import { modalAlert } from "../modals/modals.js";
+import { setPerPage } from "../js/perPage.js";
+import { closeModal } from "../js/cadNewcad.js";
+setPerPage(11);
+criaLista();
 
 
-document.getElementById('button-gravar').addEventListener('click', function(e){
-    let modalcad = document.getElementById('modal')
-
+document.getElementById('button-gravar').addEventListener('click', async function(e){
+    let modalcad = document.getElementById('modal-form')
     let nome = document.getElementById('name').value
     let idade = parseInt(document.getElementById('years-old').value)
     let email = document.getElementById('email').value
@@ -15,105 +18,79 @@ document.getElementById('button-gravar').addEventListener('click', function(e){
     let interesses = document.getElementById('interesses').value
     let sentimentos = document.getElementById('sentimentos').value
     let valores = document.getElementById('valores').value
-
-    let usersadm= JSON.parse(localStorage.getItem('usersadm')) || []
-
+    
     let userOn = JSON.parse(localStorage.getItem('userOn')) || []
-
-    
-    let index
-    usersadm.forEach(function(useradm){
-        if(useradm.email == userOn.email){
-            index = useradm.index
-        }
-
-    })
-    
-
-
-    if(nome == '' || email == ''){
-        alert("Campo Nome e Email obrigatório")
-        return false
-    }
-    if(idade < 18 || idade > 90){
-        alert("Campo Idade irregular")
-        return false
-    }
     
     if(ativo){
         ativoInativo = "Ativo"
     }
 
-    if(!validaNome(nome)){
-        alert("Nome Invalido")
-        return false
-    }
-
-    if(!validaEmail(email)){
-        alert("Email Inválido.")
-        return false
-    }
-
-    if(verificaIgual(usersadm[index], email)){
-        alert("Email ja cadastrado")
-        return false
-    }
+    // if(!validaNome(nome)){
+    //     modalAlert(`<p><strong>Nome Invalido.</strong></p>`);
+    //     return false
+    // }
 
     let date = new Date;
 
     let mes = (date.getMonth() + 1)
 
-    let dia = date.getDate()
-
-
-    let user= {
-        name: nome, 
-        yearold: idade, 
-        email: email, 
-        status: ativoInativo, 
-        address: endereco, 
-        moreinfo: maisinformacoes, 
-        interests: interesses, 
-        emotions: sentimentos, 
-        values: valores,
-        date: mes
+    let Client= {
+        Name: nome, 
+        Email: email, 
+        Age: String(idade), 
+        Address: endereco, 
+        MoreInfor: maisinformacoes, 
+        Interests: interesses, 
+        Emotions: sentimentos, 
+        Value: valores,
+        status: ativoInativo,
     }
-    
-    
-    usersadm[index].users.push(user)
-
-    localStorage.setItem('usersadm', JSON.stringify(usersadm))
-
-    
-
-    criaLogsUser(usersadm[index].name, usersadm[index].email, 'cadastrou', email, 2)
-
-    document.getElementById('name').value = ''
-    document.getElementById('years-old').value = ''
-    document.getElementById('email').value = ''
-    document.getElementById('ativo').checked= false
-    document.getElementById('address').value =''
-    document.getElementById('more-info').value =''
-    document.getElementById('interesses').value =''
-    document.getElementById('sentimentos').value =''
-    document.getElementById('valores').value =''
-    
-    
-    alert("Usuario cadastrado")
-    
-    criaLista()
-    modalcad.close()
-
-    let body = document.querySelector('.body')
-    let overlayer = document.querySelector('.overlayer')
-    body.removeChild(overlayer)
+    try{
+        await CreateClient(userOn.id, Client);
+        await criaLista();
+        closeModal();
+    }
+    catch (error) {
+        console.error(`Erro ao cadastrar um Cliente:${error}`);
+    }
 })
 
-function verificaIgual(usersadm, email){
-    return usersadm.users.some(function(user){
-        return user.email === email  
-    })
+async function CreateClient(id, Client){
+    const apiEndpoint = `https://localhost:7114/api/Client/${id}/add`;
+    
+    
+    try {
+        const response = await fetch(apiEndpoint, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json' 
+            },
+            body: JSON.stringify(Client)
+        });
+        if(!response.ok){
+            const errorResponseData= await response.json().catch(()=>({}));
+            
+            var message = "Erro desconhecido.";
+            
+            if(errorResponseData.message){
+                message = errorResponseData.message;                
+            }
+            if(errorResponseData.errors){
+                message = errorResponseData.errors[0];
+            }
+            ValidationError(message);
+            modalAlert(`<p><strong>${message}</strong></p>`);
+            throw new Error(message);
+        }
+        modalAlert(`<p>O usuário <strong>${Client.Email}</strong> foi adicionado.</p>`);
+
+    }
+    catch (error) {
+        throw new Error(error);
+
+    }
 }
+
 
 function validaEmail(email){
 
@@ -128,18 +105,57 @@ function validaNome(nome){
 
 function cadColor(){
     let cadcor = document.querySelector('#cadastro-span')
-    let homecor = document.querySelector('#home-span')
-    let relcor = document.querySelector('#relatorio-span')
 
     cadcor.classList='span-on'
-    homecor.classList='span-off'
-    relcor.classList='span-off'
+}
+function ValidationError(error){
 
-    let cadastroblack = document.querySelector('#cadastro-black')
-    let cadastro = document.querySelector('#cadastro')
-    cadastro.classList.add('image-off')
-    cadastroblack.className='image'
-    
+    if(error.includes("nome")){
+        let name = document.getElementById('name')
+        StyleErro(name, error)
+    }
+    if(error.toLowerCase().includes("email")){
+        let email = document.getElementById('email')
+        StyleErro(email, error)
+    }
+    if(error.includes("idade")){
+        let age = document.getElementById('years-old')
+        StyleErro(age, error)
+    }
+    if(error.includes("endereço")){
+        let address = document.getElementById('address')
+        StyleErro(address, error)
+    }
+    if(error.includes("Mais Informações")){
+        let moreInfor = document.getElementById('more-info')
+        StyleErro(moreInfor, error)
+    }
+    if(error.includes("Interesses")){
+        let interests = document.getElementById('interesses')
+        StyleErro(interests, error)
+    }
+    if(error.includes("Sentimentos")){        
+        let emotions = document.getElementById('sentimentos')
+        StyleErro(emotions, error)
+    }if(error.includes("Valores")){
+        let values = document.getElementById('valores')
+        StyleErro(values, error)
+    }
+}
+function StyleErro(field, error){
+    let errors = document.querySelectorAll('.style-error')
+    errors.forEach(error => {
+        error.remove();
+    });
+    let fields = document.querySelectorAll('.field-cad')
+    fields.forEach(field => {
+        field.style.marginBottom='';
+    });
+    field.style.marginBottom='0.1vh'
+    let errorp = document.createElement('p')
+    errorp.className=('style-error');
+    errorp.innerHTML=error;
+    field.insertAdjacentElement('afterend', errorp);
 }
 
 cadColor()

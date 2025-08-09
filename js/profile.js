@@ -1,22 +1,17 @@
-import { mudaTema } from "./mudatema.js";
+import { changeTheme } from "./changeTheme.js";
 import { showName } from "./showName.js";
 import { criaLogsUser } from "../logsusers/logsUser.js";
 
 let countclick = 0
 
-let userOn=JSON.parse(localStorage.getItem('userOn')) || []
-let usersadm =JSON.parse(localStorage.getItem('usersadm')) || []
-
+let userOn=JSON.parse(localStorage.getItem('userOn')) || [];
 document.querySelector('#profile').addEventListener('click', ()=>{
     
     if(countclick < 2){
         countclick ++
     }
-    console.log("entrou aq");
-    
-    mudaTema(usersadm[userOn.index].countclick)
     profile()
-    showName()
+    // showName()
 }) 
 
 
@@ -77,7 +72,7 @@ function profile(){
             }
             
             
-            mudaTema(usersadm[userOn.index].countclick)
+            changeTheme(usersadm[userOn.index].theme)
         })
 
         let imgSun = document.createElement('img')
@@ -93,9 +88,7 @@ function profile(){
                 usersadm[userOn.index].countclick ++
                 localStorage.setItem('usersadm', JSON.stringify(usersadm))
             }
-        
-            
-            mudaTema(usersadm[userOn.index].countclick)
+            changeTheme();
         })
         let divLogout = document.createElement('div')
         divLogout.className='div-logout'
@@ -147,9 +140,9 @@ function profile(){
 
         nav.removeChild(div)
         // nav.removeChild(divName)
+        body.removeChild(nav)
         body.removeChild(overlayer)
-
-        nav.className='profile-off'
+        
         countclick = 0
     }
 }

@@ -8,7 +8,7 @@ header{
     border-radius: 1vh;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    
     box-shadow:0px 6px 5px 1px var(--header-box-shadow-color);
     > div{
         display: flex;
@@ -53,9 +53,13 @@ header{
             padding: 2vh 3vh;
         }
         .perfil-nome{
-            height: 3vh;
-            width: auto;
+            
             align-self: center;
+            p{
+                font-size: 2.3vh;
+                height: 3vh;
+                width: 16vh;
+            }
         }
     }
     hr{
@@ -80,6 +84,9 @@ header{
         border: 0.1vh;
         color: var(--cor-font);
     }
+    ::placeholder{
+        color: var(--cor-font);
+    }
     .div-menu{
         display: none;
     }
@@ -93,9 +100,41 @@ header{
         width: 70%;
     }
 }
+.div-change-theme{
+    width: 5vh;
 
-.change-theme{
-    display: none;
+}
+.div-change-theme input{
+    width: 5vh;
+    height: 5vh;
+    margin: 0;
+    opacity: 0;
+    position: absolute;
+}
+.div-change-theme input:checked ~ #sun-theme {
+    transition: 1s;
+    opacity: 1;
+}
+.div-change-theme input:checked ~ #moon-theme {
+    opacity: 0;
+}
+#sun-theme{
+    position: absolute;
+    opacity: 0;
+
+    img{
+        width: 5vh;
+        height: 5vh;
+    }
+}
+#moon-theme{
+    transition: 0.5s;
+    position: absolute;
+    opacity: 1;
+    img{
+        width: 5vh;
+        height: 5vh;
+    }
 }
 .show{
     display: block;

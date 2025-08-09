@@ -83,14 +83,18 @@
 
                 > div{
                     display: flex;
-                    justify-content: center;
-                    align-items: center;
+                    padding: 0.5vh;
                     background-color: gray;
                     color: black;
                     border: solid 0.1vh black;
                     border-radius: 0.5vh;
-                    width: 3vh;
+                    width: 2vh;
+                    
+                    text-align: center;
 
+                }
+                .number{
+                    width: 5vh;
                 }
             }
             .table-list{
@@ -105,7 +109,6 @@
                     td{
                         font-size: 1.4vh;
                     }
-                    
                 }
 
                 .tdmenu{
@@ -165,7 +168,7 @@
         }
     }
       
-    main #modal{
+    main #modal-form{
         width: 80%;
         height: 55%;
         margin-top: 20%;
@@ -196,6 +199,7 @@
            
             background-color: red;
         }
+        
     }
     
     nav .nav-logo{
@@ -294,7 +298,7 @@
         }
         .div-dashboard{
             p{
-                font-size: 1.8vh;
+                font-size: 1.6vh;
             }
         }
     }
@@ -360,17 +364,39 @@
                     }
                 }
             }
+            .paginate{
+                width: 20%;
+                margin-right: 0;
+            }
+            .number{
+                div{
+                    width: 8vh;
+                    display: flex;
+                    justify-content: center;
+                }
+            }
         }
     }
     .header-main{
         header{
             #search{
-                margin-right: 15%;
+                margin-right: 10%;
+            }
+            .logout{
+                padding: 1vh;
+                margin: 1.5vh 0;
+            }
+            .icon-perfil{
+                padding: 2vh 0.5vh;
+            }
+            .perfil-nome p{
+                font-size: 1.9vh;
+                width: 14vh;
             }
         }
         .div-dashboard{
             p{
-                font-size: 2.1vh;
+                font-size: 1.9vh;
             }
         }
     }
@@ -402,7 +428,7 @@
         }
         .div-dashboard{
             p{
-                font-size: 2.5vh;
+                font-size: 2.3vh;
             }
         }
     }

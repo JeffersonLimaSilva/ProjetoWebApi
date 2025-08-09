@@ -10,11 +10,12 @@
     <link rel="stylesheet" href="/css/header.css">
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/editar.css">
-    
+    <link rel="stylesheet" href="../modals/modals.css">
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 <body id="body-theme" class="body">
-    <script type="module" src="/js/mudatema.js"></script>
+    <script src="/js/mudaTema.js"></script>
+    <script type="module" src="/js/changeTheme.js"></script>
     
     <div class="header-main">
         <header>
@@ -22,14 +23,19 @@
                 <span class="menuhead"><img src="/img/menu.svg" alt="Menu"></span>
             </div>
             <input type="text" name="Search" id="search" placeholder="Pesquisa...">
-            <div class="div-header-itens">
-                <span id="moon-theme" class="change-theme"><img src="/img/moon.svg" alt="Lua"></span>
-                <span id="sun-theme" class="change-theme"><img src="/img/sun.svg" alt="Sol"></span>
-                <span id="profile" class="icon-perfil"><img src="/img/profile.svg" alt=""></span>
-                <div class="profile-items">
-                    <div class="perfil-nome"></div>
-                    <hr>
-                    <span class="logout">SAIR</span>
+            <div class="div-header-items">
+                <div class="div-change-theme">
+                    <input type="checkbox" name="change-theme" id="change-theme">
+                    <label for="change-theme" id="moon-theme"><img src="/img/moon.svg" alt="Lua"></label>
+                    <label for="change-theme" id="sun-theme"><img src="/img/sun.svg" alt="Sol"></label>
+                </div>
+                <div >
+                    <span id="profile" class="icon-perfil"><img src="/img/profile.svg" alt=""></span>
+                    <div class="profile-items">
+                        <div class="perfil-nome"></div>
+                        <hr>
+                        <span class="logout">SAIR</span>
+                    </div>
                 </div>
             </div>
         </header>
@@ -37,7 +43,7 @@
             
             <div id="id-imprimir" class="div-list">
                 <div id="head-rel-list">
-                    <p class="link-rel"><a href="/html/relatorio.html">Relatórios</a> > Lista de Usuários</p>
+                    <p class="link-rel"><a href="/report/relatorio.html">Relatórios</a> > Lista de Usuários</p>
                     <button id="button-imprimir-users" class="button">IMPRIMIR</button>
                 </div>
             
@@ -55,10 +61,11 @@
                     <table id='imprimir-users' class="table-list">
                         <thead>
                             <tr>
+                                <th>DATE</th>
                                 <th>NOME</th>
                                 <th>EMAIL</th>
                                 <th>STATUS</th>
-                                <th class="menu"></th>
+                                
                             </tr>
                         </thead>
                         <tbody id="tbody-users">
@@ -70,74 +77,6 @@
                 </div>
 
             </div>
-
-            <dialog id="modal" class="dialog-cad">
-                <div>
-                    <div>
-                        <button id="button-delete" class="button">EXCLUIR</button>
-                    </div>
-                    <div>
-                        <span id="close-modal"><img src="/img/svgRemover.svg" alt="Fechar"></span>
-                    </div>
-                </div>
-                
-                <section class="box-list-newcad" >
-                    <div class="cad-box">
-                        <div id="head-newCad">
-                            <p class="modaltitle"></p>
-                            <div>
-                                <input type="checkbox" name="Ativo" id="ativo" value='Ativo'>
-                                <label for="ativo">Ativo <span class="buttons-editar"></label>
-                            </div>
-
-                        </div>
-
-                        <p>1º Fatos e Dados</p>
-                        <div id="div-fatosedados">
-                            <label for="name">Nome <span class="buttons-editar"></span></label>
-                            <input type="text" name="nome" id="name">
-                            <div id="duo-input">
-                                <div class="div-years-old">
-                                    <label for="years-old">Idade<span class="buttons-editar"></label>
-                                    <input type="text" name="idade" id="years-old">
-                                </div>
-                                
-                                <div class="div-email">
-                                    <label for="email">E-mail<span class="buttons-editar"></label>
-                                    <input type="text" name="email" id="email">
-                                </div>
-                            
-                            </div>
-                            <label for="address">Endereço<span class="buttons-editar"></label>
-                            <input type="text" name="endereco" id="address">
-
-                            <label for="more-info">Outras Informações<span class="buttons-editar"></label>
-                            <textarea name="informacoes" id="more-info"></textarea>
-                        </div>
-                        
-                        
-
-
-                    </div>
-                    <div>
-                        <p>2º Interesses</p>
-                        <textarea name="interesses" id="interesses"></textarea>
-                    </div>
-                    <div>
-                        <p> 3º Sentimentos</p> 
-                        <textarea name="sentimentos" id="sentimentos"></textarea>
-                    </div>
-                    <div>
-                        <p> 4º Valores</p> 
-                        <textarea name="valores" id="valores"></textarea>
-                    </div>
-                    
-                    <button id="button-gravar" class="button">GRAVAR</button>
-                    <button id="button-editar" class="button">EDITAR</button>
-                </section>
-
-            </dialog>
-            
         </main>
     </div>
     <div class="nav-div">
@@ -150,23 +89,23 @@
                 <p>Operação Curiosidade</p>
             </div>
             <div class="div-nav">
-                <span id="home-span"><a href="/index.html"><img id="home" src="/img/home 1.svg" alt=""><img id="home-black" src="/img/home1-black.svg" alt=""><p>Home</p></a></span>
+                <span id="home-span"><a href="/index.html"><img id="home" src="/img/home 1.svg" alt=""><p>Home</p></a></span>
                 
-                <span id="cadastro-span"><a href="/register/register.html"><img id="cadastro" src="/img/account-multiple-plus 1.svg" alt=""><img id="cadastro-black" src="/img/account-multiple-plus-black.svg" alt=""><p>Cadastro</p></a></span>
+                <span id="cadastro-span"><a href="/register/register.html"><img id="cadastro" src="/img/account-multiple-plus 1.svg" alt=""><p>Cadastro</p></a></span>
                 
-                <span id="relatorio-span" ><a href="/report/relatorio.html"><img id="relatorio" src="/img/chart-box 1.svg" alt=""><img id="relatorio-black" src="/img/chart-box-black.svg" alt=""><p>Relatorios</p></a></span>
+                <span id="relatorio-span" ><a href="/report/relatorio.html"><img id="relatorio" src="/img/chart-box 1.svg" alt=""><p>Relatorios</p></a></span>
             </div>
         </nav>
     </div>
     <script src="/report/relatorio.js"></script>
     <script type="module" src="/js/lista.js"></script>
-    <script type="module" src="/js/imprimir.js"></script>
+    <script type="module" src="/Print/print.js"></script>
     <script type="module" src="/js/logout.js"></script>
     <script type="module" src="/js/showName.js"></script>
     <script type="module" src="/js/editaruser.js"></script>
     <script type="module" src="/js/profile.js"></script>
-    <script src="/js/restricoes.js"></script>
+    <script type="module" src="/js/restricoes.js"></script>
     <script src="/js/menu.js"></script>
-    <script src="/js/image.js"></script>
+    <script type="module" src="/html/perPageUser.js"></script>
 </body>
 </html>

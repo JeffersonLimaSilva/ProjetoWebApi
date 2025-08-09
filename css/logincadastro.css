@@ -1,16 +1,20 @@
 :root{
     --main-background-color: rgb(236, 236, 236);
+    --secondary-background-color: rgb(235, 235, 235);
     --box-center-background-color: rgba(255, 189, 75, 1);
     --box-shadow-color: rgb(172, 160, 160);
     --submit-background-color: black;
-    --submit-border-color: black;
+    --submit-border-color: rgb(0, 0, 0);
     --submit-color: white; 
-    --input-background-color: transparent;
+    --input-background-color: rgb(255, 255, 255);
     --input-color: black;
     --box-cad-color: black;
+    --dashboard-box-shadow-color: rgba(126, 126, 126, 0.801);
+    --cor-font: rgb(23, 23, 23);
 }
 .theme-black{
     --main-background-color: rgb(9, 24, 37);
+    --secondary-background-color: rgb(17, 34, 53);
     --box-center-background-color: rgb(17, 34, 53);
     --box-shadow-color: rgb(0, 0, 0);
     --submit-background-color: rgb(255, 109, 45);
@@ -19,6 +23,8 @@
     --input-background-color: rgba(0, 0, 0, 0.329);
     --input-color: white;
     --box-cad-color: white;
+    --dashboard-box-shadow-color:  rgba(0, 0, 0, 0.48);
+    --cor-font: rgb(255, 255, 255);
 }
 
 body{
@@ -26,8 +32,9 @@ body{
     display: flex;
     
     justify-content: center;
-    align-items: center;
+    
     overflow: hidden;
+    font-family: 'Roboto', sans-serif;
 }
 header{
     display: flex;
@@ -48,24 +55,35 @@ header{
     align-items: center;
 
     > *{
-        margin-bottom: 30px;
+        margin-bottom: 20px;
     }
     form{
         display: flex;
         align-items: center;
-        width: 60%;
+        width: 70%;
         flex-direction: column;
-        justify-content: space-between;
+        input{
+            margin-bottom: 3vh;
+        }
 
         .submit{
             width: 108%;
             height: 52px;
+            
+            margin: 0;
+            margin-top: 2vh;
             border: 2px solid var(--submit-border-color);
             background-color: var(--submit-background-color);
             color: var(--submit-color);
             border-radius: 5px;
             font-weight: 750;
             font-size: 12px;
+        }
+        label{
+            display: flex;
+            align-self: baseline;
+            color: var(--cor-font);
+            font-weight: 500;
         }
     }
     #box-cad{
@@ -115,15 +133,50 @@ header{
     outline: none;
 }
 
+
 #form-login{
-    height: 40vh;
-}
-#form-cadastro{
     height: 45vh;
 }
+#form-cadastro{
+    height: 55vh;
+}
 
-.change-theme{
-    display: none;
+.div-change-theme{
+    margin-top: 2vh;
+    margin-right: 2vh;
+    width: 5vh;
+}
+.div-change-theme input{
+    width: 5vh;
+    height: 5vh;
+    margin: 0;
+    opacity: 0;
+    position: absolute;
+}
+.div-change-theme input:checked ~ #sun-theme {
+    transition: 1s;
+    opacity: 1;
+}
+.div-change-theme input:checked ~ #moon-theme {
+    opacity: 0;
+}
+#sun-theme{
+    position: absolute;
+    opacity: 0;
+
+    img{
+        width: 5vh;
+        height: 5vh;
+    }
+}
+#moon-theme{
+    transition: 0.5s;
+    position: absolute;
+    opacity: 1;
+    img{
+        width: 5vh;
+        height: 5vh;
+    }
 }
 .show{
     display: block;
@@ -170,3 +223,21 @@ header{
         width: 55%;
     }
 }
+
+.border-erro{
+    border-color: red;
+}
+
+.border-erro:focus{
+    border-color: var(--submit-border-color) !important;
+}
+
+.style-error{
+    width: 100%;
+    font-size: 2vh;
+    white-space: nowrap;
+    color: red;
+    height: 2vh;
+    margin: 0.5vh 0;
+    border: 0 !important;
+} 

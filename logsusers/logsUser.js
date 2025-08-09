@@ -1,3 +1,5 @@
+
+
 export function criaLogsUser(name, email, acao, alvo, aux){
     let logsuser = JSON.parse(localStorage.getItem('logsuser')) || []
     let userOn = JSON.parse(localStorage.getItem('userOn')) || []
@@ -26,4 +28,6 @@ export function criaLogsUser(name, email, acao, alvo, aux){
 
     
 }
+
+
 

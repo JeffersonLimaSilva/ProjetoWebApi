@@ -11,10 +11,12 @@
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/newcad.css">
     <link rel="stylesheet" href="/css/editar.css">
+    <link rel="stylesheet" href="../modals/modals.css">
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 <body id="body-theme" class="body">
-    <script type="module" src="/js/mudatema.js"></script>
+    <script src="/js/mudaTema.js"></script>
+    <script type="module" src="/js/changeTheme.js"></script>
     <div class="header-main">
         <header>
             <div class="div-menu">
@@ -22,18 +24,23 @@
             </div>
             <input type="text" name="Search" id="search" placeholder="Pesquisa...">
             
-            <div class="div-header-itens">
-                <span id="moon-theme" class="change-theme"><img src="/img/moon.svg" alt="Lua"></span>
-                <span id="sun-theme" class="change-theme"><img src="/img/sun.svg" alt="Sol"></span>
-                <span id="profile" class="icon-perfil"><img src="/img/profile.svg" alt=""></span>
-                <div class="profile-items">
-                    <div class="perfil-nome"></div>
-                    <hr>
-                    <span class="logout">SAIR</span>
+            <div class="div-header-items">
+                <div class="div-change-theme">
+                    <input type="checkbox" name="change-theme" id="change-theme">
+                    <label for="change-theme" id="moon-theme"><img src="/img/moon.svg" alt="Lua"></label>
+                    <label for="change-theme" id="sun-theme"><img src="/img/sun.svg" alt="Sol"></label>
+                </div>
+                <div >
+                    <span id="profile" class="icon-perfil"><img src="/img/profile.svg" alt=""></span>
+                    <div class="profile-items">
+                        <div class="perfil-nome"></div>
+                        <hr>
+                        <span class="logout">SAIR</span>
+                    </div>
                 </div>
             </div>
         </header>
-        <main class="main-box">
+        <main id="cad-box" class="main-box">
 
             <div class="div-list">
 
@@ -56,6 +63,7 @@
                     <table class="table-list">
                         <thead>
                             <tr>
+                                <th>DATA</th>
                                 <th>NOME</th>
                                 <th>EMAIL</th>
                                 <th>ATIVO</th>
@@ -72,7 +80,7 @@
                 
             </div>
             
-            <dialog id="modal" class="dialog-cad">
+            <dialog id="modal-form" class="dialog-cad">
                 <div>
                     <div>
                         <button id="button-delete" class="button">EXCLUIR</button>
@@ -87,7 +95,7 @@
                         <div id="head-newCad">
                             <p class="modaltitle"></p>
                             <div>
-                                <input type="checkbox" name="Ativo" id="ativo" value='Ativo'>
+                                <input type="checkbox" name="Ativo" id="ativo" value='Ativo' checked>
                                 <label for="ativo">Ativo</label>
                             </div>
 
@@ -96,42 +104,38 @@
                         <p>1º Fatos e Dados</p>
                         <div id="div-fatosedados">
                             <label for="name">Nome *</label>
-                            <input type="text" name="nome" id="name">
+                            <input class="field-cad" type="text" name="nome" id="name">
                             
-                            <div id="duo-input">
+                            <div id="duo-input"> 
                                 <div class="div-years-old">
-                                    <label for="years-old">Idade</label>
-                                    <input type="text" name="idade" id="years-old">
+                                    <label for="years-old">Idade *</label>
+                                    <input class="field-cad" type="number" name="idade" id="years-old">
                                 </div>
                                 
                                 <div class="div-email">
                                     <label for="email">E-mail *</label>
-                                    <input type="text" name="email" id="email">
+                                    <input class="field-cad" type="text" name="email" id="email">
                                 </div>
                             
                             </div>
                             <label for="address">Endereço</label>
-                            <input type="text" name="endereco" id="address">
+                            <input class="field-cad" type="text" name="endereco" id="address">
 
                             <label for="more-info">Outras Informações</label>
-                            <textarea name="informacoes" id="more-info"></textarea>
+                            <textarea class="field-cad" name="informacoes" id="more-info"></textarea>
                         </div>
-                        
-                        
-
-
                     </div>
                     <div>
                         <p>2º Interesses</p>
-                        <textarea name="interesses" id="interesses"></textarea>
+                        <textarea class="field-cad" name="interesses" id="interesses"></textarea>
                     </div>
                     <div>
                         <p> 3º Sentimentos</p> 
-                        <textarea name="sentimentos" id="sentimentos"></textarea>
+                        <textarea class="field-cad" name="sentimentos" id="sentimentos"></textarea>
                     </div>
                     <div>
                         <p> 4º Valores</p> 
-                        <textarea name="valores" id="valores"></textarea>
+                        <textarea class="field-cad" name="valores" id="valores"></textarea>
                     </div>
                     
                     <button id="button-gravar" class="button">GRAVAR</button>
@@ -152,11 +156,11 @@
                 <p>Operação Curiosidade</p>
             </div>
             <div class="div-nav">
-                <span id="home-span"><a href="/index.html"><img id="home" src="/img/home 1.svg" alt=""><img id="home-black" src="/img/home1-black.svg" alt=""><p>Home</p></a></span>
+                <span id="home-span"><a href="/index.html"><img id="home" src="/img/home 1.svg" alt=""><p>Home</p></a></span>
                 
-                <span id="cadastro-span"><a href="/register/register.html"><img id="cadastro" src="/img/account-multiple-plus 1.svg" alt=""><img id="cadastro-black" src="/img/account-multiple-plus-black.svg" alt=""><p>Cadastro</p></a></span>
+                <span id="cadastro-span"><a href="/register/register.html"><img id="cadastro" src="/img/account-multiple-plus 1.svg" alt=""><p>Cadastro</p></a></span>
                 
-                <span id="relatorio-span" ><a href="/report/relatorio.html"><img id="relatorio" src="/img/chart-box 1.svg" alt=""><img id="relatorio-black" src="/img/chart-box-black.svg" alt=""><p>Relatorios</p></a></span>
+                <span id="relatorio-span" ><a href="/report/relatorio.html"><img id="relatorio" src="/img/chart-box 1.svg" alt=""><p>Relatorios</p></a></span>
             </div>
         </nav> 
     </div>
@@ -169,9 +173,7 @@
     <script type="module" src="/logsusers/logsUser.js"></script>
     <script type="module" src="/js/editaruser.js"></script>
     <script type="module" src="/js/profile.js"></script>
-    <script src="/js/restricoes.js"></script>
+    <script type="module" src="/js/restricoes.js"></script>
     <script src="/js/menu.js"></script>
-    <script src="/js/image.js"></script>
-    <script src="/js/image.js"></script>
 </body>
 </html>

@@ -1,59 +1,49 @@
 import { perPage } from "./perPage.js";
-import { criaLogsUser } from "../logsusers/logsUser.js";
 import { modalEditar } from "./editaruser.js";
-import { mudaTema } from "./mudatema.js";
+import { modalConfirm } from "../modals/modals.js";
+import { countRegistration } from "../Dashboard//dashboard.js";
 
-export function criaLista(search = ''){
 
-    let usersadm= JSON.parse(localStorage.getItem('usersadm')) || []
-    let userOn = JSON.parse(localStorage.getItem('userOn')) || []
+export async function criaLista(){
     
-    let tbody = document.getElementById('tbody-users') || false
+    let userOn = JSON.parse(localStorage.getItem('userOn')) || []; 
+      
+    let tbody = document.getElementById('tbody-users') || false;
 
-     if(!tbody){
-        return false
+    if(!tbody){
+        return false;
     }
-
-    tbody.innerHTML=''
-
-    usersadm[userOn.index].users.reverse()
-
-    
-
+    tbody.innerHTML='';
     const state={
         page: 1,
         perPage: perPage,
-        totalPages: Math.ceil(usersadm[userOn.index].users.length / perPage)
-    }
-
-    
-    
+        totalPages: 1,
+        search: null
+    };
     const html ={
         get(element){
             return document.querySelector(element)
         }
-    }
-
+    };
     const controsls={
         next(){
-            state.page++
-
-            const lastPage = state.page > state.totalPages
+            state.page++;
+            const lastPage = state.page > state.totalPages;
             if(lastPage){
-                state.page --
+                state.page --;
             }
         },
         prev(){
-            state.page --
+            state.page -- ;
             if (state.page < 1){
-                state.page ++
+                state.page ++ ;
             }   
         },
         goTo(page){
             if(page < 1){
-                page = 1
+                page = 1 ;
             }
-            state.page = page
+            state.page = page;
 
             if(page > state.totalPages){
                 state.page = state.totalPages
@@ -61,80 +51,110 @@ export function criaLista(search = ''){
         }, 
         creatListeners(){
             html.get('.fist').addEventListener('click', ()=>{
-                controsls.goTo(1)
-                update()
+                controsls.goTo(1);
+                update();
+                controsls.buttons();
             })
             html.get('.last').addEventListener('click', ()=>{
-                controsls.goTo(state.totalPages)
-                update()
+                controsls.goTo(state.totalPages);
+                update();
+                controsls.buttons();
             })
             html.get('.prev').addEventListener('click', ()=>{
-                controsls.prev()
-                update()
+                controsls.prev();
+                update();
+                controsls.buttons();
             })
             html.get('.next').addEventListener('click', ()=>{
-                controsls.next()
-                update()
+                controsls.next();
+                update();
+                controsls.buttons();                
             })
+        },
+        buttons(){
+            if(state.page == 1){
+                var fist = html.get('.fist')
+                fist.style.color = "rgb(163, 163, 163)";
+                var prev = html.get('.prev')
+                prev.style.color = "rgb(163, 163, 163)";
+            }else{
+               var fist = html.get('.fist')
+                fist.style.color = "var(--cor-font)";
+                var prev = html.get('.prev')
+                prev.style.color = "var(--cor-font)"; 
+            }
+            if(state.page == state.totalPages){
+                var fist = html.get('.next')
+                fist.style.color = "rgb(163, 163, 163)";
+                var prev = html.get('.last')
+                prev.style.color = "rgb(163, 163, 163)";
+            }else{
+                var fist = html.get('.next')
+                fist.style.color = "var(--cor-font)";
+                var prev = html.get('.last')
+                prev.style.color = "var(--cor-font)";
+            }
         }
     }
 
     const list = {
-        create(user, index){
-            listaItems(user, tbody, index)
+        create(client, index){
+            listaItems(client, tbody, index)
         },
-        update( date = 0){
-            html.get('#tbody-users').innerHTML = ""
+        async update(){
+            var clients;
+            var totalItens;
+            if(state.search){
+                var resultSearch = await ClientsListApiSearch(state.search, state.page -1, state.perPage);
+                clients = resultSearch.listClients;
+                totalItens = resultSearch.totalQueryClients;
+            }
+            else{
+                clients = await ClientsListApi(userOn.id, state.page - 1, state.perPage);
+                totalItens = await countRegistration();
+            }
+            
+            state.totalPages = Math.ceil(totalItens / state.perPage) == 0 ? 1 : Math.ceil(totalItens / state.perPage);              
+             
+            html.get('#tbody-users').innerHTML = "";       
 
-            let page = state.page - 1
-            let start = page * state.perPage
-            let end = start + state.perPage
-
-            let auxiliar=[]
-
-            usersadm[userOn.index].users.forEach(function(user){
-
-                let minName = user.name.toLowerCase()
-                let minEmail = user.email.toLowerCase()
-                let minStatus = user.status.toLowerCase()
-                date = user.date
-
-                
-                //  || date === date
-
-                if(minName.includes(search) || minEmail.includes(search) || minStatus.includes(search)){
-                    if(date === user.date){
-                        auxiliar.push(user)
-                    }
-                    
+            if(clients && clients.length > 0){
+                clients.forEach(function(client, index){
+                    list.create(client, index);
+                });
+            }
+            else{
+                var cadbox = html.get('#cad-box') || false;
+                if(cadbox){
+                    html.get('#tbody-users').innerHTML = '<tr><td></td><td>Nenhum cliente encontrado.</td><td></td><td></td><td></td></tr>';
                 }
-                
-            })
-
-            state.totalPages= Math.ceil(auxiliar.length / perPage)
-            const paginatedItems = auxiliar.slice(start, end)
-            
-            
-            paginatedItems.forEach(function(user, index){
-                list.create(user, index)
-            });
+                else{
+                    html.get('#tbody-users').innerHTML = '<tr><td></td><td>Nenhum cliente encontrado.</td><td></td><td></td></tr>';
+                }
+            }
         }
-
     }
 
-    function init(){
-        list.update()
-        controsls.creatListeners()
-        number()
+    async function init(){
+        
+        list.update();
+        controsls.creatListeners();
+        await new Promise(resolve => setTimeout(resolve, 200));
+
+        controsls.buttons();
+        number();
+        filter();
     }
 
-    function update(){
-        list.update()
-        number()
+    async function update(){
+        list.update();
+        await new Promise(resolve => setTimeout(resolve, 100));
+        controsls.buttons();
+        number();
     }
 
     function number(){
-        html.get('.number div').textContent = state.page
+        html.get('.number div').innerHTML = `${state.page} / ${state.totalPages}`;
     }
     init()
 
@@ -144,321 +164,195 @@ export function criaLista(search = ''){
 
         if(cad){
             document.querySelector('#cad').addEventListener('click', function(e){
-                
                 criaLista()
             })
             document.querySelector('#cad-mes').addEventListener('click', function(e){
                 let date = new Date;
                 let mes= (date.getMonth() + 1)
-                list.update(mes)
-                criaLista()
+                criaLista('', mes)
+                
             })
             document.querySelector('#cad-pend').addEventListener('click', function(e){
                 
                 criaLista('inativo')
             })
         }
-    
-    
     }
-    filter()
 
-    mudaTema(usersadm[userOn.index].countclick)
-   
+    let search = document.getElementById('search') || false;
+    if (search) {
+        var timeoutId;
+        search.addEventListener('input',  function(e){
+            let minSearch = this.value.toLowerCase();
+            clearTimeout(timeoutId);
+            timeoutId = setTimeout(async () => {
+                state.page = 1;
+                state.search = minSearch == ''? null: minSearch;
+                update();
+            }, 500);
+        })
+    }
 }
 
-function listaItems(user, tbody, index){
 
-    
+
+async function listaItems(client, tbody, index){
+    let isCad = document.querySelector('#cad-box') || false
     let trbody = document.createElement('tr')
+    let tddate = document.createElement('td')
     let tdname = document.createElement('td')
     let tdemail = document.createElement('td')
     let tdativo = document.createElement('td')
-    let tdmenu = document.createElement('td')
     
-    tdname.textContent =   user.name
-    tdemail.textContent =  user.email
-    tdativo.textContent = user.status
+    
+    tddate.textContent =   client.date;
+    tdname.textContent =   client.name;
+    tdemail.textContent =  client.email;
+    tdativo.textContent = client.status;
 
-    
-        
-    if(user.status === 'Ativo'){
+    if(client.status === 'Ativo'){
     
         tdativo.style.color='green'
     }
-    if(user.status === 'Inativo'){
+    if(client.status === 'Inativo'){
         tdativo.style.color='red'
     }
-    tdmenu.className=('tdmenu')
-    tdmenu.style.maxwidth='max-content'
-    
-
-    let spanEditar =document.createElement('span')
-    spanEditar.className='spanEditar'
-    spanEditar.classList='span'
-    spanEditar.style.height='2vh'
-    spanEditar.style.width='2vh'
-    spanEditar.style.borderRadius='1vh'
-    spanEditar.style.padding='1vh 1vh'
-    spanEditar.style.marginBottom='1vh'
-    spanEditar.id='editar'
-
-    spanEditar.addEventListener('click', ()=>{
-        modalEditar(index, user)
-    })
-
-    let imgEditar = document.createElement('img')
-    imgEditar.src='/img/svgEditar.svg'
-    imgEditar.alt='Editar'
-    imgEditar.style.width='2vh'
-    imgEditar.className='imagem'
-
-    let spanEditarBlack =document.createElement('span')
-    spanEditarBlack.className='spanEditar'
-    spanEditarBlack.style.height='2vh'
-    spanEditarBlack.style.width='2vh'
-    spanEditarBlack.style.borderRadius='1vh'
-    spanEditarBlack.style.padding='1vh 1vh'
-    spanEditarBlack.style.marginBottom='1vh'
-    spanEditarBlack.id='editar-black'
-    spanEditarBlack.addEventListener('click', ()=>{
-        modalEditar(index, user)
-    }) 
-
-    let imgEditarBlack = document.createElement('img')
-    imgEditarBlack.src='/img/svgEditar-black.svg'
-    imgEditarBlack.alt='Editar'
-    imgEditarBlack.style.width='2vh'
-    imgEditarBlack.style.height='2vh'
-    
-    
-
-    let spanRemover = document.createElement('span')
-    spanRemover.className='spanRemover'
-    spanRemover.classList='span'
-    spanRemover.style.height='2vh'
-    spanRemover.style.width='2vh'    
-    spanRemover.style.borderRadius='1vh'
-    spanRemover.style.padding='1vh 1vh'
-    spanRemover.style.marginBottom='1vh'
-    spanRemover.style.marginLeft='1vh'
-    spanRemover.id='remover'
-    spanRemover.addEventListener('click', ()=>{
-        
-        removeUser(index)
-        showCad()
-        showCadMes()
-        showCadPend()
-    })
-    
-    let imgRemover = document.createElement('img')
-    imgRemover.src= '/img/delete.svg'
-    imgRemover.alt='Remover'
-    imgRemover.style.width='2vh'
-    imgRemover.className='imagem'
-
-    let spanRemoverBlack = document.createElement('span')
-    spanRemoverBlack.classList='spanRemover'
-    
-    spanRemoverBlack.style.height='2vh'
-    spanRemoverBlack.style.width='2vh'    
-    spanRemoverBlack.style.borderRadius='1vh'
-    spanRemoverBlack.style.padding='1vh 1vh'
-    spanRemoverBlack.style.marginBottom='1vh'
-    spanRemoverBlack.style.marginLeft='1vh'
-    spanRemoverBlack.id='remover-black'
-    spanRemoverBlack.addEventListener('click', ()=>{
-        
-        removeUser(index)
-        showCad()
-        showCadMes()
-        showCadPend()
-    })
-
-    let imgRemoverBlack = document.createElement('img')
-    imgRemoverBlack.src='/img/svgRemover-black.svg'
-    imgRemoverBlack.alt='Editar'
-    imgRemoverBlack.style.width='2vh'
-    imgRemoverBlack.style.height='2vh'
-    
-
-    let spanMenu = document.createElement('span')
-    spanMenu.className='menu2'
-    spanMenu.style.height='2vh'
-    spanMenu.style.width='2vh'    
-    spanMenu.style.padding='0.5vh'
-    spanMenu.style.border='0'
-    spanMenu.addEventListener('click', ()=>{
-        let deleteButton = document.querySelector('#button-delete')
-        deleteButton.style.display='block'
-        modalEditar(index, user)
-    }) 
-
-    let imgMenu = document.createElement('img')
-    imgMenu.src='/img/menu2.svg'
-    imgMenu.alt='Menu'
-    imgMenu.style.width='2vh'
-    imgMenu.style.height='2vh'
-    
-    spanEditar.appendChild(imgEditar)
-    spanEditarBlack.appendChild(imgEditarBlack)
-    spanRemover.appendChild(imgRemover)
-    spanRemoverBlack.appendChild(imgRemoverBlack)
-    spanMenu.appendChild(imgMenu)
-
-    tdmenu.appendChild(spanEditar)
-    tdmenu.appendChild(spanRemover)
-    tdmenu.appendChild(spanEditarBlack)
-    tdmenu.appendChild(spanRemoverBlack)
-    tdmenu.appendChild(spanMenu)
-
+    trbody.appendChild(tddate)
     trbody.appendChild(tdname)
     trbody.appendChild(tdemail)
     trbody.appendChild(tdativo)
-    
-    trbody.appendChild(tdmenu)
+
+    if(isCad){
+            let tdmenu = document.createElement('td')
+        tdmenu.className=('tdmenu')
+        tdmenu.style.maxwidth='max-content'
+        
+
+        let spanEditar =document.createElement('span')
+        spanEditar.className='spanEditar'
+        spanEditar.classList='span'
+        spanEditar.id='editar'
+
+        spanEditar.addEventListener('click', async ()=>{
+            modalEditar(await GetClientsByIdApi(client.id));
+        })
+
+        let imgEditar = document.createElement('img')
+        imgEditar.src='/img/svgEditar.svg'
+        imgEditar.alt='Editar'
+        imgEditar.className='icon-white'
+
+        let imgEditarBlack = document.createElement('img')
+        imgEditarBlack.src='/img/svgEditar-black.svg'
+        imgEditarBlack.alt='Editar'
+        imgEditarBlack.className='icon-black'
+
+        let spanRemover = document.createElement('span')
+        spanRemover.className='spanRemover'
+        spanRemover.classList='span'
+        spanRemover.id='remover'
+        spanRemover.addEventListener('click', ()=>{
+            modalConfirm(client.id, client.email)
+        })
+        
+        let imgRemover = document.createElement('img')
+        imgRemover.src= '/img/delete.svg'
+        imgRemover.alt='Remover'
+        imgRemover.className='icon-white'
+
+        let imgRemoverBlack = document.createElement('img')
+        imgRemoverBlack.src='/img/delete-black.svg'
+        imgRemoverBlack.alt='Editar'
+        imgRemoverBlack.className='icon-black'
+
+        let spanMenu = document.createElement('span')
+        spanMenu.className='menu2'    
+        spanMenu.style.padding='0.5vh'
+        spanMenu.style.border='0'
+        spanMenu.addEventListener('click',async ()=>{
+            let deleteButton = document.querySelector('#button-delete')
+            deleteButton.style.display='block'
+            modalEditar(await GetClientsByIdApi(client.id));
+        }) 
+
+        let imgMenu = document.createElement('img')
+        imgMenu.src='/img/menu2.svg'
+        imgMenu.alt='Menu'
+        
+        spanEditar.appendChild(imgEditar)
+        spanEditar.appendChild(imgEditarBlack)
+        spanRemover.appendChild(imgRemover)
+        spanRemover.appendChild(imgRemoverBlack)
+        spanMenu.appendChild(imgMenu)
+
+        tdmenu.appendChild(spanEditar)
+        tdmenu.appendChild(spanRemover)
+        tdmenu.appendChild(spanMenu)
+        trbody.appendChild(tdmenu)
+    }
     tbody.appendChild(trbody)
-
-    
-
 }
 
-document.getElementById('search').addEventListener('input', function(e){
-    let minSearch = this.value.toLowerCase()
-    criaLista(minSearch)
-})
+async function ClientsListApi(id, page, perPage){
+    
+    const apiEndpoint = `https://localhost:7114/api/Client/${id}/list?pageNumber=${page}&pageSize=${perPage}`;
+    try{
+        const response = await fetch(apiEndpoint,{
+            method: 'GET',
+            headers :{
+                'Content-Type' : 'application/json'
 
-export function removeUser(index){
-    let userOn =JSON.parse(localStorage.getItem('userOn')) || []
-    let usersadm= JSON.parse(localStorage.getItem('usersadm')) || []
-    
-    
-    usersadm[userOn.index].users.reverse()
-
-    
-
-    criaLogsUser(usersadm[userOn.index].name, usersadm[userOn.index].email, 'deletou ', usersadm[userOn.index].users[index].email, 2)
-    
-
-    usersadm[userOn.index].users.splice(index, 1)
-
-    usersadm[userOn.index].users.reverse()
-    localStorage.setItem('usersadm', JSON.stringify(usersadm))
-    console.log('entoru aq');
-    
-    
-    criaLista()
-    
-}
-
-function showCad(){
-    let c = document.getElementById('cad') || false
-    
-    
-    if (c) {
-        c.innerHTML=''
-        c.appendChild(styleValue(contaCad(), 'blue'))
+            }
+        });
+        var data = response.json();
+        return data;
+    }
+    catch(error){
+        
+        throw error;
     }
 }
-function showCadMes(){
-    let c = document.getElementById('cad-mes') || false
-
-    
-    if (c) {
-        c.innerHTML=''
-        c.appendChild(styleValue(contaCadMes(), 'green'))
+async function GetClientsByIdApi(id){
+    const apiEndpoint = `https://localhost:7114/api/Client/${id}/get-by-id`;
+    let userOn = JSON.parse(localStorage.getItem('userOn')) || [];
+    try{
+        const response = await fetch(apiEndpoint,{
+            method: 'GET',
+            headers :{
+                'Content-Type' : 'application/json',
+                'Authorization' : `Bearer ${userOn.token}`
+            }
+            
+        });
+        var data = response.json();
+        return data;
     }
-  
-}
-export function showCadPend(){
-    let c = document.getElementById('cad-pend') || false
-
-    
-    if (c) {
-        c.innerHTML=''
-        c.appendChild(styleValue(contaInativo(), 'red'))
+    catch(error){
+        
+        throw error;
     }
     
-    
 }
+async function ClientsListApiSearch(query, page, perPage){
+    try{
+        let userOn = JSON.parse(localStorage.getItem('userOn')) || [];
+        const apiEndpoint = `https://localhost:7114/api/Client/${userOn.id}/search-list?query=${query}&pageNumber=${page}&pageSize=${perPage}`;
 
-function styleValue(x, colorC){
-    var valueCad = document.createElement('span')
-    valueCad.textContent = x;
-    valueCad.style.color = colorC;
-    
-    valueCad.style.marginTop= '10px'
-
-    return valueCad
-}
-
-function contaCad(){
-    let userOn = JSON.parse(localStorage.getItem('userOn')) || []
-    let usersadm = JSON.parse(localStorage.getItem('usersadm')) || []
-    let numcad = 0
-    usersadm[userOn.index].users.forEach(function(user, index){
-        if(usersadm[userOn.index].users == []){
-            return 0
+        const response = await fetch(apiEndpoint, {
+            method : 'GET',
+            headers : {
+                'Content-Type' : 'application/json'
+            }
+        })
+        if(!response.ok){
+            var errorResponseData = await response.json().catch(()=>({}));
+            throw new Error(errorResponseData.message);
         }
-        if(index >= numcad){
-            numcad = index 
-            numcad ++
-        }
-        
-    })
-
-    return numcad
-}
-function contaCadMes(){
-    let userOn = JSON.parse(localStorage.getItem('userOn')) || []
-    let usersadm = JSON.parse(localStorage.getItem('usersadm')) || []
-    let numcad = 0
-    let date = new Date;
-    let mes= (date.getMonth() + 1)
-    usersadm[userOn.index].users.forEach(function(user, index){
-        if(user.date === mes){
-            numcad ++
-        }
-        
-    })
-
-    return numcad
-
-}
-function contaInativo(){
-    let userOn = JSON.parse(localStorage.getItem('userOn')) || []
-    let usersadm = JSON.parse(localStorage.getItem('usersadm')) || []
-    let numcad = 0
-
-    usersadm[userOn.index].users.forEach(function(user){
-        if(user.status == 'Inativo'){
-            numcad ++
-        }
-        
-    })
-    return numcad
+        var data = await response.json();
+        return data;
+    }
+    catch(error){
+        console.error(error)
+    }
 }
 
-function validaNome(nome){
-    let rnome = /^[A-Z][a-z]+[\s][A-Z][a-z]+$/
-    return rnome.test(nome)
-}
-
-function validaEmail(email){
-
-    let remail = /^[^\s]+@[^\s]+\.[^\s]+$/
-    return remail.test(email)
-}
-
-function verificaIgual(usersadm, email){
-    return usersadm.users.some(function(user){
-        return user.email === email  
-    })
-}
-
-
-
-criaLista() 
-showCad()
-showCadMes()
-showCadPend()

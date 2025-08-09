@@ -1,12 +1,10 @@
-let cadcor = document.querySelector('#cadastro-span')
+import { setPerPage } from "../js/perPage.js";
+import { criaLista } from "../js/lista.js";
+
+setPerPage(7);
+criaLista();
+
 let homecor = document.querySelector('#home-span')
-let relcor = document.querySelector('#relatorio-span')
-
-cadcor.classList='span-off'
 homecor.classList='span-on'
-relcor.classList='span-off'
 
-let homeblack = document.querySelector('#home-black')
-let home = document.querySelector('#home')
-homeblack.className='image'
-home.className='image-off'
+

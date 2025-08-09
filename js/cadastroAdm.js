@@ -1,96 +1,139 @@
 import { criaLogsUser } from "../logsusers/logsUser.js";
-import { mudaTema } from "./mudatema.js";
+import { modalAlert } from "../modals/modals.js";
 
-let countclick = 0
 
 document.querySelector('form').addEventListener('submit', function(e){
-    e.preventDefault()
+    e.preventDefault();
 
-    let nome = document.getElementById('cad-name').value
-    let email =document.getElementById('cad-email').value
-    let senha = document.getElementById('cad-password').value
+    let name = document.getElementById('cad-name');
+    let email =document.getElementById('cad-email');
+    let password = document.getElementById('cad-password');
 
-    let usersadm = JSON.parse(localStorage.getItem('usersadm')) || []
-    let index = usersadm.length
-    if( nome == '' || email == '' || senha == ''){
-        alert("Preencha todos os campos.")
+    if (!CadastroValidation.NameValidation(name.value)) {
         return false
     }
-
-    if(!validaNome(nome)){
-        alert("Nome Invalido")
-        return false
-    } 
-    
-    if(!validaEmail(email)){
-        alert("Email Inválido.")
+    if (!CadastroValidation.EmailValidation(email.value)) {
         return false
     }
-
-    if(verificaIgualEmailCad(usersadm, email)){
-        alert("Email ja cadastrado.")
+    if (!CadastroValidation.PasswordValidation(password.value)) {
         return false
     }
-
     let useradm = {
-        name: nome,
-        email: email,
-        password: senha,
-        index: index,
-        countclick:0,
-        users: [],
-    }
-    
-    usersadm.push(useradm)
-
-    criaLogsUser(nome, email, 'cadastrou-se', '', 1)
-
-    localStorage.setItem('usersadm', JSON.stringify(usersadm))
-    
-    
-    
-
-    window.location.href='/html/login.html'
-
+        Name: name.value,
+        Email: email.value,
+        Password: password.value,
+    };
+    criaRegistro(useradm);
 })
-
-function verificaIgualEmailCad(usersadm, email){
-    
-    return usersadm.some(function(useradm){
-        return useradm.email === email  
-    })
+async function criaRegistro(register){
+    const apiEndpoint = 'https://localhost:7114/api/Admin/add';
+    try {
+        const response = await fetch(apiEndpoint, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json' 
+            },
+            body: JSON.stringify(register)
+            
+            
+        });
+        if(!response.ok){
+            const errorResponseData= await response.json().catch(()=>({}));
+                        
+            var message = "Erro desconhecido.";
+            
+            if(errorResponseData.message){
+                message = errorResponseData.message;                
+            }
+            if(errorResponseData.errors){
+                message = errorResponseData.errors[0];
+            }
+            ValidationError(message);
+            modalAlert(`<p><strong>${message}</strong></p>`);
+            throw new Error(message);
+        }
+        window.location.href="/login/login.html";
+    }
+    catch (error) {
+        console.error(error);
+    }
 }
-
 function validaEmail(email){
-    let regex = /^[^\s]+@[^\s]+\.[^\s]+$/
-    return regex.test(email)
+    let regex = /^[^\s]+@[^\s]+\.[^\s]+$/;
+    return regex.test(email);
 }
 
 function validaNome(nome){
-    let rnome = /^[A-Z][a-z]+[\s][A-Z][a-z]+$/
-    return rnome.test(nome)
+    let rnome = /^[A-Z][a-z]+[\s][A-Z][a-z]+$/;
+    return rnome.test(nome);
 }
 
-document.addEventListener('DOMContentLoaded', function(){
+function ValidationError(error){
+    if(error.includes("nome")){
+        let name = document.getElementById('cad-name');
+        StyleErro(name, error);
+    }
+    if(error.toLowerCase().includes("email")){
+        let email = document.getElementById('cad-email');
+        StyleErro(email, error);
+    }
+    if(error.toLowerCase().includes("senha")){
+        let password = document.getElementById('cad-password');
+        StyleErro(password, error);
+    }
+}
+function StyleErro(field, error){
+    
+    let errors = document.querySelectorAll('.style-error');
+    errors.forEach(error => {
+        error.remove();
+    });
+    let fields = document.querySelectorAll('.input-campo');
+    fields.forEach(field => {
+        field.style.marginBottom='';
+    });
+    field.style.marginBottom='0';
+    let errorp = document.createElement('p');
+    errorp.className=('style-error');
+    errorp.innerHTML=error;
+    field.insertAdjacentElement('afterend', errorp);
+}
 
-   let moon =document.getElementById('logcad-moon-theme')
-   moon.className='show'
-   
-   document.getElementById('logcad-moon-theme').addEventListener('click', ()=>{
-      
-      if (countclick < 2) {
-        countclick ++
-      }
-      mudaTema(countclick)
-      
-   })
-   document.getElementById('logcad-sun-theme').addEventListener('click', ()=>{
-      if (countclick < 2) {
-        countclick ++
-      }
-      mudaTema(countclick)
-      
-   })
-   mudaTema(countclick)
-
-})
+const CadastroValidation =
+{
+    NameValidation(name)
+    {
+        if(name== ''){
+            modalAlert(`<p><strong>É necessário preencher todos os campos.</strong></p>`)
+            ValidationError("É necessário preencher o campo de nome.");
+            return false;
+        } 
+        if(!validaNome(name)){
+            ValidationError("Nome Invalido. Ex. Nome Sobrenome");
+            return false;
+        }
+        return true;
+    },
+    EmailValidation(email)
+    {
+        if(email== ''){
+            modalAlert(`<p><strong>É necessário preencher todos os campos.</strong></p>`)
+            ValidationError("É necessário preencher o campo de email.");
+            return false
+        } 
+        if(!validaEmail(email)){
+            ValidationError("Email Inválido. Ex. novaconta@exemplo.com");
+            return false
+        }
+        return true;
+    },
+    PasswordValidation(password)
+    {
+        if(password ==''){
+            modalAlert(`<p><strong>É necessário preencher todos os campos.</strong></p>`)
+            ValidationError("É necessário preencher o campo de senha.");
+            return false
+        }
+        return true;
+    }
+}

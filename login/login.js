@@ -1,94 +1,130 @@
-import { criaLogsUser } from "../logsusers/logsUser.js";
-import { mudaTema } from "../js/mudatema.js";
+import { VerifyAcess } from "../js/restricoes.js";
+import { modalAlert } from "../modals/modals.js";
 
-let countclick = 0
-
-
-document.querySelector('form').addEventListener('submit', function(e){
+document.querySelector('form').addEventListener('submit', async function(e){
     e.preventDefault()
 
     let email = document.getElementById('f-email').value 
-    let senha = document.getElementById('f-password').value
-    let usersadm = JSON.parse(localStorage.getItem('usersadm')) || []
+    let password = document.getElementById('f-password').value
 
-    let userOn = JSON.parse(localStorage.getItem('userON')) || []
-
-    let nome
-
-    if(email== '' || senha==''){
-        alert("Preencha todos os campos.")
-        return false
-    } 
-    if(verificaIgualEmailLogin(usersadm, email)){
-        if(verificaIgualSenhaLogin(usersadm, senha)){
-            userOn={
-                email: email,
-                index: userOnIndex(usersadm, email)
-            }
-            
-            
-            
-            localStorage.setItem('userOn', JSON.stringify(userOn))
-
-            nome= usersadm[userOnIndex(usersadm, email)].name
-
-            criaLogsUser(nome, email, 'logou-se', '', 2)
-
-            window.location.href = '/index.html';
-            return false
-        }
-        
-        alert("Senha Incorreta.")
+    if (!LoginValidation.EmailValidation(email.value)) {
         return false
     }
-    alert("Email não cadastrado.")
-    
+    if (!LoginValidation.PasswordValidation(password.value)) {
+        return false
+    }
+
+    var login = {
+        Email: email,
+        Password: password
+    }
+
+    try{
+        await tryLogin(login);
+    }
+    catch (error){
+        modalAlert(`<p><strong>${error.message}</strong></p>`)
+        console.error('Erro ao Logar:', error.message);
+    }
 })
-
-function verificaIgualEmailLogin(usersadm, email){
-    return usersadm.some(function(useradm){
-        return useradm.email === email  
-    })
-}
-function verificaIgualSenhaLogin(usersadm, senha){
-    return usersadm.some(function(useradm){
-        return useradm.password === senha
-    })
-}
-
-function userOnIndex(usersadm, email){
-    
-    let index
-    usersadm.forEach(function(useradm){
-        if(useradm.email == email){
-            index = useradm.index
+async function tryLogin(login){
+    const apiEndpoint = 'https://localhost:7114/api/Auth/login/check';
+    try {
+        const response = await fetch(apiEndpoint, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json' 
+            },
+            body: JSON.stringify(login)
+        });
+        
+        if(!response.ok){
+            const errorResponseData = await response.json().catch(()=>({}));
+            var message = "Erro desconhecido.";
+            
+            if(errorResponseData.message){
+                message = errorResponseData.message;                
+            }
+            if(errorResponseData.errors){
+                ValidationError(errorResponseData.errors[0]);
+                console.log(errorResponseData.errors[0]);
+                
+            }
+            ValidationError(message);
+            throw new Error(message);
+            
         }
-        
-        
-    })
-    return index
+        const token = await response.json();
+       
+        localStorage.setItem('userOn', JSON.stringify(token));
+
+        if(await VerifyAcess()){
+            let userOn = JSON.parse(localStorage.getItem('userOn'))
+            const userData = await VerifyAcess();
+            var user={
+                token: userOn.token,
+                id: userData.userId,
+                name: userData.userName,
+                email: userData.userEmail,
+                page: 1
+            }
+            localStorage.setItem('userOn', JSON.stringify(user));
+            window.location.href = '/index.html';
+        }
+    }
+    catch (error) {
+        if(error.message != "Failed to fetch"){
+            throw error;
+        }
+        throw new Error("Erro de rede.Tente novamente mais tarde."); 
+    }
 }
 
-document.addEventListener('DOMContentLoaded', function(){
+function ValidationError(error){
+    
+    if(error.toLowerCase().includes("email")){
+        let email = document.getElementById('f-email');
+        StyleErro(email, error);
+    }
+    if(error.toLowerCase().includes("senha")){
+        let password = document.getElementById('f-password');
+        StyleErro(password, error);
+    }
+}
+function StyleErro(field, error){
 
-   let moon =document.getElementById('logcad-moon-theme')
-   moon.className='show'
-   
-   document.getElementById('logcad-moon-theme').addEventListener('click', ()=>{
-      
-      if (countclick < 2) {
-        countclick ++
-      }
-      mudaTema(countclick)
-      
-   })
-   document.getElementById('logcad-sun-theme').addEventListener('click', ()=>{
-      if (countclick < 2) {
-        countclick ++
-      }
-      mudaTema(countclick)
-      
-   })
-   mudaTema(countclick)
-
-})
+let errors = document.querySelectorAll('.style-error')
+    errors.forEach(error => {
+        error.remove();
+    });
+    let fields = document.querySelectorAll('.input-campo')
+    fields.forEach(field => {
+        field.style.marginBottom='';
+    });
+    field.style.marginBottom='0'
+    let errorp = document.createElement('p')
+    errorp.className=('style-error');
+    errorp.innerHTML=error;
+    field.insertAdjacentElement('afterend', errorp);
+}
+const LoginValidation =
+{
+    EmailValidation(email)
+        {
+            if(email== ''){
+                modalAlert(`<p><strong>É necessário preencher todos os campos.</strong></p>`)
+                ValidationError("É necessário preencher o campo de email.");
+                return false
+            }
+            return true;
+        },
+    PasswordValidation(password)
+    {
+        if(password ==''){
+            modalAlert(`<p><strong>É necessário preencher todos os campos.</strong></p>`)
+            ValidationError("É necessário preencher o campo de senha.");
+            return false
+        }
+        return true;
+    }
+}
